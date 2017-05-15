@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService{
      * @param pid
      * @return
      */
-    private List<Category> findByParentId(Integer pid){
+    private List<Category> findByParentId(Long pid){
     	String cache_key = PREFIX_CAHCE + "findByParentId|" + pid;
     	
     	List<Category> result_cache = cache.getListCache(cache_key, Category.class);
@@ -63,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService{
     /**
      * 获取商品的分类
      */
-    private Category findByProductId(Integer pid){
+    private Category findByProductId(Long pid){
     	
     	Product  product = productService.findById(pid);
     	Assert.state(product!=null);
@@ -76,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService{
 			LOG.info("get cache with key:" + cache_key);
 		} else {
 			String sql = "SELECT * FROM sys_category a WHERE a.id="+product.getCategoryId();
-			result_cache = (Category) categoryDao.selectCategory(sql);
+			result_cache = (Category) categoryDao.selectObject(sql);
 			
 			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -89,7 +89,7 @@ public class CategoryServiceImpl implements CategoryService{
      */
     @Override
     public List<Category> findFirstCategorys(){;
-        List<Category> lists = findByParentId(0);
+        List<Category> lists = findByParentId(0L);
         for (Category category : lists) {
             List<Category> childs = findByParentId(category.getId());
             category.setLists(childs);
@@ -103,7 +103,7 @@ public class CategoryServiceImpl implements CategoryService{
 
 
 	@Override
-	public List<Category> findParentCategorysByPid(Integer pid) {
+	public List<Category> findParentCategorysByPid(Long pid) {
 		List<Category> lists = Lists.newArrayList();
 		
 		//1.判断有没有这个分类
@@ -118,14 +118,14 @@ public class CategoryServiceImpl implements CategoryService{
 				.trimResults(CharMatcher.is('0'))
 				.splitToList(str);
 		
-		Function<String,Integer> function = new Function<String, Integer>() {		
+		Function<String,Long> function = new Function<String, Long>() {		
 			@Override
-			public Integer apply(String arg0) {
-				return NumberUtils.toInt(arg0);
+			public Long apply(String arg0) {
+				return NumberUtils.toLong(arg0);
 			}
 		};
-		List<Integer> ints = Lists.transform(parents, function);
-		for (Integer id : ints) {
+		List<Long> ints = Lists.transform(parents, function);
+		for (Long id : ints) {
 			lists.add(findById(id));
 		}
 		return lists;
@@ -136,7 +136,7 @@ public class CategoryServiceImpl implements CategoryService{
 //		return categoryDao.selectList(sql);
 	}
 	@Override
-	public Category findById(Integer id) {
+	public Category findById(Long id) {
 		Assert.state(id!=null && id > 0,"商品id不能为空");
 		
 		String cache_key = PREFIX_CAHCE + "findById|" + id;

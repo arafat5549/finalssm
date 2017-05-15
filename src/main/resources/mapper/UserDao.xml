@@ -119,7 +119,7 @@
   <select id="selectList" parameterType="java.lang.String" resultMap="BaseResultMap">
     <![CDATA[ ${value} ]]>
   </select>
-  <select id="selectUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectObject" parameterType="java.lang.String" resultMap="BaseResultMap">
     <![CDATA[ ${value} ]]>
   </select>
   <select id="listPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -128,4 +128,13 @@
 	from sys_user
 	limit #{offset},#{limit}
   </select>
+  
+  <!--  -->
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select
+	<include refid="Base_Column_List" />
+	from sys_user
+	limit #{0}
+  </select>
+  
 </mapper>

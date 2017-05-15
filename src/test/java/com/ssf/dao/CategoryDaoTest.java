@@ -44,7 +44,7 @@ public class CategoryDaoTest {
     
     @Test
     public void findParentCategorysByPidTest(){
-    	List<Category> lists = categoryService.findParentCategorysByPid(87);
+    	List<Category> lists = categoryService.findParentCategorysByPid(87L);
         String json = JsonMapper.toJsonString(lists);
         System.out.println(json);
     }

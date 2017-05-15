@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssf.dao.OrderDao">
   <resultMap id="BaseResultMap" type="com.ssf.model.Order">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="ordercode" jdbcType="VARCHAR" property="ordercode" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="post" jdbcType="VARCHAR" property="post" />
     <result column="receiver" jdbcType="VARCHAR" property="receiver" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="message" jdbcType="VARCHAR" property="message" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="pay_date" jdbcType="TIMESTAMP" property="payDate" />
     <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate" />

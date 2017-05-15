@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findById(Integer id) {
+	public Product findById(Long id) {
 		Assert.state(id!=null && id > 0,"商品id不能为空");
 		
 		String cache_key = PREFIX_CAHCE + "findById|" + id;
@@ -80,19 +80,19 @@ public class ProductServiceImpl implements ProductService {
 		String cache_key = PREFIX_CAHCE + "listRelatedProducts|" + p.getId();
 		String sql = "SELECT * FROM sys_product a WHERE a.category_id="+p.getCategoryId()+" AND a.id!="+p.getId();
 		
-		List<Product> list = cache.reflectList(cache_key, SELF_CLASS, sql, productDao,LOG);
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
 
 	@Override
-	public List<Product> listPageByCategoryId(Integer cid) {
+	public List<Product> listPageByCategoryId(Long cid) {
 		String cache_key = PREFIX_CAHCE + "listPageByCategoryId|" + cid;
 		
 		String sql = "SELECT * FROM sys_product a WHERE a.category_id="+cid;
 		sql += " LIMIT 0,20";
 		
-		List<Product> list = cache.reflectList(cache_key, SELF_CLASS, sql, productDao,LOG);
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
@@ -101,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> listNewArrivals() {
 		String cache_key = PREFIX_CAHCE + "listNewArrivals";
 		String sql = "SELECT * FROM sys_product LIMIT 0,20";
-		List<Product> list = cache.reflectList(cache_key, SELF_CLASS, sql, productDao,LOG);
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
 	private List<ProductImage> listProuctImagesByPId(Integer pid){
 		String cache_key = PREFIX_CAHCE + "listProuctImagesByPId|"+pid;
 		String sql = "SELECT * FROM sys_product_image a WHERE a.product_id="+pid;
-		List<ProductImage> list = cache.reflectList(cache_key, ProductImage.class, sql, productImageDao,LOG);
+		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, sql, productImageDao,LOG);
 		return list;
 	}
 	

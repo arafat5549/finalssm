@@ -157,8 +157,8 @@ public class RedisCache {
 	 * @param dao
 	 * @param LOG
 	 * @return
-	 */
-	public <T> List<T> reflectList(String cache_key,Class<T> t,String sql,IBaseDao<T> dao,Logger LOG){
+	 */ 
+	public <T> List<T> cacheList(String cache_key,Class<T> t,String sql,IBaseDao<T> dao,Logger LOG){
 		List<T> result_cache = getListCache(cache_key, t);
 		if (result_cache != null) {
 			LOG.info("get cache with key:" + cache_key);
@@ -171,4 +171,20 @@ public class RedisCache {
 		}
 		return result_cache;
 	}
+	//---------------------------------------------------------------------------------
+	public <T> T cacheObject(String cache_key,Class<T> t,String sql,IBaseDao<T> dao,Logger LOG){
+		T result_cache = getCache(cache_key, t);
+		if (result_cache != null) {
+			LOG.info("get cache with key:" + cache_key);
+		} else {
+			result_cache = dao.selectObject(sql);
+			putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
+			LOG.info("put cache with key:" + cache_key);
+			return result_cache;
+		}
+		return result_cache;
+	}
+	
+	
+	
 }

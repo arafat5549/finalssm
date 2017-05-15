@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssf.dao.OrderItemDao">
   <resultMap id="BaseResultMap" type="com.ssf.model.OrderItem">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />

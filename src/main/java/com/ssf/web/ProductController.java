@@ -50,7 +50,7 @@ public class ProductController {
      * 商品详细信息
      */
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public String detail(Model model,@PathVariable("id") Integer id) {
+    public String detail(Model model,@PathVariable("id") Long id) {
         LOG.info("invoke----------/detail/{id}"+id);
         Product p = productService.findById(id);
         model.addAttribute("product", p);
@@ -69,7 +69,7 @@ public class ProductController {
      */
     @RequestMapping(value = "/ajax/{id}",method=RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public BaseResult<Object> ajax(@PathVariable("id") Integer id)
+    public BaseResult<Object> ajax(@PathVariable("id") Long id)
     {
     	LOG.info("invoke----------Product/ajax/id="+id);
     	

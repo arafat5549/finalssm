@@ -35,7 +35,7 @@ public class CategoryController {
      */
     
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
-    public String list(Model model, @PathVariable("id")Integer cid) {
+    public String list(Model model, @PathVariable("id")Long cid) {
         LOG.info("invoke----------/category/list");
         
         List<Category> lists = categoryService.findFirstCategorys();

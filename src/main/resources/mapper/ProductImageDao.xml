@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssf.dao.ProductImageDao">
   <resultMap id="BaseResultMap" type="com.ssf.model.ProductImage">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Base_Column_List">

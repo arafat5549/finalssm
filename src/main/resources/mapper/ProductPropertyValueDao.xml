@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssf.dao.ProductPropertyValueDao">
   <resultMap id="BaseResultMap" type="com.ssf.model.ProductPropertyValue">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="property_id" jdbcType="INTEGER" property="propertyId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="property_id" jdbcType="BIGINT" property="propertyId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Base_Column_List">

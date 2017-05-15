@@ -10,7 +10,7 @@
 		<!-- 自定义的分页插件-->
 		<plugin type="org.mybatis.generator.plugins.SelectListPlugin" />
 		<plugin type="org.mybatis.generator.plugins.MySQLLimitPlugin" />
-		<plugin type="org.mybatis.generator.plugins.OverIsMergeablePlugin" />
+		<!--<plugin type="org.mybatis.generator.plugins.OverIsMergeablePlugin" />  -->
 		<!-- 是否需要自动生成注释 --> 
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -36,23 +36,25 @@
 		
 		
 		<!--生成Model类存放位置-->
-		<javaModelGenerator targetPackage="com.ssf.model"
-			targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.ssf.model" targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 			<property name="trimStrings" value="true" />
+			
 		</javaModelGenerator>
 		
 		 <!--生成映射文件存放位置-->
-		<sqlMapGenerator targetPackage="mapper"
-			targetProject="src/main/resources">
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		<!--生成Dao类存放位置-->
-		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.ssf.dao" targetProject="src/main/java">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.ssf.dao" targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
+			
+			<property name="rootClass" value="com.ssf.model.BaseEntity"/>
 		</javaClientGenerator>
 		
+		
+		<!--
 		<table 
 		    mapperName="ProductPropertyDao"
 		    tableName="sys_product_property"
@@ -68,7 +70,7 @@
 		
 		
 		
-		<!--
+		
 		<table 
 		    mapperName="ProductDao"
 		    tableName="sys_product"

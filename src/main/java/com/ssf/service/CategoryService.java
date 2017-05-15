@@ -20,11 +20,11 @@ public interface CategoryService {
       * @param pid
       * @return
       */
-     List<Category> findParentCategorysByPid(Integer pid);
+     List<Category> findParentCategorysByPid(Long pid);
      /**
  	 * 根据主键id查找商品
  	 * @param id
  	 * @return
  	 */
-     Category findById(Integer id);
+     Category findById(Long id);
 }

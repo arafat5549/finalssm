@@ -22,7 +22,7 @@ public interface ProductService {
 	 * @param id
 	 * @return
 	 */
-	Product findById(Integer id);
+	Product findById(Long id);
 	/**
 	 * 获取相关联商品
 	 * @param p
@@ -35,7 +35,7 @@ public interface ProductService {
 	 * @param cid
 	 * @return
 	 */
-	List<Product> listPageByCategoryId(Integer cid);
+	List<Product> listPageByCategoryId(Long cid);
 	/**
 	 * 获取新到的商品
 	 * @return

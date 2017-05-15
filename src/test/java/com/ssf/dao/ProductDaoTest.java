@@ -60,7 +60,7 @@ public class ProductDaoTest {
 	public void test(){
 		String cache_key = RedisCache.CAHCENAME + "test";
 		String sql = "SELECT * FROM sys_product_image a WHERE a.product_id=87";
-		List<ProductImage> list = cache.reflectList(cache_key, ProductImage.class, sql, productImageDao,LOG);
+		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, sql, productImageDao,LOG);
 		System.out.println(list.size());
 		//System.out.println(list);
 		for (ProductImage productImage : list) {

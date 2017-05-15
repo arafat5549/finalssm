@@ -9,4 +9,5 @@ public interface UserService {
 
 	List<User> listPage(int offset, int limit);
 	 
+	User login(User user);
 }

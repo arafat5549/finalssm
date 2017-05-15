@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.ssf.cache.RedisCache;
 import com.ssf.dao.UserDao;
 import com.ssf.model.User;
@@ -20,6 +21,13 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private RedisCache cache;
+	
+	public User findByName(String name){
+		if(Strings.isNullOrEmpty(name)){
+			return null;
+		}
+		return userDao.findByName(name);
+	}
 	
 	
 	@Override
@@ -36,6 +44,15 @@ public class UserServiceImpl implements UserService {
 			LOG.info("get cache with key:"+cache_key);
 		}
 		return result_cache;
+	}
+
+
+	@Override
+	public User login(User user) {
+		
+		User exist = findByName(user.getName());
+		
+		return null;
 	}
 	
 	
