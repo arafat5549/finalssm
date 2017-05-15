@@ -1,0 +1,48 @@
+<!doctype html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+ <!--<![endif]-->
+ <!-- Head BEGIN -->
+ <head> 
+  <title>ProductDetail</title> 
+  <head th:replace="frontend/include/csslib"/> 
+ </head> 
+ <!-- Head END --> 
+ 
+ <!-- Body BEGIN --> 
+ <body class="ecommerce"> 
+ 	
+  <div th:replace="frontend/include/themeMode"/> 
+  <div th:replace="frontend/include/top"/> 
+  <div th:replace="frontend/include/header"/>
+    
+    <div class="main">
+      <div class="container">
+      
+        <ul class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Store</a></li>
+            <li class="active">Cool green dress with red bell</li>
+        </ul>
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <div th:replace="frontend/include/sidebar"/>
+          
+		  <div th:replace="frontend/include/productDetailContent"/>
+		  
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+
+          <div th:replace="frontend/include/similarProducts"/>
+      </div>
+    </div>
+
+  <div th:replace="frontend/include/brands"/>
+  <div th:replace="frontend/include/footer"/>
+  <div th:replace="frontend/include/productPopup"/>
+  <div th:replace="frontend/include/jslib"/>  
+  <!-- END BODY --> 
+ </body>
+</html>

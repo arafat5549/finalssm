@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<!--  <head th:include="include/head2::header"> </head>-->
+  
+<head>
+ <title>ProductDetail</title>
+ <head th:replace="include/head"/>
+</head>
+
+
+<body>
+
+    <div class="body">
+		<div th:replace="include/header"/>
+		
+			<div role="main" class="main">
+			
+				<!-- PageHeader -->
+				<section class="page-header"> 
+						<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="breadcrumb">
+											<li><a href="#" th:href="@{/}">Home</a></li>
+											<li><a href="#" th:href="@{/product/list}">Product</a></li>
+											<li class="active">id</li>
+										</ul>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<h1>商品详细信息</h1>
+									</div>
+								</div>
+						</div>
+				</section>
+				<!-- 内容区域 -->
+				<div class="container">
+					
+					
+				</div><!-- container -->
+			</div>	
+			
+            
+		<div th:replace="include/footer"/>
+	</div><!--BODY-->
+	
+<div th:replace="include/jslib"/> 
+   
+</body>
+</html>					

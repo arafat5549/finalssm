@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<!-- 自定义的分页插件-->
+		<plugin type="org.mybatis.generator.plugins.SelectListPlugin" />
+		<plugin type="org.mybatis.generator.plugins.MySQLLimitPlugin" />
+		<plugin type="org.mybatis.generator.plugins.OverIsMergeablePlugin" />
+		<!-- 是否需要自动生成注释 --> 
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		
+		<jdbcConnection 
+			driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/finalssm" 
+			userId="root"
+			password="123456">
+		</jdbcConnection>
+		
+		<!--  Oracle配置 
+		<jdbcConnection 
+		`	driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.0.222:1521:orcl" userId="hxsystem"
+			password="hxsystem8">
+		</jdbcConnection>
+		-->	
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true" />
+		</javaTypeResolver>
+		
+		
+		<!--生成Model类存放位置-->
+		<javaModelGenerator targetPackage="com.ssf.model"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		 <!--生成映射文件存放位置-->
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!--生成Dao类存放位置-->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.ssf.dao" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		
+		<table 
+		    mapperName="ProductPropertyDao"
+		    tableName="sys_product_property"
+			domainObjectName="ProductProperty"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		
+		
+		<!--
+		<table 
+		    mapperName="ProductDao"
+		    tableName="sys_product"
+			domainObjectName="Product"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		
+		
+		<table 
+		    mapperName="ProductPropertyValueDao"
+		    tableName="sys_product_property_value"
+			domainObjectName="ProductPropertyValue"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		<table 
+		    mapperName="BrandDao"
+		    tableName="sys_brand"
+			domainObjectName="Brand"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		  
+		<table 
+		    mapperName="ProductImageDao"
+		    tableName="sys_product_image"
+			domainObjectName="ProductImage"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		 
+		<table 
+		    mapperName="OrderDao"
+		    tableName="sys_order"
+			domainObjectName="Order"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		<table 
+		    mapperName="OrderItemDao"
+		    tableName="sys_order_item"
+			domainObjectName="OrderItem"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		<table 
+		    mapperName="CategoryDao"
+		    tableName="sys_category"
+			domainObjectName="Category"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		
+		<table 
+		    mapperName="ProductDao"
+		    tableName="sys_product"
+			domainObjectName="Product"
+			enableCountByExample="false" 
+			enableUpdateByExample="false"
+			enableDeleteByExample="false" 
+			enableSelectByExample="false"
+			selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="false"/>
+        	<generatedKey column="id" sqlStatement="Mysql"/>
+		</table>
+		-->
+	</context>
+</generatorConfiguration> 

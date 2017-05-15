@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<!--  <head th:include="include/head2::header"> </head>-->
+  
+<head>
+ <title>ProductDetail</title>
+ <head th:replace="include/head"/>
+</head>
+
+
+<body>
+
+    <div class="body">
+		<div th:replace="include/header"/>
+		
+			<div role="main" class="main">
+			
+				<!-- PageHeader -->
+				<section class="page-header"> 
+						<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="breadcrumb">
+											<li><a href="#" th:href="@{/}">Home</a></li>
+											<li><a href="#" th:href="@{/product/list}">Product</a></li>
+											<li class="active">id</li>
+										</ul>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<h1>商品详细信息</h1>
+									</div>
+								</div>
+						</div>
+				</section>
+				<!-- 内容区域 -->
+				<div class="container">
+					
+				<!-- BEGIN SIDEBAR & CONTENT -->
+		        <div class="row margin-bottom-40">
+		          <!-- BEGIN SIDEBAR -->
+		          <div class="sidebar col-md-3 col-sm-5">
+		            <ul class="list-group margin-bottom-25 sidebar-menu">
+		              
+		              <li class="list-group-item clearfix"><a href="http://metronic.kp7.cn/templates/frontend/shop-product-list.html"><i class="fa fa-angle-right"></i> Ladies</a></li>
+					  <li class="list-group-item clearfix dropdown">
+                		<a href="javascript:void(0);" class="collapsed">
+                 		 <i class="fa fa-angle-right"></i>Mens 
+                  		</a>
+
+                  		<ul class="dropdown-menu" style="display:block;">
+                  			<li class="list-group-item dropdown clearfix active">
+                  				<a href="javascript:void(0);" class="collapsed"><i class="fa fa-angle-right"></i> Shoes </a>
+                  			</li>
+                  		</ul>
+                  	  </li>
+                      <!--
+                  	   <li class="list-group-item clearfix" th:each="menu,userStat : ${menuList}">  
+							<a class="dropdown-toggle" href="index.html" th:text="${menu.name}"></a>
+							<ul class="dropdown-menu">
+								<li th:class="${child.lists.size() > 0 ? 'list-group-item clearfix dropdown' : ''}" th:each="child : ${menu.lists}"  th:if="${menu.lists.size() > 0}">
+									<a href="index-corporate.html"><span th:text="${child.name}"></span><span class="tip tip-dark" >hot</span></a>
+									<ul class="dropdown-menu">
+										<li th:each="grand : ${child.lists}"><a href="index-extra-restaurant.html" data-thumb-preview="img/previews/preview-extra-restaurant.jpg" th:text="${grand.name}">Extra - Restaurant <span class="tip">new</span></a></li>
+									</ul>
+								</li>
+							</ul>
+						</li> 
+						-->
+					</ul>
+				  </div>
+				</div>
+
+
+				</div><!-- container -->
+			</div>	
+			
+            
+		<div th:replace="include/footer"/>
+	</div><!--BODY-->
+	
+<div th:replace="include/jslib"/> 
+   
+</body>
+</html>					

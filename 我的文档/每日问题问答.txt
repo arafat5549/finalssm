@@ -1,0 +1,301 @@
+JAVA基础：
+
+
+JAVA多线程和并发:
+
+1.JAVA的锁机制?/JAVA怎实现线程安全?
+ -2.什么是线程安全？为什么会有线程安全问题?   提出问题
+ -3.怎么解决线程安全问题?                     解决问题
+       -synchonrized 优点和缺点引出他的应用范围
+       -Atomic       优点和缺点
+       -Lock
+       总结：你的建议应该如何选择
+ -4.更细程度的说明锁机制的原理?
+ -5.之前我们学习过的部分哪些东西有用到或者借鉴了这些机制？他们有什么异同？
+ 	数据库行级锁和表级锁
+ 	ConcurrentHashMap的锁分离
+ 	数据库事务
+ 	Servlet的请求：多线程（每一次请求都是一个线程有可能产生线程安全问题）
+ -6.一些额外的注意点？
+
+
+ 回答：
+ #什么是线程安全?
+ 	多个线程同时访问同一个资源(临界区)就有可能产生线程安全问题.
+ #怎么解决线程安全问题?
+ 	一个程序一段代码是线程安全的需要满足一下三种特性:原子性，有序性和可见性
+ 	Java使用锁机制来解决线程安全问题，常见的有三种解决方式
+ 	1.synchonrized 是一种互斥锁，悲观锁和非公平锁;他有粗粒度(对整个方法加锁)和细粒度(对方法中的某一部分加锁)。保证了原子性和有序性
+ 	优点：最简单，JDK的内置模式，安全级别最高也是最先考虑的方式
+ 	缺点：性能最低，不恰当使用很容易产生死锁问题
+ 	2.Atomic原子变量 保证了原子性
+ 	优点：实现简单
+ 	缺点：他一般用于加减等数值操作的部分，局限性比较大
+ 	3.Lock 显示锁() 用法基本跟synchonrized一样，只是你可以自己定制锁的类别
+ 	优点：自己定制 需要你对锁机制的有比较深的理解。可以实现乐观锁和公平锁
+ 	缺点：自己定制 需要你对锁机制的有比较深的理解。
+
+ 	总结：优点使用synchonrized 当他无法满足我们的需求的时候再考虑其他的方式。注意死锁。
+#锁机制的原理？
+	互斥锁：资源只能被同一个线程访问
+	悲观锁：资源不能被抢占
+	乐观锁：可以通过一定的规则抢占资源
+	公平锁：我们可以规定一些规则来决定资源的抢占。(计数器来做 每一次请求都会让你的请求计数+1，当达到指定数量后你就获得了资源的占有权)
+	非公平锁：只要我请求资源，就一定是我的。
+#之前我们学习过的部分哪些东西有用到或者借鉴了这些机制？他们有什么异同？
+	数据库行级锁和表级锁
+	ConcurrentHashMap的锁分离
+	数据库事务
+	Servlet的请求：多线程（每一次请求都是一个线程有可能产生线程安全问题）
+	为什么String是final类型的(key值不可变)
+#其他注意事项
+	多线程产生死锁的四个必要条件： (前三个就是synchonrized的特点)
+   	#互斥条件：一个资源每次只能被一个进程使用。
+    #保持和请求条件：一个进程因请求资源而阻塞时，对已获得资源保持不放。
+    #不可剥夺调教：进程已获得资源，在未使用完成前，不能被剥夺。
+    #循环等待条件：若干进程之间形成一种头尾相接的循环等待资源关系。
+
+  	只要破坏其中任意一个条件，就可以避免死锁，其中最简单的就是破环循环等待条件。按同一顺序访问对象，加载锁，释放锁。其中最简单的方法就是线程都是以同样的顺序加锁和释放锁，也就是破坏了第四个条件。
+
+2.sleep和wait - wait和notify的区别
+	这些都是线程的方法。wait释放锁，notify获得锁，sleep不会释放锁。
+
+网络编程：
+
+0.网络架构一共有几层?  OSGI模型
+	1物理层
+	2数字链路层
+	#3网路层 - IP协议(标识你的计算机在网络中的位置，计算机通过IP地址找到另外一台计算机)
+	#4传输层 - TCP协议(代表你有进行网络传输的功能)
+	5会话层
+	6表示层  - 加密解密 ，压缩和解压缩
+	#7应用层 - (我们开发的WEB应用都是属于这一行) HTTP协议(你传输的是什么数据类型)
+
+1.什么是TCP/IP协议?
+	是协议簇(是一套协议的总结,TCP和IP协议最具有代表性)
+
+	IP协议(标识你的计算机在网络中的位置，计算机通过IP地址找到另外一台计算机)
+	TCP协议(代表你有进行网络传输的功能)
+		面向连接(发数据之前要先确认连接的正确性)
+		相当于打电话，需要先拨通再通话
+	UDP协议(报文协议)
+		面向无连接(发数据不需要任何准备，只管发)
+		相当于短信，发出去之后无法知道对方到底有没有接收到。
+
+	#TCP怎么保证连接的正确性
+	TCP的三次握手：
+		*  //什么是三次握手 syn包(请求包) ack包(确认包)
+		*  //1.客户端向服务端发送请求syn包
+		*  //2.服务端收到syn包，向客户端发送syn+ack包，服务端建立连接(可以接受数据了)
+	 	*  //3.客户端收到syn+ack包,向服务端发送ack包， 客户端建立连接(可以接受数据了)
+
+	#HTTP协议
+	HTTP协议是TCP协议的一种，超文本传输协议。http是对TCP协议的扩展(本质上也是个TCP协议)
+	TCP决定你可以进行传输,HTTP决定了你传输的数据类型
+	为什么http协议很流行? 1.简单易用  2.很容易进行扩展 MIME（传输的文件类型编号，看tomcat的web.xml）
+
+	请求只能由客户端发起，无法保持连接（下一次请求无法知道上一次请求的内容）
+	keep-alive：HTTP1.1的内容，能保持一小段时间的连接(避免重复刷新等)
+
+	请求头：
+		Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8  （接收的文本类型）
+		Accept-Encoding:gzip, deflate, sdch, br   （压缩算法）
+		Accept-Language:zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4,zh-TW;q=0.2 （接收的语言）
+		Cache-Control:no-cache   （缓存控制）
+		Connection:keep-alive     （连接状态）
+		Cookie:BAIDUID=6C2F642C3700496ED788B9E08154D874:FG=1; BIDUPSID=6C2F642C3700496ED788B9E08154D874; PSTM=1490253481; ispeed_lsm=2; BD_CK_SAM=1; PSINO=6; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BD_HOME=0; H_PS_PSSID=22162_1459_21098_21671_22581; BD_UPN=12314353 （cookie编号）
+		Host:www.baidu.com   （主机名称）
+		Pragma:no-cache      （缓存控制）
+		User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36  （浏览器类型）
+	响应头：
+
+	#HTTP和HTTPS有什么区别？  security安全
+		公钥和秘钥，网络证书来保证连接的安全性
+		HTTP是明文连接，连接可以被劫持()
+
+2.什么是Socket?
+	如果没有Socket，每次网络连接我都要处理七层的传输和协调。而且这些都是通用的方法
+	所以我们就封装了一套API来统一处理 就是SOCKET。
+	Socket是一套API，不是网络协议。来简化网络传输的编程。
+	Socket是对网络各层的抽象，简化了网络传输的步骤。
+
+JAVAEE三大框架：
+
+//1.什么是IOC
+//2.如何实现IOC
+//3.IOC有什么作用
+
+1.讲一下你对JAVAEE三大框架的理解?
+	第一步(拆分问题 大的问题拆分成小的问题)
+	#概念的描述：什么是三大框架？
+	SSH(SpringStruts2Hibernate):
+	SSM(SpringSpringMvcMybatis):
+	类比MVC模式 Spring相当于:
+	Controller控制层，  由它来负责管理其他两个框架
+				Struts和Springmvc都是View显示层，参数传递和页面跳转
+				Hibernate和Mybatis是ORM框架Model实体层，负责数据库和java对象之间的映射
+
+	非侵入式，解耦合，轻量级的
+	开源JAVA开发应用框架，其目的是用于简化JAVAEE企业级应用程序开发
+	#Spring框架
+		IOC/DI：
+		    #什么是控制反转？ 
+			IOC(InverseOfController控制的反转): 
+			-谁控制谁 ，控制什么 ：传统 Java SE 程序设计，我们直接在对象内部通过 new 进行创建对象，是程序主动去创建依赖对象；而 IoC 是有专门一个容器来创建这些对象，即由 Ioc 容器来控制对象的创建；谁控制谁？当然是 IoC 容器控制了对象；控制什
+			么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）。
+
+			-为何是反转，哪些方面反转了：有反转就有正转，传统应用程序是由我们自己在对
+			象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及
+			注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被
+			动的接受依赖对象，所以是反转；哪些方面反转了？依赖对象的获取被反转了
+
+			我们不再创建手动new我们的Bean对象，交给我们的Bean工厂或者叫Spring容器(ApplicationContext 读取你的spring配置文件来生成)
+
+			#在Spring里面怎么使用IOC？
+			首先需要在容器里面注册它（由你编写的java对象转化为spring的bean对象）
+			1.注解的方式(注解扫描)
+				IOC注解 (相当于在容器里面注册这个对象) 放置在类上面
+				开启注解扫描<context:component-scan base-package="com.ssf.*"/>
+
+				@Component   model层
+				@Repository  dao层
+				@Service     service层
+				@Controller  web层
+				这四个注解逻辑上完全一致(在容器里面注册这个对象)，只是为了被封装的对象属于哪一层
+
+			2.XML的方式
+			<bean id="proxy" class="com.ssf.proxy.AOPProxy"></bean>
+
+            #为什么我们要使用它？
+            	IOC是Spring框架的基础为了进行统一管理，所有的对象必须先在容器里面注册
+
+            #什么是依赖注入?
+            DI(DependInject依赖注入):
+            容器注入 Bean  的 依赖 资源 ：容器负责注入 Bean 的依赖资源，依赖资源可以是
+			Bean、外部文件、常量数据等，在 Java 中都反映为对象，并且由容器负责组装
+			Bean、外部文件、常量数据等，在ean 之间的依赖关系， 此处的依赖是指 Bean  之间的依赖关系， 可以认为是传统类与类之间的“关联”、“聚合”、“组合”关系。
+
+            我们的Bean对象A需要依赖另外一个Bean对象B的方法，就需要把B依赖
+            注入.
+
+            #在Spring里面怎么使用DI？
+            1.注解的方式
+            	DI注解
+            	首先A和B都需要先被注册，如果是接口你的IOC注解应该放在实现类上面
+            	引入DI注解
+            	@Autowired  Spring的注解，按类型注入
+            	@Resource   JDK的注解，   按名称注入(默认名称是 类名的首字母小写)
+
+            2.XML的方式
+               <bean id="A" class="com.ssf.proxy.A">
+					<property name="B" ref="B"/> <!-- 对象B的注入 -->
+      				<property name="typeAliasesPackage" value="com.ssf.model"/> <!-- 属性的注入 -->
+               </bean>
+               <bean id="B" class="com.ssf.proxy.B"></bean>
+
+            依赖注入的方式：
+            	setter注入：需要由setter和getter方法（默认都是setter的方式）
+            	构造器注入：需要改写构造方法
+            #依赖注入的优点：
+            	动态替换Bean依赖对象， 程序更灵活
+            	更好实践面向接口编程 ，代码更清晰
+            总结：Spring容器生成Bean对象singleton单例模式（节省内存的消耗），lazy_init 延迟加载（节省内存的消耗，很多对象我只在需要的时候才生成它,因为一开始大量的对象是还没使用到的不需要一开始就创建出来）
+
+		AOP：
+			AOP(AspectOrientProgramming面对切面编程)
+			我们的java程序时是线性执行的，AOP提供了另外一种横向切入功能。
+			# 在哪里切入，切入的方法是什么 (切入到某一个方法里面)
+			- JointPoint连接点:   AOP跟我们JAVA程序交接的地方
+			- PointCut切入点： 在哪里切入(方法的集合)
+			- Advice通知（增强方法）：切入的方法是什么(你要增强的功能)
+			- Aspect切面: 相当于切入点+增强方法 ，可以有多个切面
+
+			框架是怎么实现AOP功能
+			动态代理 JDK(代理接口)和CGLib动态代理(接口和非接口都能代理)
+
+		事务处理：
+		   Spring的事务就是靠AOP来实现的
+		   一般是在Service层来处理事务
+		   根据切入点来过滤方法，引入增强方法（事务）
+
+	    <aop:config>
+	        <aop:pointcut
+	           expression="execution(* com.ssf.service.impl.*.*(..))"
+	           id="txpointcut"/>
+	        <aop:advisor advice-ref="txadvice" pointcut-ref="txpointcut"/>
+	    </aop:config>
+
+	#Struts2和SpringMVC的区别:
+
+	//不使用框架 servlet+jsp
+	1.获取参数 - String username = req.getPameter("username")
+	2.参数验证
+	3.业务方法
+	4.异常处理
+	5.逻辑处理-成功
+              -失败
+    6.在web.xml注册 url指定到类那一级别 
+
+    //Struts2
+    1.简化获取参数 -   username;
+    2.简化了页面跳转 - 
+    3.url可以指定方法那一级别
+    缺点：
+    团队太久没人维护
+    13-14爆出安全漏洞，官方直接把漏洞公布出来
+
+    //SpringMVC的作用
+    1.进一步简化请求参数封装User    public String login(User user,Model model)
+    2.简化了页面跳转
+    3.url可以指定到方法那一级别
+    4.RESTFUL风格  user/list/1  用url来传参
+    5.非常容易整合JSON等数据处理，有利于手机端的数据操作
+    6.天然跟Spring整合(本身就是spring的一个模块)
+    7.使用注解配置的方式能极大简化配置(约定大于配置#你只需要修改你要改变的部分 提供默认配置)
+
+
+	#额外知识：
+		1.Bean工厂，Spring容器，SpringContextSpring上下文: 	ApplicationContext 继承了 BeanFactory
+		2.Bean对象 是对你的编写的java对象进行了一层封装（在容器里面注册它）
+		3.注解方式和XML配置方式有什么区别?
+
+2.什么是SpringMVC
+	//#SpringMVC的概念
+	Spring Web MVC是一种基于Java的实现了WebMVC设计模式的请求驱动类型的轻量级Web框架，即使用了MVC架构模式的思想，将web层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发，Spring Web MVC也是要简化我们日常Web开发的。
+	//#SpringMVC的作用
+    1.进一步简化请求参数封装User    public String login(User user,Model model)
+    2.简化了页面跳转
+    3.url可以指定到方法那一级别
+    4.RESTFUL风格  user/list/1  用url来传参
+    5.非常容易整合JSON等数据处理，有利于手机端的数据操作
+    6.天然跟Spring整合(本身就是spring的一个模块)
+    7.使用注解配置的方式能极大简化配置(约定大于配置#你只需要修改你要改变的部分 提供默认配置)
+    //#我们怎么使用它
+
+Java虚拟机与GC：
+
+1.JAVA里面谁来负责对象的销毁?
+	
+1.什么是对象的生命周期
+	init
+	service
+	destory
+
+WEB基础：
+
+1.什么是MVC?什么是WEBMVC框架?
+    #MVC的概念
+    MVC是一种编程思想 设计模式.
+	Model模型 实体或JavaBean
+	View视图  JSP/html
+	Controller控制 Servlet
+	#MVC的作用
+	逻辑和显示分离，后端和前端的分离。
+    #怎么使用MVC
+    1直接使用WEBMVC框架
+    2将Servlet作为C JSP作为View JavaBean作为Model，以这种风格组织的代码就实现最简单的MVC。
+    #扩展
+    SSH或者SSM其实也是一种MVC的思想
+    前端的JS/html/CSS也是一种MVC思想的体现
+
+    WEBMVC框架是实现了MVC的一套web开发框架，简化了web开发流程，强制了开发流程(只要你使用了WebMvc框架，你就使用了MVC模式)
