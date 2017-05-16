@@ -5,14 +5,9 @@
 <!--  如果为关联关系的表结构，注释掉两个自定义插件，并且关联关系的两个表字段，设定为复合主键，之后生成的实体类型，默认为 Key 后缀的主键名称   -->
 <generatorConfiguration>
 
-	<!-- 引入配置文件 -->  
     <properties resource="mybatis-generator.properties"/>  
-
-	<!-- <classPathEntry location="${classPath}" />-->
     
 	<context id="context1" targetRuntime="MyBatis3">
-	
-		<!-- 防止部分IDE，在进行代码生成器过程中，自定义注释部分 中文乱码 -->
 		<property name="javaFileEncoding" value="UTF-8"/>
 	
 		<!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为**反单引号(`)**，配置如下：  -->

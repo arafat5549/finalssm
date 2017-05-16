@@ -12,8 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ssf.common.utils.DateUtils;
 import com.ssf.common.vo.mybatis.pagination.Page;
-import com.ssf.dao.demo.Category;
-import com.ssf.dao.demo.CategoryMapper;
 
 /**
  * Created by Administrator on 2017/5/10.
@@ -28,28 +26,28 @@ public class CategoryDaoTest {
 //    @Autowired
 //    private CategoryService categoryService;
 
-	@Autowired
-	private CategoryMapper categoryMapper;
-	
-    @Test
-    public void testQueryAll() {
-		Map<Object , Object> map = new HashMap<Object, Object>();
-		Page page = new Page(0, 10);
-		map.put("page", page);
-		map.put("databaseId","mysql");
-		
-		 List<Category> list= categoryMapper.selectListByMap(map);
-        System.out.println(list.size()+"--------------------------");
-    	
-//    	int count = categoryMapper.selectCountByMap(map);
+//	@Autowired
+//	private CategoryMapper categoryMapper;
+//	
+//    @Test
+//    public void testQueryAll() {
+//		Map<Object , Object> map = new HashMap<Object, Object>();
+//		Page page = new Page(0, 10);
+//		map.put("page", page);
+//		map.put("databaseId","mysql");
+//		
+//		 List<Category> list= categoryMapper.selectListByMap(map);
+//        System.out.println(list.size()+"--------------------------");
 //    	
-//		System.out.println("count = " + count);
-        
-//    	String time ="2017-05-16 13:51:26.0";
-//    	//String time ="20170516135126";
-//    	String gmt = DateUtils.GMTTimeZoneTransToSysTimeZoneStr(time);
-//    	System.out.println(gmt);
-    }
+////    	int count = categoryMapper.selectCountByMap(map);
+////    	
+////		System.out.println("count = " + count);
+//        
+////    	String time ="2017-05-16 13:51:26.0";
+////    	//String time ="20170516135126";
+////    	String gmt = DateUtils.GMTTimeZoneTransToSysTimeZoneStr(time);
+////    	System.out.println(gmt);
+//    }
 
 //    @Test
 //    public void findFirstCategorysTest(){

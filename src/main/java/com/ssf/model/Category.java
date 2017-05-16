@@ -1,40 +1,43 @@
 package com.ssf.model;
 
-import com.google.common.collect.Lists;
-
+import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-public class Category implements Serializable {
-    private Long id;
-
+public class Category extends BaseEntity implements Serializable {
+    /**
+     *  分类名称,所属表字段为sys_category.name
+     */
     private String name;
 
+    /**
+     *  外键 父分类ID,所属表字段为sys_category.parent_id
+     */
     private Long parentId;
 
+    /**
+     *  记录所有父分类的ID,所属表字段为sys_category.parent_ids
+     */
     private String parentIds;
 
-    private Date createTime;
-
-    private Date updateTime;
+//    /**
+//     *  创建时间,所属表字段为sys_category.create_time
+//     */
+//    private Date createTime;
+//
+//    /**
+//     *  更新时间,所属表字段为sys_category.update_time
+//     */
+//    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Long getParentId() {
@@ -50,57 +53,24 @@ public class Category implements Serializable {
     }
 
     public void setParentIds(String parentIds) {
-        this.parentIds = parentIds == null ? null : parentIds.trim();
+        this.parentIds = parentIds;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Category other = (Category) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getParentIds() == null ? other.getParentIds() == null : this.getParentIds().equals(other.getParentIds()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
-        result = prime * result + ((getParentIds() == null) ? 0 : getParentIds().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        return result;
-    }
+//    public Date getCreateTime() {
+//        return createTime;
+//    }
+//
+//    public void setCreateTime(Date createTime) {
+//        this.createTime = createTime;
+//    }
+//
+//    public Date getUpdateTime() {
+//        return updateTime;
+//    }
+//
+//    public void setUpdateTime(Date updateTime) {
+//        this.updateTime = updateTime;
+//    }
 
     @Override
     public String toString() {
@@ -108,24 +78,12 @@ public class Category implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", parentId=").append(parentId);
         sb.append(", parentIds=").append(parentIds);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
+//        sb.append(", createTime=").append(createTime);
+//        sb.append(", updateTime=").append(updateTime);
         sb.append("]");
         return sb.toString();
-    }
-
-    private List<Category> lists = Lists.newArrayList();
-
-    public List<Category> getLists() {
-        return lists;
-    }
-
-    public void setLists(List<Category> lists) {
-        this.lists = lists;
     }
 }

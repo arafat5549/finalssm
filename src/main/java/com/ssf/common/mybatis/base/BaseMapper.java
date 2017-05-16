@@ -3,8 +3,6 @@ package com.ssf.common.mybatis.base;
 import java.util.List;
 import java.util.Map;
 
-import com.ssf.dao.demo.Category;
-
 /**
  * 基础 BaseMapper 方法
  * 		需要注意，针对复合主键的话，mybatis-generator 的代码生成器部分会有区别，所以这里的BaseMapper 类文件，只有部分通用的代码部分

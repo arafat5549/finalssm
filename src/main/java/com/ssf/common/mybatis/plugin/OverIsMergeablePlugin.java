@@ -1,4 +1,4 @@
-package org.mybatis.generator.plugins;
+package com.ssf.common.mybatis.plugin;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -8,8 +8,9 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 
 /**
- * 强制覆盖xml文件
+ * 强制覆盖xml文件(注意这样每次都会生成新的mapper.xml会覆盖掉你编写的部分)
  * 利用反射设置isMergeable为false
+ * 
  * @author wyy
  *
  */

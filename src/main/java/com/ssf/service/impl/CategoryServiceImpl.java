@@ -14,7 +14,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.ssf.cache.RedisCache;
-import com.ssf.dao.CategoryDao;
 import com.ssf.model.Category;
 import com.ssf.model.Product;
 import com.ssf.service.CategoryService;
@@ -28,8 +27,8 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 	private static final String PREFIX_CAHCE = RedisCache.CAHCENAME + "|Category|";
-    @Autowired
-    private CategoryDao categoryDao;
+    //@Autowired
+    //private CategoryDao categoryDao;
     @Autowired
     private ProductService productService;
     
@@ -49,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService{
 			LOG.info("get cache with key:" + cache_key);
 		} else {
 			String sql = "SELECT * FROM sys_category a WHERE a.parent_id="+pid;
-			result_cache = categoryDao.selectList(sql);
+			//result_cache = categoryDao.selectList(sql);
 			
 			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -76,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService{
 			LOG.info("get cache with key:" + cache_key);
 		} else {
 			String sql = "SELECT * FROM sys_category a WHERE a.id="+product.getCategoryId();
-			result_cache = (Category) categoryDao.selectObject(sql);
+			//result_cache = (Category) categoryDao.selectObject(sql);
 			
 			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -91,12 +90,12 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Category> findFirstCategorys(){;
         List<Category> lists = findByParentId(0L);
         for (Category category : lists) {
-            List<Category> childs = findByParentId(category.getId());
-            category.setLists(childs);
-            for (Category grand : childs) {
-                List<Category> grands = findByParentId(grand.getId());
-                grand.setLists(grands);
-            }
+//            List<Category> childs = findByParentId(category.getId());
+//            category.setLists(childs);
+//            for (Category grand : childs) {
+//                List<Category> grands = findByParentId(grand.getId());
+//                grand.setLists(grands);
+//            }
         }
         return lists;
     }
@@ -145,7 +144,7 @@ public class CategoryServiceImpl implements CategoryService{
 			LOG.info("get cache with key:" + cache_key);
 		} else {
 			// 缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
-			result_cache = categoryDao.selectByPrimaryKey(id);
+			//result_cache = categoryDao.selectByPrimaryKey(id);
 			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
 			return result_cache;
