@@ -17,7 +17,7 @@ import com.ssf.service.ProductService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/spring-*.xml")
+@ContextConfiguration("classpath:spring/spring-dao.xml")
 public class ProductDaoTest {
 	
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -25,48 +25,43 @@ public class ProductDaoTest {
 	@Autowired
 	private ProductDao productDao;
 	
-	@Autowired 
-	private ProductService productService;
-	
-	@Autowired
-	private RedisCache cache;
 	@Autowired
 	private ProductImageDao productImageDao;
 
-	@Test
-	public void testQueryAll() {
-		List<Product> list=productDao.listPage(0, 10);
-		for (Product goods : list) {
-			System.out.println(goods);
-		}
-		System.out.println(list.size()+"--------------------------");
-	}
-
-	@Test
-	public void testListRelatedProducts() {
-		String sql = "SELECT * FROM sys_product a WHERE a.category_id=83 AND a.id!=87;";
-		List<Product> list = productDao.selectList(sql);
-		System.out.println(list.size());
-		System.out.println(list);
-	}
-	@Test
-	public void testNewArrivals(){
-		List<Product> list = productService.listNewArrivals();
-		System.out.println(list.size());
-		System.out.println(list);
-	}
-	
-	@Test
-	public void test(){
-		String cache_key = RedisCache.CAHCENAME + "test";
-		String sql = "SELECT * FROM sys_product_image a WHERE a.product_id=87";
-		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, sql, productImageDao,LOG);
-		System.out.println(list.size());
-		//System.out.println(list);
-		for (ProductImage productImage : list) {
-			System.out.println(productImage);
-		}
-	}
+//	@Test
+//	public void testQueryAll() {
+//		List<Product> list=productDao.listPage(0, 10);
+//		for (Product goods : list) {
+//			System.out.println(goods);
+//		}
+//		System.out.println(list.size()+"--------------------------");
+//	}
+//
+//	@Test
+//	public void testListRelatedProducts() {
+//		String sql = "SELECT * FROM sys_product a WHERE a.category_id=83 AND a.id!=87;";
+//		List<Product> list = productDao.selectList(sql);
+//		System.out.println(list.size());
+//		System.out.println(list);
+//	}
+//	@Test
+//	public void testNewArrivals(){
+//		List<Product> list = productService.listNewArrivals();
+//		System.out.println(list.size());
+//		System.out.println(list);
+//	}
+//	
+//	@Test
+//	public void test(){
+//		String cache_key = RedisCache.CAHCENAME + "test";
+//		String sql = "SELECT * FROM sys_product_image a WHERE a.product_id=87";
+//		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, sql, productImageDao,LOG);
+//		System.out.println(list.size());
+//		//System.out.println(list);
+//		for (ProductImage productImage : list) {
+//			System.out.println(productImage);
+//		}
+//	}
 	
 //
 //	//@Test

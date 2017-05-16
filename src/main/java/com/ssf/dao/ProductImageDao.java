@@ -1,25 +1,19 @@
 package com.ssf.dao;
 
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.ProductImage;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Param;;
 
-public interface ProductImageDao extends IBaseDao<ProductImage> {
-    int deleteByPrimaryKey(Integer id);
+public interface ProductImageDao extends BaseMapper<ProductImage> {
+    int deleteByPrimaryKey(Long id);
 
-    int insert(ProductImage record);
+    ProductImage selectByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    int insertSelective(ProductImage record);
+    int deleteByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    ProductImage selectByPrimaryKey(Integer id);
+    ProductImage selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(ProductImage record);
 
     int updateByPrimaryKey(ProductImage record);
-
-    List<ProductImage> selectList(String sql);
-
-    Object selectProductImage(String sql);
-
-    List<ProductImage> listPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

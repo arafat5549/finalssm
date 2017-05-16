@@ -1,25 +1,19 @@
 package com.ssf.dao;
 
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.OrderItem;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Param;;
 
-public interface OrderItemDao {
-    int deleteByPrimaryKey(Integer id);
+public interface OrderItemDao extends BaseMapper<OrderItem> {
+    int deleteByPrimaryKey(Long id);
 
-    int insert(OrderItem record);
+    OrderItem selectByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    int insertSelective(OrderItem record);
+    int deleteByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    OrderItem selectByPrimaryKey(Integer id);
+    OrderItem selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
-
-    List<OrderItem> selectList(String sql);
-
-    Object selectOrderItem(String sql);
-
-    List<OrderItem> listPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

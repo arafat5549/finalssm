@@ -1,5 +1,6 @@
 package com.ssf.cache;
 
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.dao.IBaseDao;
 import com.ssf.model.Product;
 import com.ssf.util.ProtoStuffSerializerUtil;
@@ -158,12 +159,12 @@ public class RedisCache {
 	 * @param LOG
 	 * @return
 	 */ 
-	public <T> List<T> cacheList(String cache_key,Class<T> t,String sql,IBaseDao<T> dao,Logger LOG){
+	public <T> List<T> cacheList(String cache_key,Class<T> t,String sql,BaseMapper<T> dao,Logger LOG){
 		List<T> result_cache = getListCache(cache_key, t);
 		if (result_cache != null) {
 			LOG.info("get cache with key:" + cache_key);
 		} else {
-			result_cache = dao.selectList(sql);
+			//result_cache = dao.selectList(sql);
 			
 			putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -172,12 +173,12 @@ public class RedisCache {
 		return result_cache;
 	}
 	//---------------------------------------------------------------------------------
-	public <T> T cacheObject(String cache_key,Class<T> t,String sql,IBaseDao<T> dao,Logger LOG){
+	public <T> T cacheObject(String cache_key,Class<T> t,String sql,BaseMapper<T> dao,Logger LOG){
 		T result_cache = getCache(cache_key, t);
 		if (result_cache != null) {
 			LOG.info("get cache with key:" + cache_key);
 		} else {
-			result_cache = dao.selectObject(sql);
+			//result_cache = dao.selectObject(sql);
 			putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
 			return result_cache;

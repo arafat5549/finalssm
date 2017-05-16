@@ -38,14 +38,14 @@ public class UserDaoTest {
 		System.out.println("--1------------------------");
 	}
 
-	@Test
-	public void testListPage() {
-		List<User> list=userDao.listPage(0, 100);
-		for (User user : list) {
-			System.out.println(user);
-		}
-		System.out.println("--2------------------------");
-	}
+//	@Test
+//	public void testListPage() {
+//		List<User> list=userDao.listPage(0, 100);
+//		for (User user : list) {
+//			System.out.println(user);
+//		}
+//		System.out.println("--2------------------------");
+//	}
 //	
 //	//@Test
 //	public void testAddScore() {

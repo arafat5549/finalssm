@@ -16,6 +16,7 @@
 		<property name="javaFileEncoding" value="UTF-8"/>
 	
 		<!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为**反单引号(`)**，配置如下：  -->
+		
 		<property name="beginningDelimiter" value=""/>
 		<property name="endingDelimiter" value=""/>
 	
@@ -26,31 +27,32 @@
         <!-- <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin> -->
         
         <!-- 为生成的Java模型创建一个toString方法 -->
-        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 	
 		<!-- page plugin && add deleteLogicByIds method  -->
 		<!-- 单表逻辑的话， 可以增加下面的两个两个自定义插件，关联关系的话，建议注释掉如下的两个插件-->
-		<!-- -->
-		<plugin type="com.ssf.common.mybatis.plugin.PaginationPlugin"></plugin>
-		<plugin type="com.ssf.common.mybatis.plugin.DeleteLogicByIdsPlugin"></plugin> 
+		
+		<plugin type="com.ssf.common.mybatis.plugin.PaginationPlugin"/>
+		
+		<plugin type="com.ssf.common.mybatis.plugin.DeleteLogicByIdsPlugin"/> 
 		
 		<!--  自定义的序列化 类文件 插件 -->
-		<plugin type="com.ssf.common.mybatis.plugin.serializable.SerializablePlugin"></plugin>
+		<plugin type="com.ssf.common.mybatis.plugin.serializable.SerializablePlugin"/>
 		
 		<!-- mysql oracle 两种数据源的分页配置插件 根据 _databaseId 的区别来区分当前数据源是oracle还是mysql，方便数据迁移过程中的分页逻辑不报错 -->
-		<plugin type="com.ssf.common.mybatis.plugin.mutiDatasource.MutiDatasourcePaginationPlugin"></plugin>
+		<plugin type="com.ssf.common.mybatis.plugin.mutiDatasource.MutiDatasourcePaginationPlugin"/>
 		
 		<!-- 取消 Example 类文件的生成，在进行代码生成器的过程中，生成 selectCountByMap selectListByMap 两种方法，代替 Example 方法的生成 -->
-		<plugin type="com.ssf.common.mybatis.plugin.SelectCountAndListByMapPlugin"></plugin>
+		<plugin type="com.ssf.common.mybatis.plugin.SelectCountAndListByMapPlugin"/>
 		
 		<!-- 自定义注释部分（实体类entity生成过程中，将配置的数据库部分的注释部分生成，关键节点的注解部分生成） 
 		
 		<plugin type="com.ssf.common.mybatis.plugin.MyTableAnnotationPlugin"></plugin>
 		-->
 		<!-- 动态表名的处理，解决selectByPrimaryKeyAndTableName deleteByPrimaryKeyAndTableName 两个方法 -->
-		<plugin type="com.ssf.common.mybatis.plugin.MyDynamicTableNamePlugin"></plugin>
+		<plugin type="com.ssf.common.mybatis.plugin.MyDynamicTableNamePlugin"/>
 		
-		<plugin type="com.ssf.common.mybatis.plugin.MyInsertUpdateDynamicTableNamePlugin"></plugin>
+		<plugin type="com.ssf.common.mybatis.plugin.MyInsertUpdateDynamicTableNamePlugin"/>
 		
 		<!-- 为继承的BaseMapper接口添加对应的实现类 -->
 		<plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">

@@ -1,6 +1,8 @@
 package com.ssf.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.ssf.cache.RedisCache;
+import com.ssf.common.vo.mybatis.pagination.Page;
 import com.ssf.dao.UserDao;
 import com.ssf.model.User;
 import com.ssf.service.UserService;
@@ -26,7 +29,10 @@ public class UserServiceImpl implements UserService {
 		if(Strings.isNullOrEmpty(name)){
 			return null;
 		}
-		return userDao.findByName(name);
+		Map<Object , Object> map = new HashMap<Object, Object>();
+		map.put("name",name);
+		List<User> list =  userDao.selectListByMap(map);
+		return list!=null&&list.size()>0 ?list.get(0):null;
 	}
 	
 	
@@ -37,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		List<User> result_cache=cache.getListCache(cache_key, User.class);
 		if(result_cache==null){
 			//缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
-			result_cache=userDao.listPage(offset, limit);
+			//result_cache=userDao.listPage(offset, limit);
 			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:"+cache_key);
 		}else{

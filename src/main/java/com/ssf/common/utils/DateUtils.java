@@ -690,9 +690,9 @@ public class DateUtils {
 	 * @return
 	 */
 	public static String GMTTimeZoneTransToSysTimeZoneStr(String GMTTimeStr) {
-		Date _GMTTimeDate = parseDate(GMTTimeStr, formatStr_yyyyMMddHHmmssS);
+		Date _GMTTimeDate = parseDate(GMTTimeStr, formatStr_yyyyMMddHHmmss);
 		Date _localTimeDate = transformTime(_GMTTimeDate, TimeZone.getTimeZone("GMT"), TimeZone.getDefault());
-		String _localTimeDateStr = format(_localTimeDate, formatStr_yyyyMMddHHmmssS);
+		String _localTimeDateStr = format(_localTimeDate, formatStr_yyyyMMddHHmmss);
 		return _localTimeDateStr;
 	}
 

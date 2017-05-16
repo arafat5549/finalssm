@@ -1,27 +1,21 @@
 package com.ssf.dao;
 
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.Brand;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Param;;
 
-public interface BrandDao {
-    int deleteByPrimaryKey(Integer id);
+public interface BrandDao extends BaseMapper<Brand> {
+    int deleteByPrimaryKey(Long id);
 
-    int insert(Brand record);
+    Brand selectByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    int insertSelective(Brand record);
+    int deleteByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    Brand selectByPrimaryKey(Integer id);
+    Brand selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(Brand record);
 
     int updateByPrimaryKeyWithBLOBs(Brand record);
 
     int updateByPrimaryKey(Brand record);
-
-    List<Brand> selectList(String sql);
-
-    Object selectBrand(String sql);
-
-    List<Brand> listPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

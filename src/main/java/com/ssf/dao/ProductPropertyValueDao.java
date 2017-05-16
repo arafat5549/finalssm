@@ -1,25 +1,19 @@
 package com.ssf.dao;
 
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.ProductPropertyValue;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Param;;
 
-public interface ProductPropertyValueDao {
-    int deleteByPrimaryKey(Integer id);
+public interface ProductPropertyValueDao extends BaseMapper<ProductPropertyValue> {
+    int deleteByPrimaryKey(Long id);
 
-    int insert(ProductPropertyValue record);
+    ProductPropertyValue selectByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    int insertSelective(ProductPropertyValue record);
+    int deleteByPrimaryKeyAndTableName(@Param("id") String id, @Param("dynamicTableName") String dynamicTableName);
 
-    ProductPropertyValue selectByPrimaryKey(Integer id);
+    ProductPropertyValue selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(ProductPropertyValue record);
 
     int updateByPrimaryKey(ProductPropertyValue record);
-
-    List<ProductPropertyValue> selectList(String sql);
-
-    Object selectProductPropertyValue(String sql);
-
-    List<ProductPropertyValue> listPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

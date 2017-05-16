@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 			LOG.info("get cache with key:" + cache_key);
 		} else {
 			// 缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
-			result_cache = productDao.listPage(offset, limit);
+			//result_cache = productDao.listPage(offset, limit);
 			_initProduct(result_cache);
 			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -113,10 +113,10 @@ public class ProductServiceImpl implements ProductService {
 		}
 	}  
 	private void _initProduct(Product product){
-		if(Strings.isNullOrEmpty(product.getImage())){
-			List<ProductImage> imageList =listProuctImagesByPId(product.getId());
-			product.initImages(imageList);
-		}
+//		if(Strings.isNullOrEmpty(product.getImage())){
+//			List<ProductImage> imageList =listProuctImagesByPId(product.getId());
+//			product.initImages(imageList);
+//		}
 	}
 	//根据id初始化关联的图片
 	private List<ProductImage> listProuctImagesByPId(Integer pid){

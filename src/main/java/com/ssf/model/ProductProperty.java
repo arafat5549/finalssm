@@ -1,29 +1,26 @@
 package com.ssf.model;
 
+import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
 
-public class ProductProperty implements Serializable {
-    private Integer id;
+public class ProductProperty extends BaseEntity implements Serializable {
+    /**
+     *  主键自增长,所属表字段为sys_product_property.category_id
+     */
+    private Long categoryId;
 
-    private Integer categoryId;
-
+    /**
+     *  属性名称,所属表字段为sys_product_property.name
+     */
     private String name;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -32,34 +29,7 @@ public class ProductProperty implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        ProductProperty other = (ProductProperty) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        return result;
+        this.name = name;
     }
 
     @Override
@@ -68,10 +38,8 @@ public class ProductProperty implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", categoryId=").append(categoryId);
         sb.append(", name=").append(name);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }

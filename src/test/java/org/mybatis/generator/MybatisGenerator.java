@@ -16,7 +16,7 @@ public class MybatisGenerator {
 		
 		System.out.println("开始生成代码...");
 		MybatisGenerator t = new MybatisGenerator();
-		String config = "generatorConfig.xml";
+		String config = "generatorConfigBak.xml";
 		try {
 			//config = t.getClass().getResource(config).toURI().getPath();
 			config = Resources.getResourceAsFile(config).getPath();
