@@ -15,3 +15,6 @@ target/*
 velocity.log
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/lib/*
+
+src/main/webapp/assets/frontend/pages/img/products/*/
+src/main/webapp/assets/frontend/pages/img/products/*/*
