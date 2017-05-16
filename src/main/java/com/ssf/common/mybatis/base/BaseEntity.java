@@ -94,7 +94,7 @@ public class BaseEntity implements Serializable, IDynamicTableName{
 	@Override
 	public String toString() {
 		 StringBuilder sb = new StringBuilder();
-	        sb.append(",id").append(id);
+	        sb.append(",id=").append(id);
 	        sb.append(",deleteFlag=").append(deleteFlag);
 	        sb.append(",createTime=").append(createTime);
 	        sb.append(",updateTime=").append(updateTime);

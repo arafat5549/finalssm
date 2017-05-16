@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ssf.cache.RedisCache;
 import com.ssf.model.Product;
 import com.ssf.model.ProductImage;
+import com.ssf.model.User;
 import com.ssf.service.ProductService;
 
 
@@ -28,12 +29,20 @@ public class ProductDaoTest {
 	@Autowired
 	private ProductImageDao productImageDao;
 
+	@Test
+	public void testQueryById() {
+		Product product= (Product)productDao.selectByPrimaryKey(87L);
+		System.out.println("User:"+product);
+		System.out.println(product.getDeleteFlag());
+		System.out.println("--1------------------------");
+	}
+	
 //	@Test
 //	public void testQueryAll() {
-//		List<Product> list=productDao.listPage(0, 10);
-//		for (Product goods : list) {
-//			System.out.println(goods);
-//		}
+////		List<Product> list=productDao.listPage(0, 10);
+////		for (Product goods : list) {
+////			System.out.println(goods);
+////		}
 //		System.out.println(list.size()+"--------------------------");
 //	}
 //

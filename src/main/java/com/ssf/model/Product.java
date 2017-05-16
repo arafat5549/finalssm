@@ -1,9 +1,8 @@
 package com.ssf.model;
 
+import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import com.ssf.common.mybatis.base.BaseEntity;
 
 public class Product extends BaseEntity implements Serializable {
     /**

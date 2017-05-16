@@ -1,9 +1,8 @@
 package com.ssf.dao;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.Brand;
+import org.apache.ibatis.annotations.Param;;
 
 public interface BrandDao extends BaseMapper<Brand> {
     int deleteByPrimaryKey(Long id);

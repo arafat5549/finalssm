@@ -13,13 +13,14 @@
     <result column="sys_product_brand_id" jdbcType="BIGINT" property="brandId" />
     <result column="sys_product_create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
     <result column="sys_product_update_time" jdbcType="VARCHAR" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
+    <result column="sys_product_DELETE_FLAG" jdbcType="INTEGER" property="deleteFlag" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler" />
   </resultMap>
   <sql id="Base_Column_List">
     sys_product.id as sys_product_id, sys_product.name as sys_product_name, sys_product.title as sys_product_title, 
     sys_product.origin_price as sys_product_origin_price, sys_product.promote_price as sys_product_promote_price, 
     sys_product.stock as sys_product_stock, sys_product.state as sys_product_state, sys_product.category_id as sys_product_category_id, 
     sys_product.brand_id as sys_product_brand_id, sys_product.create_time as sys_product_create_time, 
-    sys_product.update_time as sys_product_update_time
+    sys_product.update_time as sys_product_update_time, sys_product.DELETE_FLAG as sys_product_DELETE_FLAG
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -36,13 +37,15 @@
       origin_price, promote_price, stock, 
       state, category_id, brand_id, 
       create_time, 
-      update_time
+      update_time, 
+      DELETE_FLAG
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{originPrice,jdbcType=DECIMAL}, #{promotePrice,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, 
       #{state,jdbcType=INTEGER}, #{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}, 
-      #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+      #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}, 
+      #{deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ssf.model.Product">
@@ -81,6 +84,9 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -115,6 +121,9 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler},
       </if>
     </trim>
   </insert>
@@ -151,6 +160,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
       </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -165,7 +177,8 @@
       category_id = #{categoryId,jdbcType=BIGINT},
       brand_id = #{brandId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
-      update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+      update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
+      DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">
@@ -227,6 +240,9 @@
       <if test="updateTime != null and updateTime != ''">
          AND sys_product.update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
+      <if test="deleteFlag != null and deleteFlag != ''">
+         AND sys_product.DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler}
+      </if>
       <if test="myGreater_id != null and myGreater_id != ''">
          AND sys_product.id &gt; #{myGreater_id,jdbcType=BIGINT}
       </if>
@@ -259,6 +275,9 @@
       </if>
       <if test="myGreater_updateTime != null and myGreater_updateTime != ''">
          AND sys_product.update_time &gt; #{myGreater_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+      </if>
+      <if test="myGreater_deleteFlag != null and myGreater_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG &gt; #{myGreater_deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler}
       </if>
       <if test="myLesser_id != null and myLesser_id != ''">
          AND sys_product.id &lt; #{myLesser_id,jdbcType=BIGINT}
@@ -293,6 +312,9 @@
       <if test="myLesser_updateTime != null and myLesser_updateTime != ''">
          AND sys_product.update_time &lt; #{myLesser_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
+      <if test="myLesser_deleteFlag != null and myLesser_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG &lt; #{myLesser_deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler}
+      </if>
       <if test="myLike_id != null and myLike_id != ''">
          AND sys_product.id like CONCAT('%', #{myLike_id,jdbcType=BIGINT},'%' )
       </if>
@@ -325,6 +347,9 @@
       </if>
       <if test="myLike_updateTime != null and myLike_updateTime != ''">
          AND sys_product.update_time like CONCAT('%', #{myLike_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
+      </if>
+      <if test="myLike_deleteFlag != null and myLike_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG like CONCAT('%', #{myLike_deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler},'%' )
       </if>
       <if test="myLikeStart_id != null and myLikeStart_id != ''">
          AND sys_product.id like CONCAT('%', #{myLikeStart_id,jdbcType=BIGINT})
@@ -359,6 +384,9 @@
       <if test="myLikeStart_updateTime != null and myLikeStart_updateTime != ''">
          AND sys_product.update_time like CONCAT('%', #{myLikeStart_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler})
       </if>
+      <if test="myLikeStart_deleteFlag != null and myLikeStart_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG like CONCAT('%', #{myLikeStart_deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler})
+      </if>
       <if test="myLikeEnd_id != null and myLikeEnd_id != ''">
          AND sys_product.id like CONCAT( #{myLikeEnd_id,jdbcType=BIGINT},'%' )
       </if>
@@ -392,6 +420,9 @@
       <if test="myLikeEnd_updateTime != null and myLikeEnd_updateTime != ''">
          AND sys_product.update_time like CONCAT( #{myLikeEnd_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
       </if>
+      <if test="myLikeEnd_deleteFlag != null and myLikeEnd_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG like CONCAT( #{myLikeEnd_deleteFlag,jdbcType=INTEGER,typeHandler=com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler},'%' )
+      </if>
       <if test="myIn_id != null and myIn_id != ''">
          AND sys_product.id in <foreach item="item" index="index" collection="myIn_id" open="(" separator="," close=")"> #{item} </foreach>
       </if>
@@ -424,6 +455,9 @@
       </if>
       <if test="myIn_updateTime != null and myIn_updateTime != ''">
          AND sys_product.update_time in <foreach item="item" index="index" collection="myIn_updateTime" open="(" separator="," close=")"> #{item} </foreach>
+      </if>
+      <if test="myIn_deleteFlag != null and myIn_deleteFlag != ''">
+         AND sys_product.DELETE_FLAG in <foreach item="item" index="index" collection="myIn_deleteFlag" open="(" separator="," close=")"> #{item} </foreach>
       </if>
     </trim>
   </sql>

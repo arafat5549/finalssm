@@ -33,6 +33,7 @@ public class UserDaoTest {
 	public void testQueryById() {
 		User user= (User)userDao.selectByPrimaryKey(1L);
 		System.out.println("User:"+user);
+		System.out.println(user.getDeleteFlag());
 		System.out.println("--1------------------------");
 	}
 

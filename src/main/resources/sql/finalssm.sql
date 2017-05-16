@@ -47,6 +47,7 @@ CREATE TABLE `sys_product` (
   `brand_id`    BIGINT DEFAULT NULL COMMENT '外键 关联品牌',
   `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
   `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `DELETE_FLAG` INT(1) NOT NULL DEFAULT 0 COMMENT '删除标记',
   PRIMARY KEY(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 

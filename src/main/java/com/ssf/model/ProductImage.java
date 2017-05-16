@@ -1,8 +1,7 @@
 package com.ssf.model;
 
-import java.io.Serializable;
-
 import com.ssf.common.mybatis.base.BaseEntity;
+import java.io.Serializable;
 
 public class ProductImage extends BaseEntity implements Serializable {
     /**
