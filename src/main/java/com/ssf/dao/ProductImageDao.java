@@ -1,8 +1,9 @@
 package com.ssf.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.ProductImage;
-import org.apache.ibatis.annotations.Param;;
 
 public interface ProductImageDao extends BaseMapper<ProductImage> {
     int deleteByPrimaryKey(Long id);

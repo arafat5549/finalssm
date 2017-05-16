@@ -1,8 +1,8 @@
 package com.ssf.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * 

@@ -1,9 +1,7 @@
 package com.ssf.cache;
 
-import com.ssf.common.mybatis.base.BaseMapper;
-import com.ssf.dao.IBaseDao;
-import com.ssf.model.Product;
-import com.ssf.util.ProtoStuffSerializerUtil;
+import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,8 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Set;
+import com.ssf.common.mybatis.base.BaseMapper;
+import com.ssf.util.ProtoStuffSerializerUtil;
 
 /**
  * redis缓存

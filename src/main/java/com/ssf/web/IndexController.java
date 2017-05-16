@@ -1,15 +1,6 @@
 package com.ssf.web;
 
-import java.io.PrintWriter;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.ssf.model.Category;
-import com.ssf.model.Product;
-import com.ssf.service.CategoryService;
-import com.ssf.service.ProductService;
-import com.ssf.util.Globals;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ssf.model.User;
+import com.ssf.model.Category;
+import com.ssf.model.Product;
+import com.ssf.service.CategoryService;
+import com.ssf.service.ProductService;
+import com.ssf.util.Globals;
 
 
 /**

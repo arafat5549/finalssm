@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.ssf.cache.RedisCache;
-import com.ssf.dao.IBaseDao;
 import com.ssf.dao.ProductDao;
 import com.ssf.dao.ProductImageDao;
 import com.ssf.model.Product;

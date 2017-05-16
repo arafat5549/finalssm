@@ -1,8 +1,9 @@
 package com.ssf.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.model.User;
-import org.apache.ibatis.annotations.Param;;
 
 public interface UserDao extends BaseMapper<User> {
     int deleteByPrimaryKey(Long id);

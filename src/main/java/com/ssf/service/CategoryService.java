@@ -1,9 +1,8 @@
 package com.ssf.service;
 
-import com.ssf.model.Category;
-import com.ssf.model.Product;
-
 import java.util.List;
+
+import com.ssf.model.Category;
 
 /**
  * Created by Administrator on 2017/5/10.

@@ -1,7 +1,7 @@
 package com.ssf.common.twitter.IDGenerator.instance;
 
-import com.ssf.common.utils.IdWorkerPropertiesUtilss;
 import com.ssf.common.twitter.IDGenerator.IdWorker;
+import com.ssf.common.utils.IdWorkerPropertiesUtilss;
 
 public class IdWorkerInstance {
 	

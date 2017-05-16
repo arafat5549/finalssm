@@ -16,6 +16,13 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
+/**
+ * 多数据源sql语句编写(支持oracle和mysql)
+ * 
+ * 传入page对象和databaseId
+ * @author wyy
+ *
+ */
 public class MutiDatasourcePaginationPlugin extends PluginAdapter {
 
 	private static final String PAGE_CLASS = "com.ssf.common.vo.mybatis.pagination.Page";

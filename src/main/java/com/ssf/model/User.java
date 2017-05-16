@@ -1,7 +1,8 @@
 package com.ssf.model;
 
-import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
+
+import com.ssf.common.mybatis.base.BaseEntity;
 
 public class User extends BaseEntity implements Serializable {
     /**

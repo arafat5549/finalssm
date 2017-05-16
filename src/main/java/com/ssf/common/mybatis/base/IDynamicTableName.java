@@ -18,7 +18,7 @@ package com.ssf.common.mybatis.base;
  * Reason : Mybatis 动态表名处理.  <br/>
  * Date : 2017年1月10日 上午11:06:47 <br/>
  * 
- * @author : alexgaoyh <br/>
+ * @author : wang <br/>
  * @version : 1.1 <br/>
  * @since : JDK 1.6 <br/>
  * @see

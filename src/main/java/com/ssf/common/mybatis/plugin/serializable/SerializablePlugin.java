@@ -1,11 +1,15 @@
 package com.ssf.common.mybatis.plugin.serializable;
 
-import org.mybatis.generator.api.IntrospectedTable;  
-import org.mybatis.generator.api.PluginAdapter;  
-import org.mybatis.generator.api.dom.java.*;  
-  
-import java.util.List;  
-import java.util.Properties;  
+import java.util.List;
+import java.util.Properties;
+
+import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.PluginAdapter;
+import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.InnerClass;
+import org.mybatis.generator.api.dom.java.JavaVisibility;
+import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 /**
  * 分布式开发的话，Example对象也必须要序列化

@@ -18,7 +18,7 @@ package com.ssf.common.mybatis.exception;
  * Reason : mybatis异常信息插件处理机制. <br/>
  * Date : 2016年11月21日 下午4:45:29 <br/>
  * 
- * @author : alexgaoyh <br/>
+ * @author : wang <br/>
  * @version : 1.1 <br/>
  * @since : JDK 1.6 <br/>
  * @see

@@ -1,8 +1,9 @@
 package com.ssf.model;
 
-import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.ssf.common.mybatis.base.BaseEntity;
 
 public class Order extends BaseEntity implements Serializable {
     /**

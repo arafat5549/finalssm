@@ -2,14 +2,13 @@ package com.ssf.common.mybatis.base;
 
 import java.beans.Transient;
 import java.io.Serializable;
-import java.util.Date;
 
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.common.vo.enums.DeleteFlagEnum;
 
 /**
  * mybatis 部分，抽离公共基础model
- * @author alexgaoyh
+ * @author wang
  *
  */
 public class BaseEntity implements Serializable, IDynamicTableName{

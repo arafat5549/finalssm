@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.ssf.cache.RedisCache;
-import com.ssf.common.vo.mybatis.pagination.Page;
 import com.ssf.dao.UserDao;
 import com.ssf.model.User;
 import com.ssf.service.UserService;

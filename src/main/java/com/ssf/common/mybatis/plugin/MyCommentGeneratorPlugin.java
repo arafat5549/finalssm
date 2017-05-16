@@ -23,10 +23,11 @@ import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
 
 /**
- * @author Jeff Butler alexgaoyh
+ * 
  * 此类完全粘贴 mybatis-generator-1.3.2.jar文件中的类   org.mybatis.generator.internal.DefaultCommentGenerator
  * 修改点在  addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn)  方法中
  * 
+ * @author wang
  */
 public class MyCommentGeneratorPlugin implements CommentGenerator {
 
@@ -204,7 +205,7 @@ public class MyCommentGeneratorPlugin implements CommentGenerator {
         }
         
         if (!column.equals(introspectedColumn.getJavaProperty())) {
-            //@Column
+            //@Column  //去掉生成的注解如果需要加JPA注解可以加上
 //            field.addAnnotation("@MyBatisColumnAnnotation(name = \"" + column + "\", "
 //            		+ "value = \"" + introspectedTable.getFullyQualifiedTable() + "_" + introspectedColumn.getActualColumnName() + "\", "
 //    				+ "chineseNote = \"" + introspectedColumn.getRemarks() + "\", "
