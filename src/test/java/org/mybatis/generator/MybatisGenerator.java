@@ -1,7 +1,6 @@
 package org.mybatis.generator;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.apache.ibatis.io.Resources;
 import org.mybatis.generator.api.ShellRunner;

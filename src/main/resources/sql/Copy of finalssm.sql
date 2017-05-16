@@ -5,22 +5,20 @@ CREATE DATABASE IF NOT EXISTS `finalssm` DEFAULT CHARSET=utf8 COLLATE utf8_gener
 USE `finalssm`;
 
 -- 用户表
-DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE sys_user(
 `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键自增长',
 `name` VARCHAR(50) NOT NULL COMMENT '用户名',
 `password` VARCHAR(50) NOT NULL COMMENT '密码',
 `phone` BIGINT NOT NULL COMMENT '手机号',
 `score` INT NOT NULL COMMENT '积分',
-`create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-`update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
-`DELETE_FLAG` varchar(50) NOT NULL DEFAULT '0' COMMENT '删除标记',
+`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 KEY `idx_user_phone`(`phone`)
 )ENGINE=INNODB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-INSERT INTO `sys_user` VALUES(1,"wang","123456",18768128888,0,now(),now(),'0');
-INSERT INTO `sys_user` VALUES(99,"lisi","45678",18768128887,0,now(),now(),'0');
+INSERT INTO `sys_user` VALUES(1,"wang","123456",18768128888,0,now(),now());
+INSERT INTO `sys_user` VALUES(99,"lisi","45678",18768128887,0,now(),now());
 -- 分类表
 DROP TABLE IF EXISTS `sys_category`;
 CREATE TABLE `sys_category` (
@@ -28,8 +26,8 @@ CREATE TABLE `sys_category` (
   `name`		VARCHAR(50) NOT NULL COMMENT '分类名称',
   `parent_id`	BIGINT NOT NULL  COMMENT '外键 父分类ID',
   `parent_ids` VARCHAR(100) NOT NULL COMMENT '记录所有父分类的ID',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-  `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类表';
 
@@ -45,8 +43,8 @@ CREATE TABLE `sys_product` (
   `state`       INT(11) DEFAULT 0 COMMENT '商品状态',
   `category_id` BIGINT NOT NULL COMMENT '外键 关联商品',
   `brand_id`    BIGINT DEFAULT NULL COMMENT '外键 关联品牌',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-  `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
@@ -68,8 +66,8 @@ CREATE TABLE `sys_order` (
   `delivery_date` datetime DEFAULT NULL COMMENT '订单发货时间',
   `confirm_date` datetime DEFAULT NULL  COMMENT '订单确认到货时间',
 
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-  `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
 
@@ -82,8 +80,8 @@ CREATE TABLE `sys_order_item` (
   `order_id` BIGINT NOT NULL COMMENT '外键 订单id',
   `user_id` BIGINT NOT NULL COMMENT '外键 用户id',
   `count` INT(15) NOT NULL  COMMENT '订单商品数量',
-  `create_time`  VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-  `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `create_time`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单项目表';
 
@@ -94,8 +92,8 @@ CREATE TABLE `sys_brand` (
   `name` VARCHAR(50) DEFAULT NULL COMMENT '品牌名称',
   `describe` text DEFAULT NULL COMMENT '品牌介绍',
   `logo` VARCHAR(100) DEFAULT NULL COMMENT '品牌Logo',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
-  `update_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '更新时间',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '品牌表';
 
@@ -105,7 +103,6 @@ CREATE TABLE `sys_product_image` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键自增长',
   `product_id` BIGINT DEFAULT NULL COMMENT '外键 对应商品',
   `type` VARCHAR(255) DEFAULT NULL  COMMENT '图片类型',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品图片表';
 
@@ -115,7 +112,6 @@ CREATE TABLE `sys_product_property` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键自增长',
   `category_id` BIGINT DEFAULT NULL COMMENT '主键自增长',
   `name` VARCHAR(255) DEFAULT NULL COMMENT '属性名称',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品属性表';
 
@@ -126,6 +122,5 @@ CREATE TABLE `sys_product_property_value` (
   `product_id` BIGINT DEFAULT NULL  COMMENT '外键 关联商品',
   `property_id` BIGINT DEFAULT NULL COMMENT '外键 关联商品属性',
   `name` varchar(255) DEFAULT NULL  COMMENT '属性值名称',
-  `create_time` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品属性值表';

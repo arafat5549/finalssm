@@ -2,7 +2,6 @@ package com.ssf.model;
 
 import com.ssf.common.mybatis.base.BaseEntity;
 import java.io.Serializable;
-import java.util.Date;
 
 public class Category extends BaseEntity implements Serializable {
     /**
@@ -19,16 +18,6 @@ public class Category extends BaseEntity implements Serializable {
      *  记录所有父分类的ID,所属表字段为sys_category.parent_ids
      */
     private String parentIds;
-
-//    /**
-//     *  创建时间,所属表字段为sys_category.create_time
-//     */
-//    private Date createTime;
-//
-//    /**
-//     *  更新时间,所属表字段为sys_category.update_time
-//     */
-//    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -56,22 +45,6 @@ public class Category extends BaseEntity implements Serializable {
         this.parentIds = parentIds;
     }
 
-//    public Date getCreateTime() {
-//        return createTime;
-//    }
-//
-//    public void setCreateTime(Date createTime) {
-//        this.createTime = createTime;
-//    }
-//
-//    public Date getUpdateTime() {
-//        return updateTime;
-//    }
-//
-//    public void setUpdateTime(Date updateTime) {
-//        this.updateTime = updateTime;
-//    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -81,8 +54,6 @@ public class Category extends BaseEntity implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", parentId=").append(parentId);
         sb.append(", parentIds=").append(parentIds);
-//        sb.append(", createTime=").append(createTime);
-//        sb.append(", updateTime=").append(updateTime);
         sb.append("]");
         return sb.toString();
     }

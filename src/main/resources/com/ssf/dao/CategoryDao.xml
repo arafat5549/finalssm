@@ -6,8 +6,8 @@
     <result column="sys_category_name" jdbcType="VARCHAR" property="name" />
     <result column="sys_category_parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="sys_category_parent_ids" jdbcType="VARCHAR" property="parentIds" />
-    <result column="sys_category_create_time" jdbcType="TIMESTAMP" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
-    <result column="sys_category_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_category_create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
+    <result column="sys_category_update_time" jdbcType="VARCHAR" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
   </resultMap>
   <sql id="Base_Column_List">
     sys_category.id as sys_category_id, sys_category.name as sys_category_name, sys_category.parent_id as sys_category_parent_id, 
@@ -27,10 +27,12 @@
   <insert id="insert" parameterType="com.ssf.model.Category">
     insert into ${dynamicTableName} (id, name, parent_id,
       parent_ids, create_time, 
-      update_time)
+      update_time
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{parentIds,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{parentIds,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}, 
+      #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ssf.model.Category">
     insert into ${dynamicTableName}
@@ -68,10 +70,10 @@
         #{parentIds,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
+        #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
       </if>
     </trim>
   </insert>
@@ -88,10 +90,10 @@
         parent_ids = #{parentIds,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
+        create_time = #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -101,8 +103,8 @@
     set name = #{name,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
       parent_ids = #{parentIds,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},
+      update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">
@@ -144,10 +146,10 @@
          AND sys_category.parent_ids = #{parentIds,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null and createTime != ''">
-         AND sys_category.create_time = #{createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+         AND sys_category.create_time = #{createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="updateTime != null and updateTime != ''">
-         AND sys_category.update_time = #{updateTime,jdbcType=TIMESTAMP}
+         AND sys_category.update_time = #{updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="myGreater_id != null and myGreater_id != ''">
          AND sys_category.id &gt; #{myGreater_id,jdbcType=BIGINT}
@@ -162,10 +164,10 @@
          AND sys_category.parent_ids &gt; #{myGreater_parentIds,jdbcType=VARCHAR}
       </if>
       <if test="myGreater_createTime != null and myGreater_createTime != ''">
-         AND sys_category.create_time &gt; #{myGreater_createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+         AND sys_category.create_time &gt; #{myGreater_createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="myGreater_updateTime != null and myGreater_updateTime != ''">
-         AND sys_category.update_time &gt; #{myGreater_updateTime,jdbcType=TIMESTAMP}
+         AND sys_category.update_time &gt; #{myGreater_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="myLesser_id != null and myLesser_id != ''">
          AND sys_category.id &lt; #{myLesser_id,jdbcType=BIGINT}
@@ -180,10 +182,10 @@
          AND sys_category.parent_ids &lt; #{myLesser_parentIds,jdbcType=VARCHAR}
       </if>
       <if test="myLesser_createTime != null and myLesser_createTime != ''">
-         AND sys_category.create_time &lt; #{myLesser_createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
+         AND sys_category.create_time &lt; #{myLesser_createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="myLesser_updateTime != null and myLesser_updateTime != ''">
-         AND sys_category.update_time &lt; #{myLesser_updateTime,jdbcType=TIMESTAMP}
+         AND sys_category.update_time &lt; #{myLesser_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler}
       </if>
       <if test="myLike_id != null and myLike_id != ''">
          AND sys_category.id like CONCAT('%', #{myLike_id,jdbcType=BIGINT},'%' )
@@ -198,10 +200,10 @@
          AND sys_category.parent_ids like CONCAT('%', #{myLike_parentIds,jdbcType=VARCHAR},'%' )
       </if>
       <if test="myLike_createTime != null and myLike_createTime != ''">
-         AND sys_category.create_time like CONCAT('%', #{myLike_createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
+         AND sys_category.create_time like CONCAT('%', #{myLike_createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
       </if>
       <if test="myLike_updateTime != null and myLike_updateTime != ''">
-         AND sys_category.update_time like CONCAT('%', #{myLike_updateTime,jdbcType=TIMESTAMP},'%' )
+         AND sys_category.update_time like CONCAT('%', #{myLike_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
       </if>
       <if test="myLikeStart_id != null and myLikeStart_id != ''">
          AND sys_category.id like CONCAT('%', #{myLikeStart_id,jdbcType=BIGINT})
@@ -216,10 +218,10 @@
          AND sys_category.parent_ids like CONCAT('%', #{myLikeStart_parentIds,jdbcType=VARCHAR})
       </if>
       <if test="myLikeStart_createTime != null and myLikeStart_createTime != ''">
-         AND sys_category.create_time like CONCAT('%', #{myLikeStart_createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler})
+         AND sys_category.create_time like CONCAT('%', #{myLikeStart_createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler})
       </if>
       <if test="myLikeStart_updateTime != null and myLikeStart_updateTime != ''">
-         AND sys_category.update_time like CONCAT('%', #{myLikeStart_updateTime,jdbcType=TIMESTAMP})
+         AND sys_category.update_time like CONCAT('%', #{myLikeStart_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler})
       </if>
       <if test="myLikeEnd_id != null and myLikeEnd_id != ''">
          AND sys_category.id like CONCAT( #{myLikeEnd_id,jdbcType=BIGINT},'%' )
@@ -234,10 +236,10 @@
          AND sys_category.parent_ids like CONCAT( #{myLikeEnd_parentIds,jdbcType=VARCHAR},'%' )
       </if>
       <if test="myLikeEnd_createTime != null and myLikeEnd_createTime != ''">
-         AND sys_category.create_time like CONCAT( #{myLikeEnd_createTime,jdbcType=TIMESTAMP,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
+         AND sys_category.create_time like CONCAT( #{myLikeEnd_createTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
       </if>
       <if test="myLikeEnd_updateTime != null and myLikeEnd_updateTime != ''">
-         AND sys_category.update_time like CONCAT( #{myLikeEnd_updateTime,jdbcType=TIMESTAMP},'%' )
+         AND sys_category.update_time like CONCAT( #{myLikeEnd_updateTime,jdbcType=VARCHAR,typeHandler=com.ssf.common.vo.GMT.handler.GMTDateTransHandler},'%' )
       </if>
       <if test="myIn_id != null and myIn_id != ''">
          AND sys_category.id in <foreach item="item" index="index" collection="myIn_id" open="(" separator="," close=")"> #{item} </foreach>
