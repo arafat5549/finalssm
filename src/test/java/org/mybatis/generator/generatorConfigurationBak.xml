@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-<!DOCTYPE generatorConfiguration  
-  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
 <generatorConfiguration>
-	<context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+	<properties resource="mybatis-generator.properties"/>  
+	
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- 防止部分IDE，在进行代码生成器过程中，自定义注释部分 中文乱码 -->
+		<property name="javaFileEncoding" value="UTF-8"/>
+		
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
@@ -54,7 +59,7 @@
 		</javaClientGenerator>
 		
 		
-		<!--
+		
 		<table 
 		    mapperName="ProductPropertyDao"
 		    tableName="sys_product_property"
@@ -70,7 +75,7 @@
 		
 		
 		
-		
+		<!--
 		<table 
 		    mapperName="ProductDao"
 		    tableName="sys_product"

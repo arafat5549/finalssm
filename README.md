@@ -12,6 +12,20 @@
 - 统一的异常处理
 - JSP JSTL JavaScript
 - Sping Shiro权限控制（待完善）
+- Thymeleaf模板引擎
+- Springside4工具包/ApacheCommons/Guava工具包
+
+> ### 前端页面框架-
+
+- metronic4.7
+
+Maven启动Tomcat7插件的命令(可启动多个tomcat):
+
+- mvn tomcat7:run -Dmaven.tomcat.port=8081 -Dmaven.tomcat.ajp.port=8010
+
+> Redis使用
+
+- ​
 
 ###**架构图：**
 ![](http://i.imgur.com/vc6iu0X.png)

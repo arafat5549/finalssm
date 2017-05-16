@@ -1,7 +1,9 @@
 package org.mybatis.generator;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.ibatis.io.Resources;
 import org.mybatis.generator.api.ShellRunner;
 
 /**
@@ -15,10 +17,12 @@ public class MybatisGenerator {
 		
 		System.out.println("开始生成代码...");
 		MybatisGenerator t = new MybatisGenerator();
-		String config = "generatorConfiguration.xml";
+		String config = "generatorConfig.xml";
 		try {
-			config = t.getClass().getResource(config).toURI().getPath();
-		} catch (URISyntaxException e) {
+			//config = t.getClass().getResource(config).toURI().getPath();
+			config = Resources.getResourceAsFile(config).getPath();
+		}  catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
