@@ -29,7 +29,7 @@ Maven启动Tomcat7插件的命令(可启动多个tomcat):
 - 导入数据库 数据库位于 src/main/resources下 是finalssm.sql和finalssmData.sql
 - 用代码生成数据库 入口位于: src/test/java/org.mybatis.generator/**DataPopulator.java**
 - 利用MabatisGenerator生成DAO/Model/Mapper映射文件 入口位于:src/test/java/org.mybatis.generator/**MybatisGenerator.java**
-- 如果自己有新的数据库结构 利用src/test/java/xml/XmlParseUtilsTest.java 生成新的配置文件
+- 如果自己有新的数据库结构 利用src/test/java/org.mybatis.generator/**GeneratorConfigXMLUtil.java** 生成新的配置文件
 - 再运行MybatisGenerator.java
 
 ### Redis使用流程
