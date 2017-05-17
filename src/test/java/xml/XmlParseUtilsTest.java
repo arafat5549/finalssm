@@ -33,6 +33,9 @@ public class XmlParseUtilsTest {
 	/**
 	 * 读取数据库 生成所有table标签
 	 * 
+	 * 源文件:  src/main/resources/generatorConfig.xml
+	 * 生成文件: src/main/resources/generatorConfigBak.xml
+	 * 
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws CloneNotSupportedException 
