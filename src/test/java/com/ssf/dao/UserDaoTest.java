@@ -44,7 +44,7 @@ public class UserDaoTest {
 		//map.put("page", page);
 		//map.put("databaseId","mysql");
 		map.put("name", "wang");
-		
+		map.put("password", "123456");
 		List<User> list=userDao.selectListByMap(map);
 		for (User user : list) {
 			System.out.println(user);
