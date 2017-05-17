@@ -35,9 +35,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
-        <property name="order" value="1"/>
-        
-         <property name="viewNames" value="views/*"/>
+        <property name="order" value="0"/>
     </bean>
 
 
@@ -55,11 +53,10 @@
    </bean>  
    
    <bean id="thymeleafViewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-       <property name="order" value="0"/> <!-- 先过thymeleaf视图处理器 0优先级最高 -->
+       <property name="order" value="1"/> <!-- 先过thymeleaf视图处理器 0优先级最高 -->
        <property name="templateEngine" ref="templateEngine" />
        <property name="characterEncoding" value="UTF-8"/>
        <property name="contentType" value="text/html;charset=UTF-8"/>
-        <property name="viewNames" value="pages/*"/>
    </bean>  
    <!-- END thymeleaf解析 -->
 

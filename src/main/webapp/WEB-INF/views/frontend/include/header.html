@@ -1,0 +1,64 @@
+<!-- ##BEGIN HEADER## --> 
+  <div class="header"> 
+   <div class="container"> 
+    <a class="site-logo" href="shop-index.html" th:href="@{/}"><img src="../../assets/frontend/layout/img/logos/logo-shop-red.png" alt="Metronic Shop UI" th:src="@{/assets/frontend/layout/img/logos/logo-shop-red.png}"></a> 
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a> 
+    <!-- BEGIN CART --> 
+    <div class="top-cart-block"> 
+     <div class="top-cart-info"> 
+      <a href="javascript:void(0);" class="top-cart-info-count">4 items</a> 
+      <a href="javascript:void(0);" class="top-cart-info-value">$1260</a> 
+     </div> 
+     <i class="fa fa-shopping-cart"></i> 
+     <div class="top-cart-content-wrapper"> 
+      <div class="top-cart-content"> 
+       <ul class="scroller" style="height: 250px;"> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+        <li> <a href="shop-item.html"><img src="../../assets/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34" th:src="@{/assets/frontend/pages/img/cart-img.jpg}"></a> <span class="cart-content-count">x 1</span> <strong><a href="shop-item.html">Rolex Classic Watch</a></strong> <em>$1230</em> <a href="javascript:void(0);" class="del-goods">&nbsp;</a> </li> 
+       </ul> 
+       <div class="text-right"> 
+        <a href="shop-shopping-cart.html" class="btn btn-default">View Cart</a> 
+        <a href="shop-checkout.html" class="btn btn-primary">Checkout</a> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <!--END CART --> 
+    <!-- BEGIN NAVIGATION --> 
+    <div class="header-navigation"> 
+    <ul> 	
+		<!-- 后台传过来的数据 -->
+		<li class="dropdown" th:each="menu,userStat : ${menuList}">  
+	        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" th:text="${menu.name}"></a>
+			<ul class="dropdown-menu" role="menu">
+	            <li th:class="${child.lists.size() > 0 ? 'dropdown-submenu' : ''}" th:each="child : ${menu.lists}"  th:if="${menu.lists.size() > 0}">
+	            	<a href="index-corporate.html" th:href="@{/category/list/}  + ${child.id}"><span th:text="${child.name}"></span><span class="tip tip-dark" >hot</span></a>
+	            	<ul class="dropdown-menu">
+	            		<li th:each="grand : ${child.lists}"><a href="#" th:href="@{/category/list/}  + ${grand.id}" data-thumb-preview="img/previews/preview-extra-restaurant.jpg" th:text="${grand.name}">Extra - Restaurant <span class="tip">new</span></a></li>
+	            	</ul>
+	            </li>
+	        </ul>
+	    </li> 
+	    
+	  <li class="menu-search"> <span class="sep"></span> <i class="fa fa-search search-btn"></i> 
+       <div class="search-box"> 
+        <form action="#"> 
+         <div class="input-group"> 
+          <input type="text" placeholder="Search" class="form-control"> 
+          <span class="input-group-btn"> <button class="btn btn-primary" type="submit">Search</button> </span> 
+         </div> 
+        </form> 
+       </div> 
+       </li>
+    </ul>   
+    </div> 
+    <!-- END NAVIGATION --> 
+   </div> 
+  </div> 
+  <!-- Header END --> 

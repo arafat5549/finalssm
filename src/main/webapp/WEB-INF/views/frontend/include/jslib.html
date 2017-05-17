@@ -1,0 +1,64 @@
+<!-- Load javascripts at bottom, this will reduce page load time -->
+<!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+<!--[if lt IE 9]>
+    <script src="../../assets/global/plugins/respond.min.js"></script>  
+    <![endif]-->
+  <script type="text/javascript">
+  		//var ctx = '', ctxStatic='assets';
+  		function paserUrl(url)
+  		{
+  			return "/"+url;
+  		}
+  </script>
+  <script src="../../assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript" th:src="@{/assets/global/plugins/jquery-1.11.0.min.js}"></script> 
+  <script src="../../assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript" th:src="@{/assets/global/plugins/jquery-migrate-1.2.1.min.js}"></script> 
+  <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" th:src="@{/assets/global/plugins/bootstrap/js/bootstrap.min.js}"></script> 
+  <script src="../../assets/frontend/layout/scripts/back-to-top.js" type="text/javascript" th:src="@{/assets/frontend/layout/scripts/back-to-top.js}"></script> 
+  <script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" th:src="@{/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js}"></script> 
+  <!-- END CORE PLUGINS --> 
+  <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) --> 
+  <script src="../../assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript" th:src="@{/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js}"></script>
+  <!-- pop up --> 
+  <script src="../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js" type="text/javascript" th:src="@{/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js}"></script>
+  <!-- slider for products --> 
+  <script src="../../assets/global/plugins/zoom/jquery.zoom.min.js" type="text/javascript" th:src="@{/assets/global/plugins/zoom/jquery.zoom.min.js}"></script>
+  <!-- product zoom --> 
+  <script src="../../assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js}"></script>
+  <!-- Quantity --> 
+  <!-- BEGIN LayerSlider --> 
+  <script src="../../assets/global/plugins/slider-layer-slider/js/greensock.js" type="text/javascript" th:src="@{/assets/global/plugins/slider-layer-slider/js/greensock.js}"></script>
+  <!-- External libraries: GreenSock --> 
+  <script src="../../assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js" type="text/javascript" th:src="@{/assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js}"></script>
+  <!-- LayerSlider script files --> 
+  <script src="../../assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript" th:src="@{/assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js}"></script>
+  <!-- LayerSlider script files --> 
+  <script src="../../assets/frontend/pages/scripts/layerslider-init.js" type="text/javascript" th:src="@{/assets/frontend/pages/scripts/layerslider-init.js}"></script> 
+  <!-- END LayerSlider --> 
+  
+  <script src="../../assets/global/plugins/rateit/src/jquery.rateit.js" type="text/javascript" th:src="@{/assets/global/plugins/rateit/src/jquery.rateit.js}"></script>
+  <script src="../../assets/frontend/layout/scripts/layout.js" type="text/javascript" th:src="@{/assets/frontend/layout/scripts/layout.js}"></script> 
+  <script type="text/javascript">
+        jQuery(document).ready(function() {
+            Layout.init();    
+            Layout.initOWL();
+            LayersliderInit.initLayerSlider();
+            Layout.initImageZoom();
+            Layout.initTouchspin();
+            Layout.initTwitter();
+        });
+  </script> 
+  <!-- END PAGE LEVEL JAVASCRIPTS --> 
+  
+  <!-- 全局js方法 -->
+  <script type="text/javascript">
+  /*
+  $("#viewProductPopup").click(function(){
+  			//$(this).attr("href");
+  			console.log($(this).attr("href"));
+  			
+  			//$("#product-pop-up").css("display","inline");
+  			//var href= document.getElementById("viewProductPopup").href; 
+  			//window.location.href = "#product-pop-up";
+  		});
+  */
+  </script>
