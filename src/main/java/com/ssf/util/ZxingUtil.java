@@ -134,6 +134,7 @@ public class ZxingUtil {
 	}
 
 	/**
+	 * 可以使用微信扫描
 	 * @param args
 	 */
 	public static void main(String[] args) {

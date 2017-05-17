@@ -371,7 +371,7 @@
                 <version>2.1</version>
                 <configuration>
                     <!-- <serverXml>src/main/resources/tomcatconf/server_cluster_8081.xml</serverXml> -->
-                    <port>8081</port>      <!-- 参数maven.tomcat.ajp.port   默认8080-->
+                    <port>8082</port>      <!-- 参数maven.tomcat.ajp.port   默认8080-->
                     <ajpPort>8010</ajpPort><!-- 参数maven.tomcat.port 默认0 -->
                     <path>/${project.artifactId}</path>
                     <uriEncoding>UTF-8</uriEncoding>

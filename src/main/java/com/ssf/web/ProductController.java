@@ -27,7 +27,7 @@ public class ProductController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     
-    private static final String VIEW_PATH = Globals.PREFIX_FRONTEND + "/product/";
+    private static final String VIEW_PATH = Globals.PREFIX_FRONTEND + "/";//"/product/";
     
     @Autowired
     private ProductService productService;

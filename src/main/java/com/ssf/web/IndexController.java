@@ -52,11 +52,12 @@ public class IndexController {
           return VIEW_PATH + "home";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    //测试页面- 有demo.html但没有demo.jsp
+    @RequestMapping(value = "/demo", method = RequestMethod.GET)
     public String test(){
 
         LOG.info("####test index----------2222");
-        return VIEW_PATH + "test";
+        return VIEW_PATH + "demo";
     }
 //    //1.简化参数封装
 //    @RequestMapping(value = "/v1", method = RequestMethod.GET)
@@ -78,9 +79,7 @@ public class IndexController {
     @RequestMapping(value = "/path/{path}", method = RequestMethod.GET)
     public String path(@PathVariable("path") String path, Model model) {
     	  LOG.info("invoke----------/path/"+path);
-          
     	  listDatas(model);
-          
           return VIEW_PATH + path;
     }
     

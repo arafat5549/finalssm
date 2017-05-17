@@ -1,6 +1,7 @@
 package com.ssf.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -14,10 +15,12 @@ import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.ssf.cache.RedisCache;
+import com.ssf.dao.CategoryDao;
 import com.ssf.model.Category;
 import com.ssf.model.Product;
 import com.ssf.service.CategoryService;
 import com.ssf.service.ProductService;
+import com.ssf.util.PageUtil;
 
 /**
  * Created by Administrator on 2017/5/10.
@@ -27,8 +30,10 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 	private static final String PREFIX_CAHCE = RedisCache.CAHCENAME + "|Category|";
-    //@Autowired
-    //private CategoryDao categoryDao;
+	private static final Class<Category> SELF_CLASS = Category.class;
+    @Autowired
+    private CategoryDao categoryDao;
+    
     @Autowired
     private ProductService productService;
     
@@ -41,47 +46,27 @@ public class CategoryServiceImpl implements CategoryService{
      * @return
      */
     private List<Category> findByParentId(Long pid){
-    	String cache_key = PREFIX_CAHCE + "findByParentId|" + pid;
+    	//String sql = "SELECT * FROM sys_category a WHERE a.parent_id="+pid;
     	
-    	List<Category> result_cache = cache.getListCache(cache_key, Category.class);
-		if (result_cache != null) {
-			LOG.info("get cache with key:" + cache_key);
-		} else {
-			String sql = "SELECT * FROM sys_category a WHERE a.parent_id="+pid;
-			//result_cache = categoryDao.selectList(sql);
-			
-			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
-			LOG.info("put cache with key:" + cache_key);
-			return result_cache;
-		}
-		return result_cache;
-		
-        //String sql = "SELECT * FROM sys_category a WHERE a.parent_id="+pid;
-        //return categoryDao.selectList(sql);
+    	String cache_key = PREFIX_CAHCE + "findByParentId|" + pid;
+		Map<Object , Object> paramMap = PageUtil.getPageParamMap();
+		paramMap.put("parentId", pid);
+		return cache.cacheList(cache_key, SELF_CLASS, paramMap, categoryDao, LOG);
+    	
     }
     /**
      * 获取商品的分类
      */
     private Category findByProductId(Long pid){
-    	
+    	//String sql = "SELECT * FROM sys_category a WHERE a.id="+product.getCategoryId();
     	Product  product = productService.findById(pid);
     	Assert.state(product!=null);
     	
-    	
     	String cache_key = PREFIX_CAHCE + "findByProductId|" + pid;
+    	Map<Object , Object> paramMap = PageUtil.getPageParamMap();
+    	paramMap.put("parentId", product.getCategoryId());
+    	return cache.cacheObject(cache_key, SELF_CLASS, paramMap, categoryDao, LOG);
     	
-    	Category result_cache = cache.getCache(cache_key, Category.class);
-		if (result_cache != null) {
-			LOG.info("get cache with key:" + cache_key);
-		} else {
-			String sql = "SELECT * FROM sys_category a WHERE a.id="+product.getCategoryId();
-			//result_cache = (Category) categoryDao.selectObject(sql);
-			
-			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
-			LOG.info("put cache with key:" + cache_key);
-			return result_cache;
-		}
-		return result_cache;
     }
     /*
      * -----------------------------Override区域--------------------------------
@@ -139,16 +124,20 @@ public class CategoryServiceImpl implements CategoryService{
 		Assert.state(id!=null && id > 0,"商品id不能为空");
 		
 		String cache_key = PREFIX_CAHCE + "findById|" + id;
-		Category result_cache = cache.getCache(cache_key, Category.class);
-		if (result_cache != null) {
-			LOG.info("get cache with key:" + cache_key);
-		} else {
-			// 缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
-			//result_cache = categoryDao.selectByPrimaryKey(id);
-			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
-			LOG.info("put cache with key:" + cache_key);
-			return result_cache;
-		}
-		return result_cache;
+    	Map<Object , Object> paramMap = PageUtil.getPageParamMap();
+    	paramMap.put("id", id);
+    	return cache.cacheObject(cache_key, SELF_CLASS, paramMap, categoryDao, LOG);
+		
+//		Category result_cache = cache.getCache(cache_key, Category.class);
+//		if (result_cache != null) {
+//			LOG.info("get cache with key:" + cache_key);
+//		} else {
+//			// 缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
+//			//result_cache = categoryDao.selectByPrimaryKey(id);
+//			cache.putCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
+//			LOG.info("put cache with key:" + cache_key);
+//			return result_cache;
+//		}
+//		return result_cache;
 	}
 }

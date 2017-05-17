@@ -25,14 +25,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="goods" items="${goodslist}">
+						<c:forEach var="product" items="${productList}">
 							<tr>
-								<td>${goods.goodsId}</td>
-								<td>${goods.title}</td>
-								<td>${goods.price}</td>
-								<td><c:if test="${goods.state==0}">已下架</c:if> <c:if test="${goods.state==1}">销售中</c:if></td>
-								<td>${goods.number}</td>
-								<td><button class="btn btn-info" id="goodsBuy" onclick="handler.goodsBuy(${goods.goodsId});">购买</button></td>
+								<td>${product.id}</td>
+								<td>${product.name}</td>
+								<td>${product.originPrice}</td>
+								<td><c:if test="${product.state==0}">已下架</c:if> <c:if test="${product.state==1}">销售中</c:if></td>
+								<td>${product.stock}</td>
+								<td><button class="btn btn-info" id="goodsBuy" onclick="handler.goodsBuy(${product.id});">购买</button></td>
 							</tr>
 						</c:forEach>
 					</tbody>

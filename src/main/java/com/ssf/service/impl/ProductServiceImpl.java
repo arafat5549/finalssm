@@ -1,6 +1,8 @@
 package com.ssf.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import com.ssf.dao.ProductImageDao;
 import com.ssf.model.Product;
 import com.ssf.model.ProductImage;
 import com.ssf.service.ProductService;
+import com.ssf.util.PageUtil;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -42,6 +45,9 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			// 缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
 			//result_cache = productDao.listPage(offset, limit);
+			Map<Object , Object>  paramMap = PageUtil.getPageParamMap(offset, limit);
+			result_cache = productDao.selectListByMap(paramMap);
+			
 			_initProduct(result_cache);
 			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:" + cache_key);
@@ -74,9 +80,11 @@ public class ProductServiceImpl implements ProductService {
 		Assert.state(p!=null && p.getCategoryId() > 0);
 		
 		String cache_key = PREFIX_CAHCE + "listRelatedProducts|" + p.getId();
-		String sql = "SELECT * FROM sys_product a WHERE a.category_id="+p.getCategoryId()+" AND a.id!="+p.getId();
-		
-		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
+		//String sql = "SELECT * FROM sys_product a WHERE a.category_id="+p.getCategoryId()+" AND a.id!="+p.getId();
+		Map<Object , Object>  paramMap = PageUtil.getPageParamMap();
+		paramMap.put("categoryId", p.getCategoryId());
+		paramMap.put("id", p.getId());
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, paramMap, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
@@ -85,10 +93,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> listPageByCategoryId(Long cid) {
 		String cache_key = PREFIX_CAHCE + "listPageByCategoryId|" + cid;
 		
-		String sql = "SELECT * FROM sys_product a WHERE a.category_id="+cid;
-		sql += " LIMIT 0,20";
-		
-		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
+//		String sql = "SELECT * FROM sys_product a WHERE a.category_id="+cid;
+//		sql += " LIMIT 0,20";
+		Map<Object , Object>  paramMap = PageUtil.getPageParamMap(0, 20);
+		paramMap.put("categoryId", cid);
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, paramMap, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
@@ -96,8 +105,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> listNewArrivals() {
 		String cache_key = PREFIX_CAHCE + "listNewArrivals";
-		String sql = "SELECT * FROM sys_product LIMIT 0,20";
-		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, sql, productDao,LOG);
+		//String sql = "SELECT * FROM sys_product LIMIT 0,20";
+		Map<Object , Object>  paramMap = PageUtil.getPageParamMap(0, 20);
+		List<Product> list = cache.cacheList(cache_key, SELF_CLASS, paramMap, productDao,LOG);
 		_initProduct(list);
 		return list;
 	}
@@ -117,8 +127,10 @@ public class ProductServiceImpl implements ProductService {
 	//根据id初始化关联的图片
 	private List<ProductImage> listProuctImagesByPId(Integer pid){
 		String cache_key = PREFIX_CAHCE + "listProuctImagesByPId|"+pid;
-		String sql = "SELECT * FROM sys_product_image a WHERE a.product_id="+pid;
-		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, sql, productImageDao,LOG);
+		//String sql = "SELECT * FROM sys_product_image a WHERE a.product_id="+pid;
+		Map<Object , Object> paramMap = PageUtil.getPageParamMap();
+		paramMap.put("productId",pid);
+		List<ProductImage> list = cache.cacheList(cache_key, ProductImage.class, paramMap, productImageDao,LOG);
 		return list;
 	}
 	

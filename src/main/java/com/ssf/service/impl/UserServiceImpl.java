@@ -14,6 +14,7 @@ import com.ssf.cache.RedisCache;
 import com.ssf.dao.UserDao;
 import com.ssf.model.User;
 import com.ssf.service.UserService;
+import com.ssf.util.PageUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,9 +29,9 @@ public class UserServiceImpl implements UserService {
 		if(Strings.isNullOrEmpty(name)){
 			return null;
 		}
-		Map<Object , Object> map = new HashMap<Object, Object>();
-		map.put("name",name);
-		List<User> list =  userDao.selectListByMap(map);
+		Map<Object , Object> paraMap = PageUtil.getPageParamMap();
+		paraMap.put("name",name);
+		List<User> list =  userDao.selectListByMap(paraMap);
 		return list!=null&&list.size()>0 ?list.get(0):null;
 	}
 	
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
 		List<User> result_cache=cache.getListCache(cache_key, User.class);
 		if(result_cache==null){
 			//缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
-			//result_cache=userDao.listPage(offset, limit);
+			Map<Object , Object> paraMap = PageUtil.getPageParamMap(offset, limit);
+			result_cache = userDao.selectListByMap(paraMap);
 			cache.putListCacheWithExpireTime(cache_key, result_cache, RedisCache.CAHCETIME);
 			LOG.info("put cache with key:"+cache_key);
 		}else{
