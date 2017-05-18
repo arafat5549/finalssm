@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssf.dao.UserDao">
-
   <resultMap id="BaseResultMap" type="com.ssf.model.User">
     <id column="sys_user_id" jdbcType="BIGINT" property="id" />
     <result column="sys_user_name" jdbcType="VARCHAR" property="name" />
@@ -12,13 +11,11 @@
     <result column="sys_user_update_time" jdbcType="VARCHAR" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler" />
     <result column="sys_user_DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler" />
   </resultMap>
-  
   <sql id="Base_Column_List">
     sys_user.id as sys_user_id, sys_user.name as sys_user_name, sys_user.password as sys_user_password, 
     sys_user.phone as sys_user_phone, sys_user.score as sys_user_score, sys_user.create_time as sys_user_create_time, 
     sys_user.update_time as sys_user_update_time, sys_user.DELETE_FLAG as sys_user_DELETE_FLAG
   </sql>
-  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -158,7 +155,6 @@
   <select id="selectListByMap" parameterType="map" resultMap="BaseResultMap">
      <include refid="OracleDialectPrefix" /> select <include refid="Base_Column_List" /> from  <if test="dynamicTableName != null and dynamicTableName != ''"> ${dynamicTableName}  sys_user </if><if test="dynamicTableName == null or dynamicTableName == ''"> sys_user sys_user</if> <include refid="Base_Query_Map_Condition" />  order by  id desc <include refid="OracleDialectSuffix" /><include refid="MysqlDialect" /> 
   </select>
-  
   <sql id="Base_Query_Map_Condition">
     <trim prefix="where" prefixOverrides="and | or">
       <if test="id != null and id != ''">

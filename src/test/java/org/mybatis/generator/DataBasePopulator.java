@@ -3,7 +3,6 @@ package org.mybatis.generator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,8 +17,9 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springside.modules.utils.io.URLResourceUtil;
 
-import com.ssf.common.utils.StringUtilss;
+import com.google.common.collect.Lists;
 
 /**
  * 运行sql语句 创建数据库和测试数据
@@ -28,25 +28,18 @@ import com.ssf.common.utils.StringUtilss;
  */
 public class DataBasePopulator {
 
-	private static final Properties PROPERTIES = new Properties();
+	
 	private static Logger logger = LoggerFactory.getLogger(DataBasePopulator.class);
+	//private static boolean init =false;
 	
-	static
-	{
-		try {
-			InputStream is = DataSourceFactory.class.getResourceAsStream("/jdbc.properties");
-			PROPERTIES.load(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
-	public static Connection getConnection() 
+	public static Connection getConnection(Properties props) 
 	{
-		String driver   = PROPERTIES.getProperty("jdbc.driverClassName");
-		String url      = PROPERTIES.getProperty("jdbc.url");
-		String username = PROPERTIES.getProperty("jdbc.username");
-		String password = PROPERTIES.getProperty("jdbc.password");
+		String driver   = props.getProperty("jdbc.driverClassName");
+		String url      = props.getProperty("jdbc.url");
+		String username = props.getProperty("jdbc.username");
+		String password = props.getProperty("jdbc.password");
 		Connection connection = null;
 		try {
 			Class.forName(driver);
@@ -56,26 +49,25 @@ public class DataBasePopulator {
 		} 
 		return connection;
 	}
-	/**
-	 *  初始化数据库创建数据库测试数据
-	 *  创建数据库和测试数据
-	 */
-	public static void initDatabase()
+	
+	public static void initDatabase(Properties props,List<String> sqls)
 	{
 		Connection connection = null;
 		Reader reader = null;
 		try {
 			
-			connection = getConnection();
+			connection = getConnection(props);
 			ScriptRunner scriptRunner = new ScriptRunner(connection);
 			
-			reader = Resources.getResourceAsReader("sql/finalssm.sql");
-			scriptRunner.runScript(reader);
-			logger.info("创建数据表结构成功:[sql/finalssm.sql]");
+			for (String sql:sqls) {
+				reader = Resources.getResourceAsReader(sql);
+				scriptRunner.runScript(reader);
+				logger.info("执行sql文件成功:["+sql+"]");
+			}
 			
-			reader = Resources.getResourceAsReader("sql/finalssm_data.sql");
-			scriptRunner.runScript(reader);
-			logger.info("生成数据成功:[sql/finalssm_data.sql]");
+//			reader = Resources.getResourceAsReader("sql/finalssm_data.sql");
+//			scriptRunner.runScript(reader);
+//			logger.info("生成数据成功:[sql/finalssm_data.sql]");
 			
 			connection.commit();
 			reader.close();
@@ -84,16 +76,24 @@ public class DataBasePopulator {
 			throw new RuntimeException(e);
 		}
 	}
+//	/**
+//	 *  初始化数据库创建数据库测试数据
+//	 *  创建数据库和测试数据
+//	 */
+//	public static void initDatabase(Properties props)
+//	{
+//		List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
+//		initDatabase(props, lists);
+//	}
 	
-	public static void main(String[] args) {
-		initDatabase();
-	}
 	/**
 	 * 获取所有数据库的名称
-	 * databaseId ='mysql' , "oracle" , "sqlserver"
+	 * 
+	 * 
+	 * @param databaseId ='mysql' , "oracle" , "sqlserver" 默认为 mysql
 	 * @return
 	 */
-	public static List<String> getTableNames(String dbName,String databaseId)
+	public static List<String> getTableNames(Properties props,String dbName,String databaseId)
 	{
 		//用sql获取数据库中所有的表名的方法：
 		//1、oracle下：select table_name from all_tables;
@@ -110,7 +110,7 @@ public class DataBasePopulator {
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;
 		try {
-			conn = getConnection();
+			conn = getConnection(props);
 			ptmt = conn.prepareStatement(sql);
 			rs = ptmt.executeQuery();
 			//ResultSetMetaData rsmd = rs.getMetaData();

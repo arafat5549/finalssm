@@ -74,14 +74,14 @@
             userId="${jdbc.username}" 
             password="${jdbc.password}" />
             
-        <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}\src\main\java" >
+        <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src\main\java" >
         	<!-- alexgaoyh 20160602 增加基础bean的继承操作，将通用属性集成到BaseEntity内部 -->
         	<property name="rootClass" value="com.ssf.common.mybatis.base.BaseEntity"/>
         </javaModelGenerator>
         
-        <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}\src\main\resources" />
+        <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\resources" />
         
-        <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}\src\main\java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\java" type="XMLMAPPER" />
         
         <!-- domainObjectName 部分，如果不加的话，好像数据库表结构是驼峰式的话，生成的*。java类文件不是驼峰式的结构，故加上这个配置部分 -->
         <!-- table 中增加属性 alias 部分，这一部分的设定，用来给表结构增加别名，如果出现关联查询的情况下，可以通过设定表结构的别名，来避免  Oracle00-918:未明确定义列的错误 -->
