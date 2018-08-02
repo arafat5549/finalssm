@@ -42,7 +42,7 @@
 		
 		<!-- 取消 Example 类文件的生成，在进行代码生成器的过程中，生成 selectCountByMap selectListByMap 两种方法，代替 Example 方法的生成 -->
 		<plugin type="com.ssf.common.mybatis.plugin.SelectCountAndListByMapPlugin"/>
-		<!-- 批量插入 -->
+		<!-- 批量插入 注意要ModelColumnPlugin和MyBatchInsertPlugin一起使用 -->
 		<plugin type="com.ssf.common.mybatis.plugin.ModelColumnPlugin"/>
 		<plugin type="com.ssf.common.mybatis.plugin.MyBatchInsertPlugin"/>
 		
