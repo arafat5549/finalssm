@@ -17,6 +17,10 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 import com.ssf.common.mybatis.exception.MybatisPluginException;
 
+/**
+ * 生成SelectListByMap
+ * 输入MAp作为参数
+ */
 public class SelectCountAndListByMapPlugin extends PluginAdapter {
 
 	/**

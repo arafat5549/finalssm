@@ -1,5 +1,7 @@
 package com.ssf.common.mybatis.base;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -44,5 +46,11 @@ public interface BaseMapper<T> {
 	
 	//测试方法-没有意义
 	List<T> selectTest(Map<Object, Object> map);
+
+	void batchInsert(List<T> list );
+	void batchInsertSelective(List<T> list,Object...params);
+
+	//void batchInsert(@Param("list")List<T> list );
+	//void batchInsertSelective(@Param("list")List<T> list,@Param("selective")Object...params);
 
 }

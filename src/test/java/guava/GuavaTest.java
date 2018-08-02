@@ -3,6 +3,7 @@ package guava;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.hash.Hashing;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
@@ -57,5 +58,23 @@ public class GuavaTest {
 	  	String retString = url.replace("Bak.html", ".html");
 	  	System.out.println(retString);
 	  	System.out.println("-----------------结束Guava测试-----------------------");
+
+		//Hashing.md5()
+	}
+
+	@Test
+	public void test() {
+		String input = "hello, world";
+		// 计算MD5
+		System.out.println(Hashing.md5().hashBytes(input.getBytes()).toString());
+		// 计算sha256
+		System.out.println(Hashing.sha256().hashBytes(input.getBytes()).toString());
+		// 计算sha512
+		System.out.println(Hashing.sha512().hashBytes(input.getBytes()).toString());
+		// 计算crc32
+		System.out.println(Hashing.crc32().hashBytes(input.getBytes()).toString());
+
+		System.out.println(Hashing.md5().hashUnencodedChars(input).toString());
+
 	}
 }

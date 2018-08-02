@@ -1,11 +1,11 @@
 package com.ssf.common.mybatis.base;
 
-import java.beans.Transient;
-import java.io.Serializable;
-
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.common.vo.enums.DeleteFlagEnum;
 
+import java.beans.Transient;
+import java.io.Serializable;
+import java.util.Date;
 /**
  * mybatis 部分，抽离公共基础model
  * @author wang
@@ -21,7 +21,7 @@ public class BaseEntity implements Serializable, IDynamicTableName{
 	/**
 	 * 主键ID， 主键部分
 	 */
-	private Long id;
+	//private Long id;
 
 	/**
 	 * 删除标示
@@ -31,24 +31,24 @@ public class BaseEntity implements Serializable, IDynamicTableName{
 	/**
 	 * 创建时间
 	 */
-	private String createTime;
+	private Date createTime;
 	/**
 	 * 创建时间
 	 */
-	private String updateTime;
+	private Date updateTime;
 	
 	/**
 	 * 动态表名部分，与数据库内真是的字段无关性
 	 */
     private String dynamicTableName;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public DeleteFlagEnum getDeleteFlag() {
 		return deleteFlag;
@@ -58,19 +58,19 @@ public class BaseEntity implements Serializable, IDynamicTableName{
 		this.deleteFlag = deleteFlag;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	
-	public String getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -94,7 +94,7 @@ public class BaseEntity implements Serializable, IDynamicTableName{
 	@Override
 	public String toString() {
 		 StringBuilder sb = new StringBuilder();
-	        sb.append(",id=").append(id);
+	        //sb.append(",id=").append(id);
 	        sb.append(",deleteFlag=").append(deleteFlag);
 	        sb.append(",createTime=").append(createTime);
 	        sb.append(",updateTime=").append(updateTime);

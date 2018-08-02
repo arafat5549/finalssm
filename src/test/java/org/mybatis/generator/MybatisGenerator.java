@@ -95,8 +95,8 @@ public class MybatisGenerator {
 	
 	public static void main(String[] args) 
 	{
-		List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
-		runSql(PROPERTIES,lists);
+		//List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
+		//runSql(PROPERTIES,lists);
 		createConfigs();
 		generator(OUT_CONFIG);
 	}

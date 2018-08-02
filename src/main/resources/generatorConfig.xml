@@ -28,12 +28,10 @@
         
         <!-- 为生成的Java模型创建一个toString方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-	
 		<!-- page plugin && add deleteLogicByIds method  -->
 		<!-- 单表逻辑的话， 可以增加下面的两个两个自定义插件，关联关系的话，建议注释掉如下的两个插件-->
 		
 		<plugin type="com.ssf.common.mybatis.plugin.PaginationPlugin"/>
-		
 		<plugin type="com.ssf.common.mybatis.plugin.DeleteLogicByIdsPlugin"/> 
 		
 		<!--  自定义的序列化 类文件 插件 -->
@@ -44,16 +42,17 @@
 		
 		<!-- 取消 Example 类文件的生成，在进行代码生成器的过程中，生成 selectCountByMap selectListByMap 两种方法，代替 Example 方法的生成 -->
 		<plugin type="com.ssf.common.mybatis.plugin.SelectCountAndListByMapPlugin"/>
+		<!-- 批量插入 -->
+		<plugin type="com.ssf.common.mybatis.plugin.ModelColumnPlugin"/>
+		<plugin type="com.ssf.common.mybatis.plugin.MyBatchInsertPlugin"/>
 		
-		<!-- 自定义注释部分（实体类entity生成过程中，将配置的数据库部分的注释部分生成，关键节点的注解部分生成） 
-		
+		<!-- 自定义注释部分（实体类entity生成过程中，将配置的数据库部分的注释部分生成，关键节点的注解部分生成）
 		<plugin type="com.ssf.common.mybatis.plugin.MyTableAnnotationPlugin"></plugin>
 		-->
-		<!-- 动态表名的处理，解决selectByPrimaryKeyAndTableName deleteByPrimaryKeyAndTableName 两个方法 -->
+		<!-- 动态表名的处理，解决selectByPrimaryKeyAndTableName deleteByPrimaryKeyAndTableName 两个方法
 		<plugin type="com.ssf.common.mybatis.plugin.MyDynamicTableNamePlugin"/>
-		
 		<plugin type="com.ssf.common.mybatis.plugin.MyInsertUpdateDynamicTableNamePlugin"/>
-		
+		-->
 		<!-- 为继承的BaseMapper接口添加对应的实现类 -->
 		<plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
            <property name="mappers" value="com.ssf.common.mybatis.base.BaseMapper"/>
@@ -73,12 +72,13 @@
             connectionURL="${jdbc.url}"
             userId="${jdbc.username}" 
             password="${jdbc.password}" />
-            
+
+		<!-- 增加基础bean的继承操作，将通用属性集成到BaseEntity内部 -->
         <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src\main\java" >
-        	<!-- alexgaoyh 20160602 增加基础bean的继承操作，将通用属性集成到BaseEntity内部 -->
-        	<property name="rootClass" value="com.ssf.common.mybatis.base.BaseEntity"/>
+        	<!--<property name="rootClass" value="com.ssf.common.mybatis.base.BaseEntity"/>-->
         </javaModelGenerator>
-        
+
+
         <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\resources" />
         
         <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\java" type="XMLMAPPER" />
@@ -146,7 +146,7 @@
         		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>  	
         	<columnOverride column="update_time" property="updateTime" 
         		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>  
-        	<!-- 生成代码字段名默认按驼峰命名， 单表逻辑的话， id createTime deleteFlag 三个字段为必须的，关联关系表结构的话，要注释掉如下的三个字段 -->
+        	<!-- 生成代码字段名默认按驼峰命名， 单表逻辑的话， id createTime deleteFlag 三个字段为必须的，关联关系表结构的话，要注释掉如下的三个字段
         	<columnOverride column="resource_type" property="resourceType" 
         		javaType="com.ssf.common.vo.enums.MenuResourceTypeEnum" typeHandler="com.ssf.common.vo.enums.handler.MenuResourceTypeEnumHandler"></columnOverride>
 
@@ -154,7 +154,7 @@
         	<columnOverride column="SQL_MODEL_OPERATION" property="sqlModelOperation" 
         		javaType="com.ssf.common.vo.enums.sql.operation.SQLOperationModelEnum" 
         		typeHandler="com.ssf.common.vo.enums.sql.operation.handler.SQLOperationModelEnumHandler"></columnOverride>
-        	
+        	 -->
         </table>
         
     </context>

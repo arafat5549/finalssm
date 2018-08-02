@@ -18,3 +18,9 @@ src/main/webapp/WEB-INF/lib/*
 
 src/main/webapp/assets/frontend/pages/img/products/*/
 src/main/webapp/assets/frontend/pages/img/products/*/*
+
+src/main/java/com/jqm/ssm/*
+src/main/java/com/jqm/ssm/*/*
+
+src/main/resources/com/
+src/main/resources/com//*
