@@ -21,6 +21,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  *
  */
 public class DeleteLogicByIdsPlugin extends PluginAdapter {
+	public static final String METHOD_NAME = "deleteLogicByIds";  // 方法名
 
 	/**
 	 * {@inheritDoc}
@@ -33,12 +34,9 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
-			Interface interfaze, IntrospectedTable introspectedTable) {
+	public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,Interface interfaze, IntrospectedTable introspectedTable) {
 
-			interfaze.addMethod(generateDeleteLogicByIds(method,
-					introspectedTable));
-
+		interfaze.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
 
@@ -46,12 +44,10 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(
-			Method method, Interface interfaze,
+	public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method, Interface interfaze,
 			IntrospectedTable introspectedTable) {
 
-			interfaze.addMethod(generateDeleteLogicByIds(method,
-					introspectedTable));
+			interfaze.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 
 		return true;
 	}
@@ -63,8 +59,7 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 	public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
 			TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 		
-			topLevelClass.addMethod(generateDeleteLogicByIds(method,
-					introspectedTable));
+			topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
 
@@ -76,8 +71,7 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 			Method method, TopLevelClass topLevelClass,
 			IntrospectedTable introspectedTable) {
 		
-			topLevelClass.addMethod(generateDeleteLogicByIds(method,
-					introspectedTable));
+			topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
 	
@@ -90,7 +84,7 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 
 		// 产生分页语句前半部分
 		XmlElement deleteLogicByIdsElement = new XmlElement("update");
-		deleteLogicByIdsElement.addAttribute(new Attribute("id", "deleteLogicByIds"));
+		deleteLogicByIdsElement.addAttribute(new Attribute("id", METHOD_NAME));
 		
 		deleteLogicByIdsElement.addElement(
 				new TextElement(
@@ -105,17 +99,12 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 
 	private Method generateDeleteLogicByIds(Method method, IntrospectedTable introspectedTable) {
 		
-		Method m = new Method("deleteLogicByIds");
-		
+		Method m = new Method(METHOD_NAME);
 		m.setVisibility(method.getVisibility());
-		
 		m.setReturnType(FullyQualifiedJavaType.getIntInstance());
-
 		m.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "deleteFlag", "@Param(\"deleteFlag\")"));
 		m.addParameter(new Parameter(new FullyQualifiedJavaType("Integer[]"), "ids", "@Param(\"ids\")"));
-
-		context.getCommentGenerator().addGeneralMethodComment(m,
-				introspectedTable);
+		context.getCommentGenerator().addGeneralMethodComment(m,introspectedTable);
 		return m;
 	}
 

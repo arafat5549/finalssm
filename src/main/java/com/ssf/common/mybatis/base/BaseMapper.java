@@ -47,8 +47,8 @@ public interface BaseMapper<T> {
 	//测试方法-没有意义
 	List<T> selectTest(Map<Object, Object> map);
 
-	void batchInsert(List<T> list );
-	void batchInsertSelective(List<T> list,Object...params);
+//	void batchInsert(List<T> list );
+//	void batchInsertSelective(List<T> list,Object...params);
 
 	//void batchInsert(@Param("list")List<T> list );
 	//void batchInsertSelective(@Param("list")List<T> list,@Param("selective")Object...params);
