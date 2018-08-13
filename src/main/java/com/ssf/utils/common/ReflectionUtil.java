@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2005-2012 springside.org.cn
  */
-package com.ssf.util.common;
+package com.ssf.utils.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

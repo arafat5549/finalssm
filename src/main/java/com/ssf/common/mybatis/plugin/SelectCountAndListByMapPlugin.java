@@ -37,8 +37,8 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		/*
 		interfaze.addMethod(generateSelectCountByMap(method, introspectedTable));
 		interfaze.addMethod(generateSelectListByMap(method, introspectedTable));
-		interfaze.addImportedType(new FullyQualifiedJavaType("java.util.Map"));
-		interfaze.addImportedType(new FullyQualifiedJavaType("java.util.List"));
+		interfaze.addImportedType(new FullyQualifiedJavaType("java.utils.Map"));
+		interfaze.addImportedType(new FullyQualifiedJavaType("java.utils.List"));
 		*/
 		return true;
 	}
@@ -326,7 +326,7 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		
 		m.setVisibility(method.getVisibility());
 		
-		m.setReturnType(new FullyQualifiedJavaType("java.util.List<"+introspectedTable.getBaseRecordType()+">"));
+		m.setReturnType(new FullyQualifiedJavaType("java.utils.List<"+introspectedTable.getBaseRecordType()+">"));
 
 		m.addParameter(new Parameter(new FullyQualifiedJavaType("Map<Object, Object>"), "map"));
 

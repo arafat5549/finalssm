@@ -52,13 +52,13 @@ public class MyJoinPlugin extends PluginAdapter {
      */
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        FullyQualifiedJavaType map = new FullyQualifiedJavaType("java.util.HashMap");
+        FullyQualifiedJavaType map = new FullyQualifiedJavaType("java.utils.HashMap");
         // 方法生成
         Method method = new Method(METHOD_NAME);
         // 方法可见性 interface会忽略
         // method.setVisibility(JavaVisibility.PUBLIC);
         // 返回值类型
-        FullyQualifiedJavaType rettype = new FullyQualifiedJavaType("java.util.List");
+        FullyQualifiedJavaType rettype = new FullyQualifiedJavaType("java.utils.List");
         rettype.addTypeArgument(map);
         method.setReturnType(rettype);
 
@@ -139,7 +139,7 @@ public class MyJoinPlugin extends PluginAdapter {
         // ----------------------------------------- 表中是否有blob类型字段 ---------------------------------------
         if (introspectedTable.hasBLOBColumns()) {
             // 添加返回类型
-            selectOneElement.addAttribute(new Attribute("resultType", "java.util.HashMap"));
+            selectOneElement.addAttribute(new Attribute("resultType", "java.utils.HashMap"));
             // 添加参数类型
             selectOneElement.addAttribute(new Attribute("parameterType", introspectedTable.getExampleType()));
             // 添加查询SQL
@@ -206,7 +206,7 @@ public class MyJoinPlugin extends PluginAdapter {
 //            selectOneElement.addElement(new TextElement("limit 1"));
         } else {
             // 添加返回类型
-            selectOneElement.addAttribute(new Attribute("resultType", "java.util.HashMap"));
+            selectOneElement.addAttribute(new Attribute("resultType", "java.utils.HashMap"));
             // 添加参数类型
             selectOneElement.addAttribute(new Attribute("parameterType", introspectedTable.getExampleType()));
             selectOneElement.addElement(new TextElement("select")); //$NON-NLS-1$

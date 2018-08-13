@@ -26,12 +26,12 @@ import org.mybatis.generator.config.MergeConstants;
  * ---------------------------------------------------------------------------
  * 插件评论生成工具
  * ---------------------------------------------------------------------------
- * @author: hewei
+ * @author: wangyao
  * @time:2016/12/28 17:57
  * ---------------------------------------------------------------------------
  */
 public class CommentTools {
-
+    private static final String AUTHOR_NAME  ="wangyao";
     /**
      * 生成通用属性注解
      *
@@ -48,7 +48,7 @@ public class CommentTools {
 
         field.addJavaDocLine(" *");
         field.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
-        field.addJavaDocLine(" * @author hewei");
+        field.addJavaDocLine(" * @author "+AUTHOR_NAME);
 
         field.addJavaDocLine(" */"); //$NON-NLS-1$
     }
@@ -68,7 +68,7 @@ public class CommentTools {
         innerClass.addJavaDocLine(sb.toString());
         innerClass.addJavaDocLine(" *");
         innerClass.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
-        innerClass.addJavaDocLine(" * @author hewei");
+        innerClass.addJavaDocLine(" * @author "+AUTHOR_NAME);
         innerClass.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
@@ -87,7 +87,7 @@ public class CommentTools {
         innerEnum.addJavaDocLine(sb.toString());
         innerEnum.addJavaDocLine(" *");
         innerEnum.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
-        innerEnum.addJavaDocLine(" * @author hewei");
+        innerEnum.addJavaDocLine(" * @author "+AUTHOR_NAME);
         innerEnum.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
@@ -106,7 +106,7 @@ public class CommentTools {
         method.addJavaDocLine(sb.toString());
         method.addJavaDocLine(" *");
         method.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
-        method.addJavaDocLine(" * @author hewei");
+        method.addJavaDocLine(" * @author "+AUTHOR_NAME);
         method.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
@@ -124,7 +124,7 @@ public class CommentTools {
         sb.append(MergeConstants.NEW_ELEMENT_TAG);
         xmlElement.addElement(new TextElement(sb.toString()));
         xmlElement.addElement(new TextElement("  这个节点为代码生成工具生成，请不要修改!")); //$NON-NLS-1$
-        xmlElement.addElement(new TextElement("  @author hewei"));
+        xmlElement.addElement(new TextElement("  @author "+AUTHOR_NAME));
 
         xmlElement.addElement(new TextElement("-->")); //$NON-NLS-1$
     }
@@ -144,7 +144,7 @@ public class CommentTools {
         interf.addJavaDocLine(sb.toString());
         interf.addJavaDocLine(" *");
         interf.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
-        interf.addJavaDocLine(" * @author hewei");
+        interf.addJavaDocLine(" * @author "+AUTHOR_NAME);
         interf.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 

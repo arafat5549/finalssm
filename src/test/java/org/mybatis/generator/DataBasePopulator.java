@@ -1,7 +1,5 @@
 package org.mybatis.generator;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,16 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import org.apache.ibatis.datasource.DataSourceFactory;
+import com.google.common.collect.Maps;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springside.modules.utils.io.URLResourceUtil;
 
-import com.google.common.collect.Lists;
 
 /**
  * 运行sql语句 创建数据库和测试数据
@@ -133,4 +130,45 @@ public class DataBasePopulator {
 		}
 		return lists;
 	}
+	/**
+	 * 获取数据库表的注释信息
+	 *
+	 */
+	public static Map<String,String> getTableComments(Properties props, String dbName, String databaseId)
+	{
+		String sql = "select table_name,table_comment from information_schema.tables where table_schema='"+dbName+"' and table_type='base table';";
+		if(databaseId == "oracle"){
+			sql = "select table_name,table_comment from all_tables;";
+		}
+		Map<String,String> maps = Maps.newHashMap();//new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection(props);
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();;
+			while(rs.next()){
+				String tname   = rs.getString("table_name");
+
+				String comment = rs.getString("table_comment");
+				//lists.add(tname);
+				if(!MybatisGenerator.isUnionKey(tname))
+					maps.put(tname, comment);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null )   rs.close();
+				if(ptmt!=null ) ptmt.close();
+				if(conn!=null ) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return maps;
+	}
+
 }

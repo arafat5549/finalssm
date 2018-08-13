@@ -1,4 +1,4 @@
-package com.ssf.util;
+package com.ssf.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -82,14 +82,22 @@ public class GeneratorConfigXMLUtil {
         for (String tname : tableNames) {
 			//System.out.println(tname);
 			Element newele = (Element) CloneUtils.clone(ele); 
-			String base = StringUtilss.toCamelCase(tname.replace("sys_", ""));
-			base = StringUtils.capitalize(base);
-			newele.addAttribute("mapperName", base +"Dao");
-			newele.addAttribute("tableName",  tname);
-			newele.addAttribute("domainObjectName", base);
-			newele.addAttribute("alias", tname);  
-	        
-	        ele.getParent().add(newele);
+			String base = StringUtilss.toCamelCase(MybatisGenerator.getRealClassName(tname));//tname.replace(MybatisGenerator.BASE_PREFIX, "")
+
+			//String suffix= "";
+			//String keys [] = tname.split(MybatisGenerator.BASE_PREFIX)[1].split("_");
+			if(MybatisGenerator.isUnionKey(tname)){
+
+			}
+			else{
+				base = StringUtils.capitalize(base);
+				newele.addAttribute("mapperName", base +"Dao");
+				newele.addAttribute("tableName",  tname);
+				newele.addAttribute("domainObjectName", base);
+				newele.addAttribute("alias", tname);
+				ele.getParent().add(newele);
+			}
+
 		}
         ele.getParent().remove(ele);
 	

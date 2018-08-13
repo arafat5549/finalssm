@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.ssf.common.mybatis.base.BaseMapper;
-import com.ssf.util.ProtoStuffSerializerUtil;
+import com.ssf.utils.ProtoStuffSerializerUtil;
 
 /**
  * redis缓存

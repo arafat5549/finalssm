@@ -1,4 +1,4 @@
-package com.ssf.util;
+package com.ssf.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.ssf.dto.BaseResult;
-import com.ssf.util.common.JsonMapper;
+import com.ssf.utils.common.JsonMapper;
 
 /**
  * 错误信息统一处理

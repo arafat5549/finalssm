@@ -11,7 +11,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
-import com.ssf.util.ProtoStuffSerializerUtil;
+import com.ssf.utils.ProtoStuffSerializerUtil;
 
 
 /**

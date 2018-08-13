@@ -1,4 +1,4 @@
-package com.ssf.util;
+package com.ssf.utils;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

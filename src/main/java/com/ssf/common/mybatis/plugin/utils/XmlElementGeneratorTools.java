@@ -27,7 +27,7 @@ import org.mybatis.generator.config.GeneratedKey;
  * ---------------------------------------------------------------------------
  * Xml 节点生成工具 参考 org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator
  * ---------------------------------------------------------------------------
- * @author: hewei
+ * @author: wangyao
  * @time:2016/12/29 16:47
  * ---------------------------------------------------------------------------
  */

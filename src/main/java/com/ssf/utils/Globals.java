@@ -1,4 +1,4 @@
-package com.ssf.util;
+package com.ssf.utils;
 
 /***
  * 所用常量的集合

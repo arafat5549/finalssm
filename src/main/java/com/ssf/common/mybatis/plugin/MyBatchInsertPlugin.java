@@ -99,7 +99,9 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         // 添加参数
         FullyQualifiedJavaType tList = FullyQualifiedJavaType.getNewListInstance();
         tList.addTypeArgument(introspectedTable.getRules().calculateAllFieldsClass());
-        mBatchInsert.addParameter(new Parameter(tList, "list", "@Param(\"list\")"));
+        String anno1 = "@Param(\"list\")";
+        String anoo2 = "@Param(\"selective\")";
+        mBatchInsert.addParameter(new Parameter(tList, "list"));
         // 添加方法说明
         CommentTools.addGeneralMethodComment(mBatchInsert, introspectedTable);
         // interface 增加方法
@@ -111,8 +113,8 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         mBatchInsertSelective.setReturnType(FullyQualifiedJavaType.getIntInstance());
         // 添加参数
         FullyQualifiedJavaType tSelective = new FullyQualifiedJavaType(introspectedTable.getRules().calculateAllFieldsClass().getShortName()+"."+ModelColumnPlugin.ENUM_NAME);
-        mBatchInsertSelective.addParameter(new Parameter(tList, "list", "@Param(\"list\")"));
-        mBatchInsertSelective.addParameter(new Parameter(tSelective, "selective", "@Param(\"selective\")", true));
+        mBatchInsertSelective.addParameter(new Parameter(tList, "list"));
+        mBatchInsertSelective.addParameter(new Parameter(tSelective, "selective", true));
         // 添加方法说明
         CommentTools.addGeneralMethodComment(mBatchInsertSelective, introspectedTable);
         // interface 增加方法

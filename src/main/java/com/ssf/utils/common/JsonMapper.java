@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2014 <a href="http://www.iwantclick.com">iWantClick</a>iwc.shop All rights reserved.
  */
-package com.ssf.util.common;
+package com.ssf.utils.common;
 
 import java.io.IOException;
 import java.util.List;

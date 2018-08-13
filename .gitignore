@@ -2,6 +2,9 @@
 .idea/*
 *.iml
 
+src/main/test/*.dao/
+src/main/test/*.dao/*
+
 .DS_Store
 */.DS_Store
 
