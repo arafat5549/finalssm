@@ -4,6 +4,8 @@
 
 src/main/test/*.dao/
 src/main/test/*.dao/*
+src/main/resources/*.dao/
+src/main/resources/*.dao/*
 
 .DS_Store
 */.DS_Store

@@ -2,7 +2,7 @@ package ${packageName}.impl;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -17,10 +17,8 @@ import ${myBasePackage}.util.SpringContextHolder;
 import ${myBasePackage}.cache.RedisCache;
 import ${myBasePackage}.util.PageUtil;
 
-import com.google.common.base.Strings;
-import com.jqm.ssm.util.page.Page;
-import com.jqm.ssm.misc.Constants;
-import com.google.common.collect.Maps;
+//#import ${myBasePackage}.common.myPage.MyPageView;
+//#import ${myBasePackage}.common.vo.mybatis.pagination.Page;
 /**
  * 
  * I${className}Service 接口实现类
@@ -53,41 +51,24 @@ public class ${className}ServiceImpl implements I${className}Service {
 		return list.size()>=1 ? list.get(0) : null;
     }
 	@Override
-	public List<${className}> selectListByMap(Map<Object, Object> map,String cacheKey) {
+	public List<${className}> selectListByMap(Map<Object, Object> map) {
 		String cache_key = PREFIX_CAHCE + "selectListByMap";
-		if(springContextHolder.getRedisAcaliable() && !Strings.isNullOrEmpty(cacheKey))
+		if(springContextHolder.getRedisAcaliable())
 		{
-			cache_key = cache_key + "|" + cacheKey;
 			return redisCache.cacheList(cache_key, SELF_CLASS, map, mapper, LOG);
 		}
 		return mapper.selectListByMap(map);
 	}
 	@Override
-	public List<${className}> selectListByMap( Map<Object, Object> map) {
-    	return selectListByMap(map,"");
-    }
-
-	@Override
-	public List<${className}> listPage(int offset,int limit,Map<Object, Object> map,String cacheKey)
+	public List<${className}> listPage(int offset,int limit,Map<Object, Object> map)
 	{
 		String cache_key = PREFIX_CAHCE + "listPage|" + offset +"|"+ limit;
-		if(map == null) map = Maps.newHashMap();
-		if(offset>=0 && limit>=0) {
-			Page page = new Page(offset, limit);
-			map.put("page",page);
-		}
-		if(springContextHolder.getRedisAcaliable()&& !Strings.isNullOrEmpty(cacheKey))
+		if(springContextHolder.getRedisAcaliable())
 		{
-    		cache_key = cache_key + "|" + cacheKey;
 			return redisCache.cacheList(cache_key, SELF_CLASS, PageUtil.getPageParamMap(offset, limit,map), mapper, LOG);
 		}
 		return mapper.selectListByMap(map);
 	}
-    @Override
-    public List<${className}> listPage(int offset,int limit,Map<Object, Object> map)
-    {
-    	return listPage(offset,limit,map,"");
-    }
 
 	@Override
 	public ${className} selectByPrimaryKey(${idField} id) {

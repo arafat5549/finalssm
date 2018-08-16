@@ -33,21 +33,20 @@ public class ${className}DaoTest {
 		System.out.println("测试selectListByMap："+ret);
 	}
 
-	@Test
-	public void selectByPrimaryKeyTest(<#if idField == "Integer"> Integer id</#if> <#if idField == "Long">Long id</#if> <#if idField == "String"> String id</#if>) {
+	<#--@Test-->
+	<#--public void selectByPrimaryKeyTest(${idField} id) {-->
 
-		
-		${className} ret = mapper.selectByPrimaryKey(id);
-		System.out.println("测试selectByPrimaryKey："+ret);
-	}
-	
-	//
-	@Test
-	public void deleteByPrimaryKeyTest(<#if idField == "Integer"> Integer id</#if> <#if idField == "Long">Long id</#if> <#if idField == "String"> String id</#if>) {
+		<#---->
+		<#--${className} ret = mapper.selectByPrimaryKey(id);-->
+		<#--System.out.println("测试selectByPrimaryKey："+ret);-->
+	<#--}-->
+	<#---->
+	<#--@Test-->
+	<#--public void deleteByPrimaryKeyTest(${idField} id) {-->
 
-		int ret = mapper.deleteByPrimaryKey(id);
-		System.out.println("测试deleteByPrimaryKeyTest："+ret);
-	}
+		<#--int ret = mapper.deleteByPrimaryKey(id);-->
+		<#--System.out.println("测试deleteByPrimaryKeyTest："+ret);-->
+	<#--}-->
 	
 	//@Test
 	//public void deleteLogicByIdsTest() {

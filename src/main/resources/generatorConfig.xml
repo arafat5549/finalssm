@@ -55,7 +55,7 @@
 		-->
 		<!-- 为继承的BaseMapper接口添加对应的实现类 -->
 		<plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
-           <property name="mappers" value="com.ssf.common.mybatis.base.BaseMapper"/>
+           <property name="mappers" value="${inherit_basemapper}"/>
          </plugin>
          
         <plugin type="com.ssf.common.mybatis.plugin.OverIsMergeablePlugin" />

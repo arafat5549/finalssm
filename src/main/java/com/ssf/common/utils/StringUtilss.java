@@ -1,7 +1,6 @@
 package com.ssf.common.utils;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -934,4 +933,41 @@ public class StringUtilss {
 		}
 		return sBuffer.toString();
 	}
-}
+	//
+
+	/**
+	 * 替换文本文件中的 非法字符串
+	 * @throws IOException
+	 */
+	public static void replacTextContent(File file,String srcStr,String  replaceStr) throws IOException {
+		//原有的内容
+		//String srcStr = "name:";
+		//要替换的内容
+		//String replaceStr = "userName:";
+		// 读
+		//File file = new File(path);
+		FileReader in = new FileReader(file);
+		BufferedReader bufIn = new BufferedReader(in);
+		// 内存流, 作为临时流
+		CharArrayWriter tempStream = new CharArrayWriter();
+		// 替换
+		String line = null;
+		while ((line = bufIn.readLine()) != null) {
+			// 替换每行中, 符合条件的字符串
+			line = line.replaceAll(srcStr, replaceStr);
+			// 将该行写入内存
+			tempStream.write(line);
+			// 添加换行符
+			tempStream.append(System.getProperty("line.separator"));
+		}
+		// 关闭 输入流
+		bufIn.close();
+		// 将内存中的流 写入 文件
+		FileWriter out = new FileWriter(file);
+		tempStream.writeTo(out);
+		out.close();
+		System.out.println("====path:" + file);
+		}
+
+
+	}

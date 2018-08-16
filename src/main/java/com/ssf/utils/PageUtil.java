@@ -26,16 +26,6 @@ public class PageUtil {
 		return map;
 	}
 
-
-//	public static Map<Object,Object> getPageParamMap()
-//	{
-//		return new HashMap<Object, Object>();
-//	}
-//
-//	public static Map<Object , Object> getPageParamMap(int offset,int limit){
-//		return  getPageParamMap(offset, limit,null);
-//	}
-
 	public static Map<Object , Object> getPageParamMap(int offset,int limit,Map<Object, Object> paramMap){
 		if(paramMap==null){
 			paramMap = new HashMap<Object, Object>();

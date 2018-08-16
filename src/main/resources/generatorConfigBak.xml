@@ -19,7 +19,7 @@
     <plugin type="com.ssf.common.mybatis.plugin.ModelColumnPlugin"/>
     <plugin type="com.ssf.common.mybatis.plugin.MyBatchInsertPlugin"/>
     <plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
-      <property name="mappers" value="com.ssf.common.mybatis.base.BaseMapper"/>
+      <property name="mappers" value="${inherit_basemapper}"/>
     </plugin>
     <plugin type="com.ssf.common.mybatis.plugin.OverIsMergeablePlugin"/>
     <commentGenerator type="com.ssf.common.mybatis.plugin.MyCommentGeneratorPlugin">
@@ -60,6 +60,11 @@
       <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
     </table>
     <table mapperName="LogtypeDao" schema="" tableName="water_logtype" domainObjectName="Logtype" delimitAllColumns="true" alias="water_logtype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
+      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+    </table>
+    <table mapperName="MenucateDao" schema="" tableName="water_menucate" domainObjectName="Menucate" delimitAllColumns="true" alias="water_menucate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
       <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
       <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>

@@ -1,7 +1,9 @@
 package org.mybatis.generator;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -13,8 +15,12 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+import com.google.common.io.Files;
+import com.jqm.ssm.entity.Menucate;
+import com.ssf.common.utils.StringUtilss;
 import org.apache.commons.collections.ArrayStack;
 import org.mybatis.generator.api.ShellRunner;
+import org.springside.modules.utils.io.IOUtil;
 import org.springside.modules.utils.io.URLResourceUtil;
 import org.xml.sax.SAXException;
 
@@ -194,17 +200,94 @@ public class MybatisGenerator {
 	public static boolean isUnionKey(String tableName){
 		return tableName.split(MybatisGenerator.BASE_PREFIX)[1].split("_").length >=2;
 	}
+
+	private static void init(){
+		String basePath_src = System.getProperty("user.dir")+ "\\src\\main\\java\\";
+		Map<String,String> paramMap = Maps.newHashMap();
+		paramMap.put("inherit_basemapper","com.ssf.common.mybatis.base.BaseMapper");//com.ssf.common.mybatis.base.BaseMapper
+		//准备工作
+		for(String key : paramMap.keySet()){
+			String conf = PROPERTIES.getProperty(key);
+			if(conf != null && !"".equals(conf)){
+				System.out.println(key+" : "+paramMap.get(key)+" , "+conf);
+				if(paramMap.get(key) != conf){
+					try {
+						String from = paramMap.get(key).replaceAll("\\.","\\/");
+						String to = conf.replaceAll("\\.","\\/");
+						System.out.println(conf.replace(".BaseMapper",""));
+						File tofile = new File(basePath_src+to+".java");
+						if(!tofile.exists()){
+							Files.createParentDirs(tofile);
+							Files.copy(new File(basePath_src+from+".java"),tofile);
+							StringUtilss.replacTextContent(tofile,"com.ssf.common.mybatis.base",conf.replace(".BaseMapper",""));
+						}
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}else{
+				PROPERTIES.put(key,paramMap.get(key));
+			}
+		}
+	}
+
+	public static <T> void copyTo(Class<T> cls,String src,String dest){
+		String name = cls.getSimpleName();
+		String fullname = cls.getName();
+
+		String basePath = src+"\\src\\main\\java\\";
+		String entity = (PROPERTIES.getProperty("myModelPackage")+"\\"+name).replaceAll("\\.","\\\\");
+		String dao = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
+		String daoxml = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
+		String service = (PROPERTIES.getProperty("myServicePackage")+"\\I"+name).replaceAll("\\.","\\\\");
+		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+"\\impl\\"+name).replaceAll("\\.","\\\\");
+		File entityfile = new File(basePath	+ entity+".java");
+		File daofile   = new File(basePath	+ dao+"Dao.java");
+		File daoxmlfile = new File( src+"\\src\\main\\resources\\"	+ daoxml+"Dao.xml");
+		File servicefile   = new File(basePath + service+"Service.java");
+		File serviceImplfile   = new File(basePath + serviceImpl+"ServiceImpl.java");
+
+		String dest_basePath = dest+"\\src\\main\\java\\";
+		String dest_entity = (PROPERTIES.getProperty("myModelPackage")+"\\"+name).replaceAll("\\.","\\\\");
+		String dest_dao = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
+		String dest_daoxml = (name).replaceAll("\\.","\\\\");
+		String dest_service = (PROPERTIES.getProperty("myServicePackage")+"\\I"+name).replaceAll("\\.","\\\\");
+		String dest_serviceImpl = (PROPERTIES.getProperty("myServicePackage")+"\\impl\\"+name).replaceAll("\\.","\\\\");
+		File dest_entityfile = new File(dest_basePath	+ dest_entity+".java");
+		File dest_daofile   = new File(dest_basePath	+ dest_dao+"Dao.java");
+		File dest_daoxmlfile = new File( dest+"\\src\\main\\resources\\mapper\\"	+ dest_daoxml+"Dao.xml");
+		File dest_servicefile   = new File(dest_basePath + dest_service+"Service.java");
+		File dest_serviceImplfile   = new File(dest_basePath + dest_serviceImpl+"ServiceImpl.java");
+//		System.out.println(entityfile +" 	"+dest_entityfile);
+//		System.out.println(daofile+" 	"+dest_daofile);
+//		System.out.println(daoxmlfile+" 	"+dest_daoxmlfile);
+//		System.out.println(servicefile+" 	"+dest_servicefile);
+//		System.out.println(serviceImplfile+" 	"+dest_serviceImplfile);
+
+		try {
+			Files.copy(entityfile,dest_entityfile);
+			Files.copy(daofile,dest_daofile);
+			Files.copy(daoxmlfile,dest_daoxmlfile);
+			Files.copy(servicefile,dest_servicefile);
+			Files.copy(serviceImplfile,dest_serviceImplfile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	//
 	public static void main(String[] args) 
 	{
+		//init();
 		//List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
 		//runSql(PROPERTIES,lists);
-
 		//createConfigs();
 		//generator(OUT_CONFIG);
+		//generateCode();
 
-		//
-		generateCode();
+		copyTo(Menucate.class, System.getProperty("user.dir"),"D:\\workspace\\IdeaProject\\RiverResponsibleSystem\\RiverResponsibleSystem");
 	}
 
 }

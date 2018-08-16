@@ -31,10 +31,8 @@ public interface I${className}Service {
 	 * @return
 	 */
 	${className} selectObjByMap(Map<Object, Object> map);
-    List<${className}> selectListByMap(Map<Object, Object> map,String cacheKey);
 	List<${className}> selectListByMap(Map<Object, Object> map);
 
-    List<${className}> listPage(int offset,int limit,Map<Object, Object> map,String cacheKey);
 	List<${className}> listPage(int offset,int limit,Map<Object, Object> map);
 
 	${className} selectByPrimaryKey(${idField} id);

@@ -136,7 +136,8 @@ public class CodeGeneratorUtil {
 		Multimap<String, String> multimap = MybatisGenerator.getTableMultimap(tableNames, prefixs);
 		String servicePackage = BASE_PACKAGE+".service";
 		String daoPackage     = props.getProperty("myBussinessPackage");
-		String modelPackage   = props.getProperty("myModelPackage"); 
+		String modelPackage   = props.getProperty("myModelPackage");
+		String myBasePackage   = props.getProperty("myBasePackage");
 		//获取主键类型
 		
 		for (String key : multimap.keySet()) {
@@ -146,7 +147,7 @@ public class CodeGeneratorUtil {
 			String modelPackageName = MybatisGenerator.parsePackageName(modelPackage, key);
 			for (String tname : multimap.get(key)) {
 				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
-				createTemplate(servicePackageName,daoPackageName,modelPackageName,clsName);
+				createTemplate(myBasePackage,servicePackageName,daoPackageName,modelPackageName,clsName);
 			}
 		}
 		
@@ -154,7 +155,7 @@ public class CodeGeneratorUtil {
 	/**
 	 * -------------------生成模板---------------------
 	 */
-	private static void createTemplate(String packageName,String daoPackageName,String modelPackageName,String clsName) {
+	private static void createTemplate(String myBasePackage,String packageName,String daoPackageName,String modelPackageName,String clsName) {
 		Map<String, Object> root = new HashMap<String, Object>();
 		//子文件的包名
 		root.put("packageName", packageName);
@@ -164,6 +165,7 @@ public class CodeGeneratorUtil {
 		root.put("className", clsName);// 类名称
 		//实体类名称首字母小写，驼峰式
 		root.put("smallClassName", MybatisGenerator.lowerCapital(clsName));// 类名称的首字母小写
+		root.put("myBasePackage",myBasePackage);
 		
 		String workDir = (String) System.getProperties().get("user.dir");
 		System.out.println(workDir+","+modelPackageName+"."+clsName);
