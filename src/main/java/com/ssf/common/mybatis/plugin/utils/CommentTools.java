@@ -147,5 +147,19 @@ public class CommentTools {
         interf.addJavaDocLine(" * @author "+AUTHOR_NAME);
         interf.addJavaDocLine(" */"); //$NON-NLS-1$
     }
+    /**
+     * 自定义代码区域
+     */
+    public static void addCustomCodeComment(XmlElement xmlElement) {
+        //interf.addJavaDocLine("<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START-->\n"); //$NON-NLS-1$
 
+        xmlElement.addElement(new TextElement(""));
+        xmlElement.addElement(new TextElement("<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START-->"));
+        xmlElement.addElement(new TextElement(""));
+        xmlElement.addElement(new TextElement(""));
+        xmlElement.addElement(new TextElement("<!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END-->"));
+
+
+
+    }
 }

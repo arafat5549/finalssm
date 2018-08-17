@@ -12,8 +12,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-//import com.ssf.common.mybatis.base.BaseMapper;
-import com.jqm.ssm.base.BaseMapper;
+import com.ssf.common.mybatis.base.BaseMapper;
 import com.ssf.utils.ProtoStuffSerializerUtil;
 
 /**

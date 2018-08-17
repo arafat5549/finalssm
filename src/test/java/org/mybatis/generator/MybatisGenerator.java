@@ -12,15 +12,13 @@ import java.util.regex.Pattern;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
-import com.jqm.ssm.entity.Menucate;
 import com.ssf.common.utils.StringUtilss;
-import org.apache.commons.collections.ArrayStack;
 import org.mybatis.generator.api.ShellRunner;
-import org.springside.modules.utils.io.IOUtil;
 import org.springside.modules.utils.io.URLResourceUtil;
 import org.xml.sax.SAXException;
 
@@ -28,12 +26,46 @@ import com.google.common.collect.Lists;
 
 
 public class MybatisGenerator {
+
+	enum PackgeName {
+
+		BASE("myBasePackage", ""), MODEL("myModelPackage",""),DAO("myBussinessPackage", ""),
+		SERVICE("myServicePackage", ""), CONTROLLER("myWebPackage", "")
+		;
+
+		private String code;
+		private String name;
+
+		private PackgeName(String code, String name){
+			this.code = code;
+			this.name = name;
+		}
+
+		public void setCode(String code) {
+			this.code = code;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+		public String getName() {
+			return name;
+		}
+
+	}
+	//####################################################
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
 	
 	public static final Properties PROPERTIES = new Properties();
 	public static Map<String,String> COMMENT_MAPS = Maps.newHashMap();
-	public static final String BASE_PREFIX= "water_";
+	//####################################################
+	public static String BASE_PREFIX= "water_";
+	public static String MAPPER_NAME = "Mapper";
 	static
 	{
 		try {
@@ -113,7 +145,10 @@ public class MybatisGenerator {
 		Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
 		List<String> tableNames = Lists.newArrayList(comments.keySet());
 		System.out.println(tableNames);
-		CodeGeneratorUtil.BASE_PACKAGE = "com.jqm.ssm";
+
+		String newkey = PROPERTIES.getProperty("myBasePackage");  //"com.jqm.ssm";
+		if(!Strings.isNullOrEmpty(newkey))
+			CodeGeneratorUtil.BASE_PACKAGE = newkey;
 		CodeGeneratorUtil.codeGenerator(PROPERTIES, tableNames, Lists.newArrayList());
 	}
 
@@ -195,6 +230,7 @@ public class MybatisGenerator {
 		return multimap;
 	}
 	public static String getRealClassName(String tableName){
+		//System.out.println("MybatisGenerator.BASE_PREFIX="+MybatisGenerator.BASE_PREFIX);
 		return tableName.replace(MybatisGenerator.BASE_PREFIX, "");
 	}
 	public static boolean isUnionKey(String tableName){
@@ -280,14 +316,15 @@ public class MybatisGenerator {
 	//
 	public static void main(String[] args) 
 	{
+		BASE_PREFIX = "p_";
 		//init();
 		//List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
 		//runSql(PROPERTIES,lists);
-		//createConfigs();
-		//generator(OUT_CONFIG);
+		createConfigs();
+		generator(OUT_CONFIG);
 		//generateCode();
 
-		copyTo(Menucate.class, System.getProperty("user.dir"),"D:\\workspace\\IdeaProject\\RiverResponsibleSystem\\RiverResponsibleSystem");
+		//copyTo(Menucate.class, System.getProperty("user.dir"),"D:\\workspace\\IdeaProject\\RiverResponsibleSystem\\RiverResponsibleSystem");
 	}
 
 }

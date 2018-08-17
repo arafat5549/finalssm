@@ -53,10 +53,11 @@
 		<plugin type="com.ssf.common.mybatis.plugin.MyDynamicTableNamePlugin"/>
 		<plugin type="com.ssf.common.mybatis.plugin.MyInsertUpdateDynamicTableNamePlugin"/>
 		-->
-		<!-- 为继承的BaseMapper接口添加对应的实现类 -->
+
+		<!-- 为继承的BaseMapper接口添加对应的实现类
 		<plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
            <property name="mappers" value="${inherit_basemapper}"/>
-         </plugin>
+         </plugin>-->
          
         <plugin type="com.ssf.common.mybatis.plugin.OverIsMergeablePlugin" />
 		<!-- #######################插件部分结束####################### -->
@@ -74,14 +75,13 @@
             password="${jdbc.password}" />
 
 		<!-- 增加基础bean的继承操作，将通用属性集成到BaseEntity内部 -->
-        <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src\main\java" >
+        <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src//main//java" >
         	<!--<property name="rootClass" value="com.ssf.common.mybatis.base.BaseEntity"/>-->
         </javaModelGenerator>
 
 
-        <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\resources" />
-        
-        <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\java" type="XMLMAPPER" />
+        <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//resources" />
+        <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//java" type="XMLMAPPER" />
         
         <!-- domainObjectName 部分，如果不加的话，好像数据库表结构是驼峰式的话，生成的*。java类文件不是驼峰式的结构，故加上这个配置部分 -->
         <!-- table 中增加属性 alias 部分，这一部分的设定，用来给表结构增加别名，如果出现关联查询的情况下，可以通过设定表结构的别名，来避免  Oracle00-918:未明确定义列的错误 -->
@@ -141,11 +141,15 @@
         	<!-- <generatedKey column="id" sqlStatement="Mysql" identity="true" type="post"/>-->   
         	     	
         	<columnOverride column="delete_flag" property="deleteFlag" 
-        		javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"></columnOverride>
-        	<columnOverride column="create_time" property="createTime" 
-        		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>  	
-        	<columnOverride column="update_time" property="updateTime" 
-        		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>  
+        		javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
+
+        	<columnOverride column="create_date" property="createDate"
+        		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+			<columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+
+        	<columnOverride column="update_date" property="updateDate"
+        		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+			<columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
         	<!-- 生成代码字段名默认按驼峰命名， 单表逻辑的话， id createTime deleteFlag 三个字段为必须的，关联关系表结构的话，要注释掉如下的三个字段
         	<columnOverride column="resource_type" property="resourceType" 
         		javaType="com.ssf.common.vo.enums.MenuResourceTypeEnum" typeHandler="com.ssf.common.vo.enums.handler.MenuResourceTypeEnumHandler"></columnOverride>

@@ -3,9 +3,12 @@ package com.ssf.common.mybatis.plugin;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import com.ssf.common.mybatis.plugin.utils.CommentTools;
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
+import org.mybatis.generator.api.dom.xml.Document;
+import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
  * 强制覆盖xml文件(注意这样每次都会生成新的mapper.xml会覆盖掉你编写的部分)
@@ -25,9 +28,21 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 			Field field = sqlMap.getClass().getDeclaredField("isMergeable");
 			field.setAccessible(true);
 			field.setBoolean(sqlMap, false);
+
+			//CommentTools.addCustomCodeComment(new XmlElement(""));
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
+		return true;
+	}
+
+	@Override
+	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
+		System.out.println(
+				"sqlMapDocumentGenerated"+document
+		);
+
+		CommentTools.addCustomCodeComment(document.getRootElement());
 		return true;
 	}
 }

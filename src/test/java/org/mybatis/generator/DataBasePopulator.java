@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class DataBasePopulator {
 
 	
-	private static Logger logger = LoggerFactory.getLogger(DataBasePopulator.class);
+	//private static Logger logger = LoggerFactory.getLogger(DataBasePopulator.class);
 	//private static boolean init =false;
 	
 
@@ -59,7 +59,7 @@ public class DataBasePopulator {
 			for (String sql:sqls) {
 				reader = Resources.getResourceAsReader(sql);
 				scriptRunner.runScript(reader);
-				logger.info("执行sql文件成功:["+sql+"]");
+				//logger.info("执行sql文件成功:["+sql+"]");
 			}
 			
 //			reader = Resources.getResourceAsReader("sql/finalssm_data.sql");
@@ -97,7 +97,7 @@ public class DataBasePopulator {
 		//2、MySQL下：select table_name from information_schema.tables where table_schema='csdb' and table_type='base table';
 		//3、sql server下：select name from sys.tables go
 		
-		String sql = "select table_name from information_schema.tables where table_schema='"+dbName+"' and table_type='base table';";
+		String sql = "select table_name from information_schema.tables where table_schema='"+dbName+"' ;"; //and table_type='base table'
 		if(databaseId == "oracle"){
 			sql = "select table_name from all_tables;";
 		}

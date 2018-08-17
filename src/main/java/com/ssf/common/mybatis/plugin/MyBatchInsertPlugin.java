@@ -255,6 +255,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
             logger.debug("itfsw(批量插入插件):" + introspectedTable.getMyBatis3XmlMapperFileName() + "增加batchInsertSelective实现方法。");
         }
 
+        //CommentTools.addCustomCodeComment(element);
         return true;
     }
 }

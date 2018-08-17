@@ -31,21 +31,6 @@ import com.ssf.common.utils.XmlParserUtilss;
  */
 public class GeneratorConfigXMLUtil {
 
-//	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
-//	private static final String OUT_CONFIG    = "generatorConfigBak.xml";
-//	
-//	/**
-//	 * 读取数据库 生成所有table标签<p>
-//	 * 
-//	 * 源文件:  src/main/resources/generatorConfig.xml<p>
-//	 * 生成文件: src/main/resources/generatorConfigBak.xml<p>
-//	 * 
-//	 * @param dbName 数据库名称
-//	 * @param dbType 数据库类型 (支持mysql和oracle) 默认为"mysql" 
-//	 */
-//	public static void convertXmlStrToObjectTest(Properties props,String dbName,String dbType) throws SAXException, IOException, CloneNotSupportedException{
-//		convertXmlStrToObjectTest(props,dbName, dbType,OUT_CONFIG);
-//	}
 	/**
 	 * 读取数据库 生成所有table标签<p>
 	 * 
@@ -82,7 +67,7 @@ public class GeneratorConfigXMLUtil {
         for (String tname : tableNames) {
 			//System.out.println(tname);
 			Element newele = (Element) CloneUtils.clone(ele); 
-			String base = StringUtilss.toCamelCase(MybatisGenerator.getRealClassName(tname));//tname.replace(MybatisGenerator.BASE_PREFIX, "")
+			String base = StringUtilss.toCamelCase(MybatisGenerator.getRealClassName(tname));
 
 			//String suffix= "";
 			//String keys [] = tname.split(MybatisGenerator.BASE_PREFIX)[1].split("_");
@@ -91,11 +76,12 @@ public class GeneratorConfigXMLUtil {
 			}
 			else{
 				base = StringUtils.capitalize(base);
-				newele.addAttribute("mapperName", base +"Dao");
+				newele.addAttribute("mapperName", base + MybatisGenerator.MAPPER_NAME);
 				newele.addAttribute("tableName",  tname);
 				newele.addAttribute("domainObjectName", base);
 				newele.addAttribute("alias", tname);
 				ele.getParent().add(newele);
+				System.out.println(newele);
 			}
 
 		}

@@ -18,121 +18,48 @@
     <plugin type="com.ssf.common.mybatis.plugin.SelectCountAndListByMapPlugin"/>
     <plugin type="com.ssf.common.mybatis.plugin.ModelColumnPlugin"/>
     <plugin type="com.ssf.common.mybatis.plugin.MyBatchInsertPlugin"/>
-    <plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
-      <property name="mappers" value="${inherit_basemapper}"/>
-    </plugin>
     <plugin type="com.ssf.common.mybatis.plugin.OverIsMergeablePlugin"/>
     <commentGenerator type="com.ssf.common.mybatis.plugin.MyCommentGeneratorPlugin">
       <property name="suppressAllComments" value="true"/>
     </commentGenerator>
     <jdbcConnection driverClass="${jdbc.driverClassName}" connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}"/>
-    <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src\main\java"/>
-    <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\resources"/>
-    <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src\main\java" type="XMLMAPPER"/>
-    <table mapperName="DepartmentDao" schema="" tableName="water_department" domainObjectName="Department" delimitAllColumns="true" alias="water_department" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src//main//java"/>
+    <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//resources"/>
+    <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//java" type="XMLMAPPER"/>
+    <table mapperName="DepartmentMapper" schema="" tableName="p_department" domainObjectName="Department" delimitAllColumns="true" alias="p_department" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_date" property="createDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="Devicedata1Dao" schema="" tableName="water_devicedata1" domainObjectName="Devicedata1" delimitAllColumns="true" alias="water_devicedata1" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="ModuleMapper" schema="" tableName="p_module" domainObjectName="Module" delimitAllColumns="true" alias="p_module" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_date" property="createDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="Devicedata2Dao" schema="" tableName="water_devicedata2" domainObjectName="Devicedata2" delimitAllColumns="true" alias="water_devicedata2" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="ResourceMapper" schema="" tableName="p_resource" domainObjectName="Resource" delimitAllColumns="true" alias="p_resource" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_date" property="createDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="DevicegpsDao" schema="" tableName="water_devicegps" domainObjectName="Devicegps" delimitAllColumns="true" alias="water_devicegps" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="RoleMapper" schema="" tableName="p_role" domainObjectName="Role" delimitAllColumns="true" alias="p_role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_date" property="createDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="DeviceinfoDao" schema="" tableName="water_deviceinfo" domainObjectName="Deviceinfo" delimitAllColumns="true" alias="water_deviceinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="UserMapper" schema="" tableName="p_user" domainObjectName="User" delimitAllColumns="true" alias="p_user" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="LogDao" schema="" tableName="water_log" domainObjectName="Log" delimitAllColumns="true" alias="water_log" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="LogtypeDao" schema="" tableName="water_logtype" domainObjectName="Logtype" delimitAllColumns="true" alias="water_logtype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MenucateDao" schema="" tableName="water_menucate" domainObjectName="Menucate" delimitAllColumns="true" alias="water_menucate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MonitorsiteDao" schema="" tableName="water_monitorsite" domainObjectName="Monitorsite" delimitAllColumns="true" alias="water_monitorsite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MonitorsitetypeDao" schema="" tableName="water_monitorsitetype" domainObjectName="Monitorsitetype" delimitAllColumns="true" alias="water_monitorsitetype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MonitorvideoDao" schema="" tableName="water_monitorvideo" domainObjectName="Monitorvideo" delimitAllColumns="true" alias="water_monitorvideo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MonitorwarnDao" schema="" tableName="water_monitorwarn" domainObjectName="Monitorwarn" delimitAllColumns="true" alias="water_monitorwarn" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="MonitorwarntypeDao" schema="" tableName="water_monitorwarntype" domainObjectName="Monitorwarntype" delimitAllColumns="true" alias="water_monitorwarntype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="PermissionDao" schema="" tableName="water_permission" domainObjectName="Permission" delimitAllColumns="true" alias="water_permission" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="RegionDao" schema="" tableName="water_region" domainObjectName="Region" delimitAllColumns="true" alias="water_region" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="RiverDao" schema="" tableName="water_river" domainObjectName="River" delimitAllColumns="true" alias="water_river" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="RoleDao" schema="" tableName="water_role" domainObjectName="Role" delimitAllColumns="true" alias="water_role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="SendmessageDao" schema="" tableName="water_sendmessage" domainObjectName="Sendmessage" delimitAllColumns="true" alias="water_sendmessage" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="StatusDao" schema="" tableName="water_status" domainObjectName="Status" delimitAllColumns="true" alias="water_status" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="UserDao" schema="" tableName="water_user" domainObjectName="User" delimitAllColumns="true" alias="water_user" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-    </table>
-    <table mapperName="UsertypeDao" schema="" tableName="water_usertype" domainObjectName="Usertype" delimitAllColumns="true" alias="water_usertype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="delete_flag" property="deleteFlag" javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-      <columnOverride column="create_time" property="createTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
-      <columnOverride column="update_time" property="updateTime" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_date" property="createDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
   </context>
 </generatorConfiguration>
