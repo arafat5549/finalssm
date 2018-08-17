@@ -3,7 +3,6 @@ package ${packageName}.impl;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +36,7 @@ public class ${className}ServiceImpl implements I${className}Service {
 	@Autowired    //@Resource(name = "${smallClassName}Dao")
 	private ${className}Dao mapper;
 
-	@Resource(name= "redisCache")
+	@Autowired  //@Resource(name= "redisCache")
 	private RedisCache redisCache;
 
 	@Autowired   //@Resource(name="springContextHolder")

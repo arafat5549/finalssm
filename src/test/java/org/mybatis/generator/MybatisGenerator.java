@@ -27,36 +27,36 @@ import com.google.common.collect.Lists;
 
 public class MybatisGenerator {
 
-	enum PackgeName {
-
-		BASE("myBasePackage", ""), MODEL("myModelPackage",""),DAO("myBussinessPackage", ""),
-		SERVICE("myServicePackage", ""), CONTROLLER("myWebPackage", "")
-		;
-
-		private String code;
-		private String name;
-
-		private PackgeName(String code, String name){
-			this.code = code;
-			this.name = name;
-		}
-
-		public void setCode(String code) {
-			this.code = code;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getCode() {
-			return code;
-		}
-		public String getName() {
-			return name;
-		}
-
-	}
+//	enum PackgeName {
+//
+//		BASE("myBasePackage", ""), MODEL("myModelPackage",""),DAO("myBussinessPackage", ""),
+//		SERVICE("myServicePackage", ""), CONTROLLER("myWebPackage", "")
+//		;
+//
+//		private String code;
+//		private String name;
+//
+//		private PackgeName(String code, String name){
+//			this.code = code;
+//			this.name = name;
+//		}
+//
+//		public void setCode(String code) {
+//			this.code = code;
+//		}
+//
+//		public void setName(String name) {
+//			this.name = name;
+//		}
+//
+//		public String getCode() {
+//			return code;
+//		}
+//		public String getName() {
+//			return name;
+//		}
+//
+//	}
 	//####################################################
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
@@ -64,8 +64,10 @@ public class MybatisGenerator {
 	public static final Properties PROPERTIES = new Properties();
 	public static Map<String,String> COMMENT_MAPS = Maps.newHashMap();
 	//####################################################
-	public static String BASE_PREFIX= "water_";
-	public static String MAPPER_NAME = "Mapper";
+	public static String BASE_PREFIX= "p_";
+	public static String MAPPER_NAME = "Dao";
+	//public static String BASE_PACKAGE = "com.ssf";
+
 	static
 	{
 		try {
@@ -146,9 +148,9 @@ public class MybatisGenerator {
 		List<String> tableNames = Lists.newArrayList(comments.keySet());
 		System.out.println(tableNames);
 
-		String newkey = PROPERTIES.getProperty("myBasePackage");  //"com.jqm.ssm";
-		if(!Strings.isNullOrEmpty(newkey))
-			CodeGeneratorUtil.BASE_PACKAGE = newkey;
+		//String newkey = PROPERTIES.getProperty("myBasePackage");  //"com.jqm.ssm";
+		//if(!Strings.isNullOrEmpty(newkey))
+		//	CodeGeneratorUtil.BASE_PACKAGE = newkey;
 		CodeGeneratorUtil.codeGenerator(PROPERTIES, tableNames, Lists.newArrayList());
 	}
 
@@ -316,13 +318,13 @@ public class MybatisGenerator {
 	//
 	public static void main(String[] args) 
 	{
-		BASE_PREFIX = "p_";
 		//init();
 		//List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
 		//runSql(PROPERTIES,lists);
+
 		createConfigs();
 		generator(OUT_CONFIG);
-		//generateCode();
+		generateCode();
 
 		//copyTo(Menucate.class, System.getProperty("user.dir"),"D:\\workspace\\IdeaProject\\RiverResponsibleSystem\\RiverResponsibleSystem");
 	}

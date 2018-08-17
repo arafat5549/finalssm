@@ -136,7 +136,7 @@ public class DataBasePopulator {
 	 */
 	public static Map<String,String> getTableComments(Properties props, String dbName, String databaseId)
 	{
-		String sql = "select table_name,table_comment from information_schema.tables where table_schema='"+dbName+"' and table_type='base table';";
+		String sql = "select table_name,table_comment from information_schema.tables where table_schema='"+dbName+"' ;"; //and table_type='base table'
 		if(databaseId == "oracle"){
 			sql = "select table_name,table_comment from all_tables;";
 		}

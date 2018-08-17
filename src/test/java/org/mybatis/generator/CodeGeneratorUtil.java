@@ -34,8 +34,6 @@ import freemarker.template.Template;
 public class CodeGeneratorUtil {
 
 	private static final String CHARSET = "UTF-8";
-	public static String BASE_PACKAGE = "com.ssf";
-
 	
 	/*==============================================================*/
 	/* 页面生成器区域                                   										*/
@@ -47,8 +45,8 @@ public class CodeGeneratorUtil {
 		List<String> tableNames = Lists.newArrayList(comments.keySet());
 		
 		Multimap<String, String> multimap = MybatisGenerator.getTableMultimap(tableNames, prefixs);
-		String servicePackage     = BASE_PACKAGE+".service";
-		String webPackage         = BASE_PACKAGE+".controller";
+		String servicePackage     = props.getProperty("myServicePackage");//MybatisGenerator.BASE_PACKAGE+".service";
+		String webPackage         = props.getProperty("myWebPackage");//MybatisGenerator.BASE_PACKAGE+".controller";
 		String daoPackage    = props.getProperty("myBussinessPackage");
 		String modelPackage  = props.getProperty("myModelPackage"); 
 		
@@ -134,7 +132,7 @@ public class CodeGeneratorUtil {
 	public static void codeGenerator(Properties props,List<String> tableNames,List<String> prefixs){
 		
 		Multimap<String, String> multimap = MybatisGenerator.getTableMultimap(tableNames, prefixs);
-		String servicePackage = BASE_PACKAGE+".service";
+		String servicePackage = props.getProperty("myServicePackage");//MybatisGenerator.BASE_PACKAGE+".service";
 		String daoPackage     = props.getProperty("myBussinessPackage");
 		String modelPackage   = props.getProperty("myModelPackage");
 		String myBasePackage   = props.getProperty("myBasePackage");
@@ -145,6 +143,7 @@ public class CodeGeneratorUtil {
 			String servicePackageName = MybatisGenerator.parsePackageName(servicePackage, key);
 			String daoPackageName = MybatisGenerator.parsePackageName(daoPackage, key);
 			String modelPackageName = MybatisGenerator.parsePackageName(modelPackage, key);
+			System.out.println(servicePackageName);
 			for (String tname : multimap.get(key)) {
 				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
 				createTemplate(myBasePackage,servicePackageName,daoPackageName,modelPackageName,clsName);

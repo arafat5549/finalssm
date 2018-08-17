@@ -2,10 +2,10 @@
 .idea/*
 *.iml
 
-src/main/test/*.dao/
-src/main/test/*.dao/*
-src/main/resources/*.dao/
-src/main/resources/*.dao/*
+src/main/test/**/*.dao/
+src/main/test/**/*.dao/*
+src/main/resources/**/*.dao/
+src/main/resources/**/*.dao/*
 
 .DS_Store
 */.DS_Store
@@ -24,8 +24,11 @@ src/main/webapp/WEB-INF/lib/*
 src/main/webapp/assets/frontend/pages/img/products/*/
 src/main/webapp/assets/frontend/pages/img/products/*/*
 
-src/main/java/com/jqm/ssm/*
-src/main/java/com/jqm/ssm/*/*
+src/main/java/com/jqm/ssm/dao/*
+src/main/java/com/jqm/ssm/entity/*
+src/main/java/com/jqm/ssm/service/*
+src/main/java/com/jqm/ssm/controller/*
+
 
 src/main/resources/com/
-src/main/resources/com//*
+src/main/resources/com/*

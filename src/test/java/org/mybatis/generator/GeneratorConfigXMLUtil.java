@@ -79,7 +79,7 @@ public class GeneratorConfigXMLUtil {
 				newele.addAttribute("mapperName", base + MybatisGenerator.MAPPER_NAME);
 				newele.addAttribute("tableName",  tname);
 				newele.addAttribute("domainObjectName", base);
-				newele.addAttribute("alias", tname);
+				//newele.addAttribute("alias", tname);
 				ele.getParent().add(newele);
 				System.out.println(newele);
 			}

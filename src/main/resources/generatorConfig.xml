@@ -54,10 +54,10 @@
 		<plugin type="com.ssf.common.mybatis.plugin.MyInsertUpdateDynamicTableNamePlugin"/>
 		-->
 
-		<!-- 为继承的BaseMapper接口添加对应的实现类
+		<!-- 为继承的BaseMapper接口添加对应的实现类-->
 		<plugin type="com.ssf.common.mybatis.plugin.InterFaceExtendsPlugin">
            <property name="mappers" value="${inherit_basemapper}"/>
-         </plugin>-->
+         </plugin>
          
         <plugin type="com.ssf.common.mybatis.plugin.OverIsMergeablePlugin" />
 		<!-- #######################插件部分结束####################### -->
@@ -123,6 +123,8 @@
 		        15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
 				mapperName:需要1.3.5以上版本  可以将生成XXXMapper改为 "XXXXDao"
 		        注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
+
+		        alias="${alias}"
 		     -->
         <table 
             mapperName="${domainObjectName}Dao"
@@ -130,7 +132,7 @@
             tableName="${tableName}" 
             domainObjectName="${domainObjectName}" 
             delimitAllColumns="true" 
-        	alias="${alias}" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+        	 enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
         	
         	<!-- 生成的实体类字段和数据库表结构中的字段一致 -->

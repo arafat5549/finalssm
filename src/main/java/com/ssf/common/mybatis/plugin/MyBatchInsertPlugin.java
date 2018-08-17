@@ -140,7 +140,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         // 参数类型
         batchInsertEle.addAttribute(new Attribute("parameterType", "map"));
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
-        CommentTools.addComment(batchInsertEle);
+        //CommentTools.addComment(batchInsertEle);
 
         // 使用JDBC的getGenereatedKeys方法获取主键并赋值到keyProperty设置的领域模型属性中。所以只支持MYSQL和SQLServer
         CommTools.useGeneratedKeys(batchInsertEle, introspectedTable);
@@ -200,7 +200,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         // 参数类型
         element.addAttribute(new Attribute("parameterType", "map"));
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
-        CommentTools.addComment(element);
+        //CommentTools.addComment(element);
 
         // 使用JDBC的getGenereatedKeys方法获取主键并赋值到keyProperty设置的领域模型属性中。所以只支持MYSQL和SQLServer
         CommTools.useGeneratedKeys(element, introspectedTable);

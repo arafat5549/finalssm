@@ -131,7 +131,7 @@ public class MyJoinPlugin extends PluginAdapter {
         // 生成查询语句
         XmlElement selectOneElement = new XmlElement("select");
         // 添加注释(!!!必须添加注释，overwrite覆盖生成时，@see XmlFileMergerJaxp.isGeneratedNode会去判断注释中是否存在OLD_ELEMENT_TAGS中的一点，例子：@mbg.generated)
-        CommentTools.addComment(selectOneElement);
+        //CommentTools.addComment(selectOneElement);
 
         // 添加ID
         selectOneElement.addAttribute(new Attribute("id", METHOD_NAME));
