@@ -103,7 +103,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         String anoo2 = "@Param(\"selective\")";
         mBatchInsert.addParameter(new Parameter(tList, "list"));
         // 添加方法说明
-        CommentTools.addGeneralMethodComment(mBatchInsert, introspectedTable);
+        //CommentTools.addGeneralMethodComment(mBatchInsert, introspectedTable);
         // interface 增加方法
         interfaze.addMethod(mBatchInsert);
         logger.debug("itfsw(批量插入插件):" + interfaze.getType().getShortName() + "增加batchInsert方法。");
@@ -116,7 +116,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         mBatchInsertSelective.addParameter(new Parameter(tList, "list"));
         mBatchInsertSelective.addParameter(new Parameter(tSelective, "selective", true));
         // 添加方法说明
-        CommentTools.addGeneralMethodComment(mBatchInsertSelective, introspectedTable);
+        //CommentTools.addGeneralMethodComment(mBatchInsertSelective, introspectedTable);
         // interface 增加方法
         interfaze.addMethod(mBatchInsertSelective);
         logger.debug("itfsw(批量插入插件):" + interfaze.getType().getShortName() + "增加batchInsertSelective方法。");

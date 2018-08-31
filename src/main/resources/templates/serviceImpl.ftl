@@ -33,13 +33,13 @@ public class ${className}ServiceImpl implements I${className}Service {
 	private static final String PREFIX_CAHCE = RedisCache.CAHCENAME + "|${className}|";
 	private static final Class<${className}> SELF_CLASS = ${className}.class;
 
-	@Autowired    //@Resource(name = "${smallClassName}Dao")
+	@Autowired
 	private ${className}Dao mapper;
 
-	@Autowired  //@Resource(name= "redisCache")
+	@Autowired
 	private RedisCache redisCache;
 
-	@Autowired   //@Resource(name="springContextHolder")
+	@Autowired
 	private SpringContextHolder springContextHolder;
 	
 	@Override
@@ -47,9 +47,13 @@ public class ${className}ServiceImpl implements I${className}Service {
 		return mapper.selectCountByMap(map);
 	}
 	@Override
-	public ${className} selectObjByMap(Map<Object, Object> map){
-		List<${className}> list = mapper.selectListByMap(map);
+	public ${className} selectObjByMap(Map<Object, Object> map,String cacheKey){
+		List<${className}> list = selectListByMap(map,cacheKey);
 		return list.size()>=1 ? list.get(0) : null;
+    }
+	@Override
+	public ${className} selectObjByMap(Map<Object, Object> map){
+		return selectObjByMap(map,null);
     }
 	@Override
 	public List<${className}> selectListByMap(Map<Object, Object> map,String cacheKey) {
@@ -111,8 +115,7 @@ public class ${className}ServiceImpl implements I${className}Service {
 		}
 		return mapper.selectByPrimaryKey(id);
 	}
-	
-	//
+
 	@Override
 	public int deleteByPrimaryKey(${idField} id) {
 		return mapper.deleteByPrimaryKey(id);
@@ -142,31 +145,34 @@ public class ${className}ServiceImpl implements I${className}Service {
 	public int updateByPrimaryKey(${className} record) {
 		return mapper.updateByPrimaryKey(record);
 	}
-    /*
-	@Override
-	public MyPageView<${className}> generateMyPageViewVO(Map<Object, Object> map) {
-		
-		int _totalCount = mapper.selectCountByMap(map);
-		
-		List<${className}> _list = mapper.selectListByMap(map);
-		
-		int recordPerPage = 10;
-		int currentPage = 1;
-		if(map.get("page") != null) {
-			Object _pageObj = map.get("page");
-			if(_pageObj instanceof Page) {
-				Page _page = (Page)_pageObj;
-				currentPage = _page.getPageNo();
-				recordPerPage = _page.getLength();
-			}
-		}
-		MyPageView<${className}> pageView = MyPageView.generaterMyPageView(recordPerPage, currentPage, _totalCount, _list);
-		
-		return pageView;
-		
-	}
-    */
-	/**
-	  * 底下是一些自定义的方法
-	**/
+    <#--/*-->
+	<#--@Override-->
+	<#--public MyPageView<${className}> generateMyPageViewVO(Map<Object, Object> map) {-->
+		<#---->
+		<#--int _totalCount = mapper.selectCountByMap(map);-->
+		<#---->
+		<#--List<${className}> _list = mapper.selectListByMap(map);-->
+		<#---->
+		<#--int recordPerPage = 10;-->
+		<#--int currentPage = 1;-->
+		<#--if(map.get("page") != null) {-->
+			<#--Object _pageObj = map.get("page");-->
+			<#--if(_pageObj instanceof Page) {-->
+				<#--Page _page = (Page)_pageObj;-->
+				<#--currentPage = _page.getPageNo();-->
+				<#--recordPerPage = _page.getLength();-->
+			<#--}-->
+		<#--}-->
+		<#--MyPageView<${className}> pageView = MyPageView.generaterMyPageView(recordPerPage, currentPage, _totalCount, _list);-->
+		<#---->
+		<#--return pageView;-->
+		<#---->
+	<#--}-->
+    <#--*/-->
+
+
+    /**  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  **/
+
+
+    /**  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END      **/
 }

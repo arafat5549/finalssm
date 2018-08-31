@@ -67,7 +67,7 @@ public class MyJoinPlugin extends PluginAdapter {
         method.addParameter(new Parameter(type, "example"));
 //        method.addParameter(new Parameter(new FullyQualifiedJavaType(Class.class.getName()), "cls"));
         // 添加方法说明
-        CommentTools.addGeneralMethodComment(method, introspectedTable);
+        //CommentTools.addGeneralMethodComment(method, introspectedTable);
         // interface 增加方法
         interfaze.addMethod(method);
         interfaze.addImportedType(map);
@@ -291,7 +291,7 @@ public class MyJoinPlugin extends PluginAdapter {
         joins.setName("joins");
         joins.setVisibility(JavaVisibility.PROTECTED);
         joins.setType(joinstype);
-        CommentTools.addFieldComment(joins, introspectedTable);
+        //CommentTools.addFieldComment(joins, introspectedTable);
         topLevelClass.addField(joins);
 
         // 添加extFields字段
@@ -301,7 +301,7 @@ public class MyJoinPlugin extends PluginAdapter {
         extFields.setName("extFields");
         extFields.setVisibility(JavaVisibility.PROTECTED);
         extFields.setType(extFieldstype);
-        CommentTools.addFieldComment(extFields, introspectedTable);
+        //CommentTools.addFieldComment(extFields, introspectedTable);
         topLevelClass.addField(extFields);
 
         // 增加getter && setter 方法
@@ -310,7 +310,7 @@ public class MyJoinPlugin extends PluginAdapter {
         getExtFields.setReturnType(joinstype);
         getExtFields.setName("getExtFields");
         getExtFields.addBodyLine("return extFields;");
-        CommentTools.addGeneralMethodComment(getExtFields, introspectedTable);
+        //CommentTools.addGeneralMethodComment(getExtFields, introspectedTable);
         topLevelClass.addMethod(getExtFields);
 
         Method getJoins = new Method();
@@ -318,7 +318,7 @@ public class MyJoinPlugin extends PluginAdapter {
         getJoins.setReturnType(joinstype);
         getJoins.setName("getJoins");
         getJoins.addBodyLine("return joins;");
-        CommentTools.addGeneralMethodComment(getJoins, introspectedTable);
+        //CommentTools.addGeneralMethodComment(getJoins, introspectedTable);
         topLevelClass.addMethod(getJoins);
 
         Method join = new Method();
@@ -337,7 +337,7 @@ public class MyJoinPlugin extends PluginAdapter {
         join.addBodyLine("this.extFields.add(fields);");
         join.addBodyLine("return this;");
         join.setReturnType(new FullyQualifiedJavaType(introspectedTable.getExampleType()));
-        CommentTools.addGeneralMethodComment(join, introspectedTable);
+        //CommentTools.addGeneralMethodComment(join, introspectedTable);
         topLevelClass.addMethod(join);
 
         // !!! clear 方法增加 offset 和 rows的清理

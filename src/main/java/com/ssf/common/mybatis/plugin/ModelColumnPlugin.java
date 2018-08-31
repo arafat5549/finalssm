@@ -69,35 +69,35 @@ public class ModelColumnPlugin  extends PluginAdapter {
         InnerEnum innerEnum = new InnerEnum(new FullyQualifiedJavaType(ENUM_NAME));
         innerEnum.setVisibility(JavaVisibility.PUBLIC);
         innerEnum.setStatic(true);
-        CommentTools.addInnerEnumComment(innerEnum, introspectedTable);
+        //CommentTools.addInnerEnumComment(innerEnum, introspectedTable);
         logger.debug("itfsw(数据Model属性对应Column获取插件):"+topLevelClass.getType().getShortName()+"增加内部Builder类。");
 
         // 生成属性和构造函数
         Field columnField = new Field("column", FullyQualifiedJavaType.getStringInstance());
         columnField.setVisibility(JavaVisibility.PRIVATE);
         columnField.setFinal(true);
-        CommentTools.addFieldComment(columnField, introspectedTable);
+        //CommentTools.addFieldComment(columnField, introspectedTable);
         innerEnum.addField(columnField);
 
         Method mValue = new Method("value");
         mValue.setVisibility(JavaVisibility.PUBLIC);
         mValue.setReturnType(FullyQualifiedJavaType.getStringInstance());
         mValue.addBodyLine("return this.column;");
-        CommentTools.addGeneralMethodComment(mValue, introspectedTable);
+        //CommentTools.addGeneralMethodComment(mValue, introspectedTable);
         innerEnum.addMethod(mValue);
 
         Method mGetValue = new Method("getValue");
         mGetValue.setVisibility(JavaVisibility.PUBLIC);
         mGetValue.setReturnType(FullyQualifiedJavaType.getStringInstance());
         mGetValue.addBodyLine("return this.column;");
-        CommentTools.addGeneralMethodComment(mGetValue, introspectedTable);
+        //CommentTools.addGeneralMethodComment(mGetValue, introspectedTable);
         innerEnum.addMethod(mGetValue);
 
         Method constructor = new Method(ENUM_NAME);
         constructor.setConstructor(true);
         constructor.addBodyLine("this.column = column;");
         constructor.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "column"));
-        CommentTools.addGeneralMethodComment(constructor, introspectedTable);
+        //CommentTools.addGeneralMethodComment(constructor, introspectedTable);
         innerEnum.addMethod(constructor);
         logger.debug("itfsw(数据Model属性对应Column获取插件):"+topLevelClass.getType().getShortName()+".Column增加构造方法和column属性。");
 
@@ -120,18 +120,20 @@ public class ModelColumnPlugin  extends PluginAdapter {
         desc.setVisibility(JavaVisibility.PUBLIC);
         desc.setReturnType(FullyQualifiedJavaType.getStringInstance());
         desc.addBodyLine("return this.column + \" DESC\";");
-        CommentTools.addGeneralMethodComment(desc, introspectedTable);
+        //CommentTools.addGeneralMethodComment(desc, introspectedTable);
         innerEnum.addMethod(desc);
 
         Method asc = new Method("asc");
         asc.setVisibility(JavaVisibility.PUBLIC);
         asc.setReturnType(FullyQualifiedJavaType.getStringInstance());
         asc.addBodyLine("return this.column + \" ASC\";");
-        CommentTools.addGeneralMethodComment(asc, introspectedTable);
+        //CommentTools.addGeneralMethodComment(asc, introspectedTable);
         innerEnum.addMethod(asc);
         logger.debug("itfsw(数据Model属性对应Column获取插件):" + topLevelClass.getType().getShortName() + ".Column增加asc()和desc()方法。");
 
         topLevelClass.addInnerEnum(innerEnum);
+
         return true;
     }
+
 }

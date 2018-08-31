@@ -142,15 +142,15 @@
         	<!-- 单元测试的话 ，使用 demoMapper.insert(demo); 之后，调用  demo。getId() 即可获取到当前的id集合-->
         	<!-- <generatedKey column="id" sqlStatement="Mysql" identity="true" type="post"/>-->   
         	     	
-        	<columnOverride column="delete_flag" property="deleteFlag" 
+        	<!--<columnOverride column="delete_flag" property="deleteFlag"
         		javaType="com.ssf.common.vo.enums.DeleteFlagEnum" typeHandler="com.ssf.common.vo.enums.handler.DeleteFlagEnumHandler"/>
-
-        	<columnOverride column="create_date" property="createDate"
+        		<columnOverride column="update_date" property="updateDate"
         		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+            -->
+        	<columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
 			<columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
 
-        	<columnOverride column="update_date" property="updateDate"
-        		typeHandler="com.ssf.common.vo.GMT.handler.GMTDateTransHandler"/>
+        	<columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
 			<columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
         	<!-- 生成代码字段名默认按驼峰命名， 单表逻辑的话， id createTime deleteFlag 三个字段为必须的，关联关系表结构的话，要注释掉如下的三个字段
         	<columnOverride column="resource_type" property="resourceType" 

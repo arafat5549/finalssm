@@ -47,8 +47,7 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 	public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method, Interface interfaze,
 			IntrospectedTable introspectedTable) {
 
-			interfaze.addMethod(generateDeleteLogicByIds(method,introspectedTable));
-
+		interfaze.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
 
@@ -59,7 +58,7 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 	public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
 			TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 		
-			topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
+		topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
 
@@ -71,15 +70,32 @@ public class DeleteLogicByIdsPlugin extends PluginAdapter {
 			Method method, TopLevelClass topLevelClass,
 			IntrospectedTable introspectedTable) {
 		
-			topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
+		topLevelClass.addMethod(generateDeleteLogicByIds(method,introspectedTable));
 		return true;
 	}
+
+
+	@Override
+	public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+
+		//topLevelClass.get
+
+		Method m = new Method(METHOD_NAME);
+		//m.setVisibility(method.getVisibility());
+		m.setReturnType(FullyQualifiedJavaType.getIntInstance());
+		m.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "deleteFlag")); //, "@Param(\"deleteFlag\")"
+		m.addParameter(new Parameter(new FullyQualifiedJavaType("Integer[]"), "ids")); //, "@Param(\"ids\")"
+		interfaze.addMethod(m);
+
+		return true;
+	}
+
 	
 	@Override
 	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 		
 		String tableName = introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime();//数据库表名  
-		
+		//System.out.println(tableName);
 		XmlElement parentElement = document.getRootElement();
 
 		// 产生分页语句前半部分

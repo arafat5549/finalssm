@@ -1,6 +1,8 @@
 package org.mybatis.generator;
 
+import java.io.File;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.google.common.collect.Maps;
+import com.google.common.io.Files;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
@@ -57,7 +60,8 @@ public class DataBasePopulator {
 			ScriptRunner scriptRunner = new ScriptRunner(connection);
 			
 			for (String sql:sqls) {
-				reader = Resources.getResourceAsReader(sql);
+				//reader = Resources.getResourceAsReader(sql);
+				reader= Files.newReader(new File(sql), Charset.defaultCharset());
 				scriptRunner.runScript(reader);
 				//logger.info("执行sql文件成功:["+sql+"]");
 			}
@@ -152,8 +156,7 @@ public class DataBasePopulator {
 				String tname   = rs.getString("table_name");
 
 				String comment = rs.getString("table_comment");
-				//lists.add(tname);
-				if(!MybatisGenerator.isUnionKey(tname))
+				if(MybatisGenerator.isMacthPrefix(tname))
 					maps.put(tname, comment);
 			}
 

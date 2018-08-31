@@ -126,7 +126,7 @@ public class CodeGeneratorUtil {
 	/*         													    */
 	/*==============================================================*/
 	/**
-	 * 
+	 *  service代码生成
 	 * @param
 	 */
 	public static void codeGenerator(Properties props,List<String> tableNames,List<String> prefixs){
@@ -143,13 +143,40 @@ public class CodeGeneratorUtil {
 			String servicePackageName = MybatisGenerator.parsePackageName(servicePackage, key);
 			String daoPackageName = MybatisGenerator.parsePackageName(daoPackage, key);
 			String modelPackageName = MybatisGenerator.parsePackageName(modelPackage, key);
-			System.out.println(servicePackageName);
 			for (String tname : multimap.get(key)) {
+
 				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
+				//MybatisGenerator.LOG(tname+","+clsName);
 				createTemplate(myBasePackage,servicePackageName,daoPackageName,modelPackageName,clsName);
 			}
 		}
 		
+	}
+
+	/**
+	 * controller代码生成
+	 */
+	public static void codeGenerator_web(Properties props,List<String> tableNames,List<String> prefixs){
+		Multimap<String, String> multimap = MybatisGenerator.getTableMultimap(tableNames, prefixs);
+		String controllerPackage = props.getProperty("myWebPackage");
+		for (String key : multimap.keySet()) {
+			for (String tname : multimap.get(key)) {
+				//System.out.println(tname);
+				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
+				String workDir = (String) System.getProperties().get("user.dir");
+
+				Map<String, Object> root = new HashMap<String, Object>();
+				root.put("className", clsName);//实体类名称
+				root.put("smallClassName", MybatisGenerator.lowerCapital(clsName));//实体类名称首字母小写，驼峰式
+				root.put("webPackageName",MybatisGenerator.parsePackageName(controllerPackage, key));
+				//System.out.println( root.get("webPackageName") );
+				try {
+					controller(workDir,root);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	/**
 	 * -------------------生成模板---------------------
@@ -167,7 +194,7 @@ public class CodeGeneratorUtil {
 		root.put("myBasePackage",myBasePackage);
 		
 		String workDir = (String) System.getProperties().get("user.dir");
-		System.out.println(workDir+","+modelPackageName+"."+clsName);
+		System.out.println(workDir+" , "+modelPackageName+"."+clsName);
 		try {
 			Class cls = Class.forName(modelPackageName+"."+clsName);
 			Field field = cls.getDeclaredField("id");
@@ -180,9 +207,10 @@ public class CodeGeneratorUtil {
 			service(workDir, root);
 			serviceImpl(workDir, root);
 			
-			daoTest(workDir, root, "daoPackageName");
+			//daoTest(workDir, root, "daoPackageName");
 		} catch (NoSuchFieldException | SecurityException
 				| ClassNotFoundException e) {
+			e.printStackTrace();
 			System.out.println("没有主键id无法生成:["+clsName+"]");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -251,7 +279,23 @@ public class CodeGeneratorUtil {
 		myFile.createNewFile();
 		buildFile("templates/serviceImpl.ftl", fileName, input);
 	}
-	
+
+	private static void controller(String workDir, Map<String, Object> input) throws Exception{
+		String packageName = input.get("webPackageName").toString().replaceAll("\\.", "/");
+		StringBuffer sb = new StringBuffer();
+		sb.append(workDir).append("/src/main/java/")
+				.append(packageName+"/")
+				.append(input.get("className").toString()+"Controller.java");
+
+		String fileName = sb.toString();
+		System.out.println(fileName);
+		File myFile = new File(fileName);
+		myFile.getParentFile().mkdirs();
+		myFile.createNewFile();
+		buildFile("templates/controller.ftl", fileName, input);
+	}
+
+
 	/**
 	 * 生成文件
 	 * 

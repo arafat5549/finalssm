@@ -3,12 +3,12 @@ package com.jqm.ssm.web;
 import com.google.common.collect.Maps;
 import com.jqm.ssm.dto.BaseRequestBody;
 import com.jqm.ssm.dto.BaseResult;
-import com.jqm.ssm.entity.${className};
+import com.jqm.ssm.entity.SystemMessage;
 import com.jqm.ssm.entity.User;
 import com.jqm.ssm.enums.ResultEnum;
 import com.jqm.ssm.exception.BizException;
 import com.jqm.ssm.misc.Constants;
-import com.jqm.ssm.service.I${className}Service;
+import com.jqm.ssm.service.ISystemMessageService;
 import com.jqm.ssm.service.SystemService;
 import com.jqm.ssm.util.SessionUtil;
 import org.slf4j.Logger;
@@ -30,11 +30,11 @@ import java.util.*;
  * Created by wangyaoyao.
  */
 @Controller
-@RequestMapping("/${smallClassName}")
-public class ${className}Controller {
+@RequestMapping("/systemMessage")
+public class SystemMessageController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    I${className}Service ${smallClassName}Service;
+    ISystemMessageService systemMessageService;
     @Autowired
     SystemService systemService;
 
@@ -47,13 +47,13 @@ public class ${className}Controller {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public BaseResult<Object> list(Integer offset, Integer limit) {
-        List<${className}> list = null;
+        List<SystemMessage> list = null;
         try {
 
             offset = offset == null ? 0 : offset;
             limit = limit == null ? Constants.DEFALUT_LIMIT : limit;
 
-            list = ${smallClassName}Service.listPage(offset, limit,null);
+            list = systemMessageService.listPage(offset, limit,null);
 
         } catch (BizException e) {
             return new BaseResult<Object>(false, e.getMessage());
@@ -64,43 +64,18 @@ public class ${className}Controller {
         return new BaseResult<Object>(true, list);
     }
 
-    <#--/**-->
-     <#--* 获取单个对象-->
-     <#--*/-->
-    <#--@ResponseBody-->
-    <#--@RequestMapping(value = "/get",method = RequestMethod.GET)-->
-    <#--public BaseResult<Object> get(Integer id) {-->
-        <#--if(id <= 0) return new BaseResult<Object>(false,  ResultEnum.INVALID_DEPARTMENT.getMsg());-->
-
-        <#--Map<Object, Object> map = null;-->
-        <#--if(id !=null && id > 0){-->
-            <#--map = Maps.newHashMap();-->
-            <#--map.put("id",id);-->
-        <#--}-->
-        <#--${className} bean = null;-->
-        <#--try {-->
-            <#--bean = ${smallClassName}Service.selectObjByMap(map);-->
-        <#--} catch (BizException e) {-->
-            <#--return new BaseResult<Object>(false, e.getMessage());-->
-        <#--} catch (Exception e) {-->
-            <#--if(Constants.Debug()) e.printStackTrace();-->
-            <#--return new BaseResult<Object>(false, ResultEnum.INNER_ERROR.getMsg());-->
-        <#--}-->
-        <#--if(bean == null) return new BaseResult<Object>(false,  ResultEnum.INVALID_DEPARTMENT.getMsg());-->
-        <#--return new BaseResult<Object>(true, bean);-->
-    <#--}-->
     /**
      * 保存
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST,produces = {Constants.HEADER_CONTENT_TYPE_JSON})
     @ResponseBody
-    public BaseResult<Object> save(@Valid @RequestBody BaseRequestBody<${className}> body, BindingResult result, HttpServletRequest request) {
+    public BaseResult<Object> save(@Valid @RequestBody BaseRequestBody<SystemMessage> body, BindingResult result, HttpServletRequest request) {
         User loginuser = SessionUtil.getSessionUser(request);
-        ${className} bean = null;
+        SystemMessage bean = null;
         int resultCode = -1;
         try {
             bean = body.getData();
-            resultCode = ${smallClassName}Service.insertSelective(bean);
+            resultCode = systemMessageService.insertSelective(bean);
             systemService.log(loginuser,request.getRequestURI());
         } catch (BizException e) {
             return new BaseResult<Object>(false, e.getMessage());
@@ -118,12 +93,12 @@ public class ${className}Controller {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST,produces = {Constants.HEADER_CONTENT_TYPE_JSON})
     @ResponseBody
-    public BaseResult<Object> delete(@Valid @RequestBody BaseRequestBody<${className}> body, BindingResult result, HttpServletRequest request) {
-        ${className} bean = null;
+    public BaseResult<Object> delete(@Valid @RequestBody BaseRequestBody<SystemMessage> body, BindingResult result, HttpServletRequest request) {
+        SystemMessage bean = null;
         int resultCode = -1;
         try {
             bean = body.getData();
-            resultCode = ${smallClassName}Service.deleteByPrimaryKey(bean.getId());
+            resultCode = systemMessageService.deleteByPrimaryKey(bean.getId());
             LOG.info("resultCode="+resultCode);
         } catch (BizException e) {
             return new BaseResult<Object>(false, e.getMessage());
@@ -139,12 +114,12 @@ public class ${className}Controller {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST,produces = {Constants.HEADER_CONTENT_TYPE_JSON})
     @ResponseBody
-    public BaseResult<Object> update(@Valid @RequestBody BaseRequestBody<${className}> body, BindingResult result, HttpServletRequest request){
-        ${className} bean = null;
+    public BaseResult<Object> update(@Valid @RequestBody BaseRequestBody<SystemMessage> body, BindingResult result, HttpServletRequest request){
+        SystemMessage bean = null;
         int resultCode = -1;
         try {
             bean = body.getData();
-            resultCode = ${smallClassName}Service.updateByPrimaryKeySelective(bean);
+            resultCode = systemMessageService.updateByPrimaryKeySelective(bean);
         } catch (BizException e) {
             return new BaseResult<Object>(false, e.getMessage());
         } catch (Exception e) {
@@ -162,7 +137,7 @@ public class ${className}Controller {
     public BaseResult<Object> treedata(HttpServletRequest request, HttpServletResponse response) {
 
         response.setContentType(Constants.HEADER_CONTENT_TYPE_JSON);
-        String treedata = get${className}Tree();
+        String treedata = getSystemMessageTree();
         return new BaseResult<Object>(true,null, treedata);
     }
     //###############################################################################################################//
@@ -177,7 +152,7 @@ public class ${className}Controller {
         /**
      * 获取treedata树型结构
      */
-    public String get${className}Tree(){
+    public String getSystemMessageTree(){
         return "{}";
     }
 }

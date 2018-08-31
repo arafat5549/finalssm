@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import ${modelPackageName}.${className};
-//#import ${myBasePackage}.common.myPage.MyPageView;
+<#--//#import ${myBasePackage}.common.myPage.MyPageView;-->
 
 /**
  * 
- $ {className} 模块 接口
+ *  I${className}Service 接口
  * 
  * @author wang
  *
@@ -31,6 +31,7 @@ public interface I${className}Service {
 	 * @return
 	 */
 	${className} selectObjByMap(Map<Object, Object> map);
+	${className} selectObjByMap(Map<Object, Object> map,String cacheKey);
     List<${className}> selectListByMap(Map<Object, Object> map,String cacheKey);
 	List<${className}> selectListByMap(Map<Object, Object> map);
 
@@ -40,13 +41,9 @@ public interface I${className}Service {
 	${className} selectByPrimaryKey(${idField} id);
     
     //写部分
-    /**
-	 * 删除操作(注意会直接删除数据,物理删除)
-	 * @param id
-	 * @return
-	 */
-    int deleteByPrimaryKey(${idField} id);
-    
+
+    int deleteByPrimaryKey(${idField} id); //删除操作(注意会直接删除数据,物理删除)
+
 	<#--/**-->
 	 <#--* 根据ids数组，逻辑删除对象(逻辑删除 置delete标志位)-->
 	 <#--* @param deleteFlag 要设置的delete标志位 0普通 1删除-->
@@ -64,10 +61,15 @@ public interface I${className}Service {
 	int updateByPrimaryKey(${className} record);
     
     
-     /**
-     * 获取分页实体信息部分
-     * @param map	参数传递，封装部分过滤参数
-     * @return
-     */
-    //#MyPageView<${className}> generateMyPageViewVO(Map<Object, Object> map);
+     <#--/**-->
+     <#--* 获取分页实体信息部分-->
+     <#--* @param map	参数传递，封装部分过滤参数-->
+     <#--* @return-->
+     <#--*/-->
+    <#--//#MyPageView<${className}> generateMyPageViewVO(Map<Object, Object> map);-->
+
+    /**  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  **/
+
+
+    /**  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END      **/
 }

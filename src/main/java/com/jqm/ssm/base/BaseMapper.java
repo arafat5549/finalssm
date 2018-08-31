@@ -1,5 +1,7 @@
 package com.jqm.ssm.base;
 
+import com.jqm.ssm.entity.Department;
+
 import java.util.List;
 import java.util.Map;
 
@@ -41,13 +43,21 @@ public interface BaseMapper<T> {
 	 * @return
 	 */
 	int insertSelective(T record);
-	
-	//测试方法-没有意义
-	List<T> selectTest(Map<Object, Object> map);
 
-//	/**
-//	 * 批量插入
-//	 */
-//	void batchInsert(List<T> list );
-//	void batchInsertSelective(List<T> list,Object...params);
+	/**
+	 *
+	 */
+	int deleteByPrimaryKey(Integer id);
+
+	T selectByPrimaryKey(Integer id);
+
+	int updateByPrimaryKeySelective(T record);
+
+	int updateByPrimaryKey(T record);
+
+	/**
+	 * 批量插入
+	 */
+	int batchInsert(List<T> list );
+	//int batchInsertSelective(List<T> list,T.Column...params);
 }

@@ -5,6 +5,7 @@ import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 import java.util.Date;
 import java.util.Properties;
 
+import com.ssf.common.mybatis.plugin.utils.CommentTools;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -80,6 +81,8 @@ public class MyCommentGeneratorPlugin implements CommentGenerator {
 
     public void addRootComment(XmlElement rootElement) {
         // add no document level comments by default
+        //System.out.println("addRootComment="+rootElement);
+        //CommentTools.addCustomCodeComment(rootElement);
         return;
     }
 
@@ -185,9 +188,9 @@ public class MyCommentGeneratorPlugin implements CommentGenerator {
 
         StringBuilder sb = new StringBuilder();
 
-        field.addJavaDocLine("/**"); //$NON-NLS-1$
-
-        sb.append(" *  "); //$NON-NLS-1$
+        //field.addJavaDocLine("/**"); //$NON-NLS-1$
+        sb.append("//");
+        //sb.append(" *  "); //$NON-NLS-1$
         sb.append(introspectedColumn.getRemarks());
         sb.append(",所属表字段为");
         sb.append(introspectedTable.getFullyQualifiedTable());
@@ -195,7 +198,7 @@ public class MyCommentGeneratorPlugin implements CommentGenerator {
         sb.append(introspectedColumn.getActualColumnName());
         field.addJavaDocLine(sb.toString());
 
-        field.addJavaDocLine(" */"); //$NON-NLS-1$
+        //field.addJavaDocLine(" */"); //$NON-NLS-1$
         
         String column = introspectedColumn.getActualColumnName();
         if (StringUtility.stringContainsSpace(column) || introspectedTable.getTableConfiguration().isAllColumnDelimitingEnabled()) {

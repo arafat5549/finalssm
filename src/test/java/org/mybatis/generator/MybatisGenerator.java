@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -17,7 +18,11 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import com.jqm.ssm.entity.Devicegps;
+import com.jqm.ssm.entity.Monitorsite;
 import com.ssf.common.utils.StringUtilss;
+import com.ssf.utils.MyStringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.ShellRunner;
 import org.springside.modules.utils.io.URLResourceUtil;
 import org.xml.sax.SAXException;
@@ -64,7 +69,7 @@ public class MybatisGenerator {
 	public static final Properties PROPERTIES = new Properties();
 	public static Map<String,String> COMMENT_MAPS = Maps.newHashMap();
 	//####################################################
-	public static String BASE_PREFIX= "p_";
+	public static String BASE_PREFIX= "water_";
 	public static String MAPPER_NAME = "Dao";
 	//public static String BASE_PACKAGE = "com.ssf";
 
@@ -96,11 +101,11 @@ public class MybatisGenerator {
 	/**
 	 * 第二步-生成配置文件
 	 */
-	public static void createConfigs(){
-		createConfigs(PROPERTIES,ORIGIN_CONFIG,OUT_CONFIG);
+	public static List<String> createConfigs(){
+		return createConfigs(PROPERTIES,ORIGIN_CONFIG,OUT_CONFIG);
 	}
 	
-	public static void createConfigs(Properties props,String src,String out){
+	public static List<String> createConfigs(Properties props,String src,String out){
 		String dbName = props.getProperty("dbName");
 		String dbType = props.getProperty("dbType");
 		if(dbName==null || "".equals(dbName)){
@@ -110,9 +115,9 @@ public class MybatisGenerator {
 			dbType="mysql";
 			System.out.println("dbType为空设为默认值mysql");
 		}
-		
+		List<String> list = new ArrayList<>();
 		try {
-			GeneratorConfigXMLUtil.convertXmlStrToObjectTest(props,dbName, dbType,src,out);
+			list.addAll(GeneratorConfigXMLUtil.convertXmlStrToObjectTest(props,dbName, dbType,src,out));
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -120,6 +125,7 @@ public class MybatisGenerator {
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
+		return list;
 	}
 	/**
 	 * 第三部生成-Model/DAO/Mapper映射文件
@@ -131,28 +137,30 @@ public class MybatisGenerator {
 		try {
 			//Resources.getResourceAsFile(config)
 			config = URLResourceUtil.asFile("file:"+config).getPath();
-			System.out.println(config);
+			//MybatisGenerator.LOG(config);
 		}  catch (IOException e) {
 			e.printStackTrace();
 			return;
 		}
 
-		System.out.println("完整的配置文件路径：" + config);
+		MybatisGenerator.LOG("完整的配置文件路径：" + config);
 		String[] arg = { "-configfile", config, "-overwrite" };
 		ShellRunner.main(arg);
-		System.out.println("代码生成完成。");
+		MybatisGenerator.LOG("代码生成完成。");
 	}
 
-	private static void generateCode(){
-		Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
-		List<String> tableNames = Lists.newArrayList(comments.keySet());
-		System.out.println(tableNames);
-
-		//String newkey = PROPERTIES.getProperty("myBasePackage");  //"com.jqm.ssm";
-		//if(!Strings.isNullOrEmpty(newkey))
-		//	CodeGeneratorUtil.BASE_PACKAGE = newkey;
+	private static void generateCode(List<String> tableNames){
+		//Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
+		//List<String> tableNames = Lists.newArrayList(comments.keySet());
+		//MybatisGenerator.LOG(tableNames.toString());
 		CodeGeneratorUtil.codeGenerator(PROPERTIES, tableNames, Lists.newArrayList());
 	}
+	private static void generateCode_web(List<String> tableNames){
+		//Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
+		//List<String> tableNames = Lists.newArrayList(comments.keySet());
+		CodeGeneratorUtil.codeGenerator_web(PROPERTIES, tableNames, Lists.newArrayList());
+	}
+
 
 	//工具类
 	public static  List<String> getTableNames(Properties props){
@@ -233,11 +241,18 @@ public class MybatisGenerator {
 	}
 	public static String getRealClassName(String tableName){
 		//System.out.println("MybatisGenerator.BASE_PREFIX="+MybatisGenerator.BASE_PREFIX);
-		return tableName.replace(MybatisGenerator.BASE_PREFIX, "");
+
+		return MyStringUtil.underlineToCamel(tableName.replace(MybatisGenerator.BASE_PREFIX, ""));
 	}
 	public static boolean isUnionKey(String tableName){
-		return tableName.split(MybatisGenerator.BASE_PREFIX)[1].split("_").length >=2;
+		//System.out.println(tableName);
+		String ss[] = tableName.split(MybatisGenerator.BASE_PREFIX);
+		return ss.length >1 ? ss[1].split("_").length >=2 : false;
 	}
+	public static  boolean isMacthPrefix(String tableName){
+		return tableName.startsWith(MybatisGenerator.BASE_PREFIX);
+	}
+
 
 	private static void init(){
 		String basePath_src = System.getProperty("user.dir")+ "\\src\\main\\java\\";
@@ -270,63 +285,105 @@ public class MybatisGenerator {
 		}
 	}
 
+
+	private static List<File> getDestFileList(String src,String name){
+
+		String basePath = src+File.separator+"src"+File.separator+"main"+File.separator+"java"+File.separator;
+		String entity = (PROPERTIES.getProperty("myModelPackage")+File.separator+name).replaceAll("\\.",File.separator);
+		String dao = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll("\\.",File.separator);
+		String daoxml = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll("\\.",File.separator);
+		String service = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name).replaceAll("\\.",File.separator);
+		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name).replaceAll("\\.",File.separator);
+		String controller = (PROPERTIES.getProperty("myWebPackage")+File.separator+name).replaceAll("\\.",File.separator);
+
+		File entityfile = new File(basePath	+ entity+".java");
+		File daofile   = new File(basePath	+ dao+"Dao.java");
+		File daoxmlfile = new File( src+File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator	+ daoxml+"Dao.xml");
+		File servicefile   = new File(basePath + service+"Service.java");
+		File serviceImplfile   = new File(basePath + serviceImpl+"ServiceImpl.java");
+		File controllerFile    = new File(basePath + controller+"Controller.java");
+
+		List<File> fileList = new ArrayList<>();
+		fileList.add(entityfile);
+		fileList.add(daofile);
+		fileList.add(daoxmlfile);
+		fileList.add(servicefile);
+		fileList.add(serviceImplfile);
+		fileList.add(controllerFile);
+		return fileList;
+	}
+
 	public static <T> void copyTo(Class<T> cls,String src,String dest){
+		if(cls ==null)
+		{
+			LOG("copyTo className为空");
+			return;
+		}
 		String name = cls.getSimpleName();
 		String fullname = cls.getName();
 
-		String basePath = src+"\\src\\main\\java\\";
-		String entity = (PROPERTIES.getProperty("myModelPackage")+"\\"+name).replaceAll("\\.","\\\\");
-		String dao = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
-		String daoxml = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
-		String service = (PROPERTIES.getProperty("myServicePackage")+"\\I"+name).replaceAll("\\.","\\\\");
-		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+"\\impl\\"+name).replaceAll("\\.","\\\\");
-		File entityfile = new File(basePath	+ entity+".java");
-		File daofile   = new File(basePath	+ dao+"Dao.java");
-		File daoxmlfile = new File( src+"\\src\\main\\resources\\"	+ daoxml+"Dao.xml");
-		File servicefile   = new File(basePath + service+"Service.java");
-		File serviceImplfile   = new File(basePath + serviceImpl+"ServiceImpl.java");
-
-		String dest_basePath = dest+"\\src\\main\\java\\";
-		String dest_entity = (PROPERTIES.getProperty("myModelPackage")+"\\"+name).replaceAll("\\.","\\\\");
-		String dest_dao = (PROPERTIES.getProperty("myBussinessPackage")+"\\"+name).replaceAll("\\.","\\\\");
-		String dest_daoxml = (name).replaceAll("\\.","\\\\");
-		String dest_service = (PROPERTIES.getProperty("myServicePackage")+"\\I"+name).replaceAll("\\.","\\\\");
-		String dest_serviceImpl = (PROPERTIES.getProperty("myServicePackage")+"\\impl\\"+name).replaceAll("\\.","\\\\");
-		File dest_entityfile = new File(dest_basePath	+ dest_entity+".java");
-		File dest_daofile   = new File(dest_basePath	+ dest_dao+"Dao.java");
-		File dest_daoxmlfile = new File( dest+"\\src\\main\\resources\\mapper\\"	+ dest_daoxml+"Dao.xml");
-		File dest_servicefile   = new File(dest_basePath + dest_service+"Service.java");
-		File dest_serviceImplfile   = new File(dest_basePath + dest_serviceImpl+"ServiceImpl.java");
-//		System.out.println(entityfile +" 	"+dest_entityfile);
-//		System.out.println(daofile+" 	"+dest_daofile);
-//		System.out.println(daoxmlfile+" 	"+dest_daoxmlfile);
-//		System.out.println(servicefile+" 	"+dest_servicefile);
-//		System.out.println(serviceImplfile+" 	"+dest_serviceImplfile);
-
+		List<File> srclist = getDestFileList(src,name);
+		List<File> destlist = getDestFileList(dest,name);
 		try {
-			Files.copy(entityfile,dest_entityfile);
-			Files.copy(daofile,dest_daofile);
-			Files.copy(daoxmlfile,dest_daoxmlfile);
-			Files.copy(servicefile,dest_servicefile);
-			Files.copy(serviceImplfile,dest_serviceImplfile);
-		} catch (IOException e) {
+			for (int i=0;i<srclist.size();i++) {
+				Files.copy(srclist.get(i),destlist.get(i));
+				//System.out.println(srclist.get(i) +" , " + destlist.get(i));
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	//
+	private static void runSQL(String config){
+
+
+		Properties pros = new Properties();
+		try {
+			InputStream is = URLResourceUtil.asStream("classpath://"+config);
+			pros.load(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		List<String> lists = Lists.newArrayList(
+	   		"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_create.sql"
+	    		,"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_data.sql");
+		 runSql(pros,lists);
+	}
+
+	public static void LOG(String log){
+		System.out.println("[Log]:"+log);
+	}
+
 	public static void main(String[] args) 
 	{
 		//init();
-		//List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
-		//runSql(PROPERTIES,lists);
+		//runSQL("jdbc.properties");
+		MybatisGenerator.BASE_PREFIX = "d_";
 
-		createConfigs();
+		List<String> tnameList = createConfigs();
 		generator(OUT_CONFIG);
-		generateCode();
+		generateCode(tnameList);
+		generateCode_web(tnameList);
 
-		//copyTo(Menucate.class, System.getProperty("user.dir"),"D:\\workspace\\IdeaProject\\RiverResponsibleSystem\\RiverResponsibleSystem");
+
+		for (String tname:tnameList) {
+			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+StringUtils.capitalize(getRealClassName(tname));
+			System.out.println(clsName);
+			Class cls = null;
+			try {
+				cls = Class.forName(clsName);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			copyTo(cls, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
+		}
+
+		//copyTo(Devicegps.class, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
+		//copyTo(Monitorsite.class, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
 	}
 
 }

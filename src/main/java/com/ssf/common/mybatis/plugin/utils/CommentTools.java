@@ -147,19 +147,43 @@ public class CommentTools {
         interf.addJavaDocLine(" * @author "+AUTHOR_NAME);
         interf.addJavaDocLine(" */"); //$NON-NLS-1$
     }
+
+
+    /**
+     *
+     */
+    public static void addTopLevelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        StringBuilder sb = new StringBuilder();
+        topLevelClass.addJavaDocLine("/**"); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine(" * 这是Mybatis Generator拓展插件生成的类(请勿删除)."); //$NON-NLS-1$
+        sb.append(" * This class corresponds to the database table "); //$NON-NLS-1$
+        sb.append(introspectedTable.getFullyQualifiedTable());
+        topLevelClass.addJavaDocLine(sb.toString());
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" * "+MergeConstants.NEW_ELEMENT_TAG);
+        topLevelClass.addJavaDocLine(" * @author "+AUTHOR_NAME);
+        topLevelClass.addJavaDocLine(" */"); //$NON-NLS-1$
+    }
+
+    private static final String BEGIN_COMMENT = "<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  -->";
+    private static final String END_COMMENT   = "<!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END  -->";
     /**
      * 自定义代码区域
      */
     public static void addCustomCodeComment(XmlElement xmlElement) {
         //interf.addJavaDocLine("<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START-->\n"); //$NON-NLS-1$
-
         xmlElement.addElement(new TextElement(""));
-        xmlElement.addElement(new TextElement("<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START-->"));
+        xmlElement.addElement(new TextElement(BEGIN_COMMENT));
         xmlElement.addElement(new TextElement(""));
         xmlElement.addElement(new TextElement(""));
-        xmlElement.addElement(new TextElement("<!--  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END-->"));
+        xmlElement.addElement(new TextElement(END_COMMENT));
 
-
-
+    }
+    public static void addCustomCodeComment(Method method){
+        method.addJavaDocLine("");
+        method.addJavaDocLine("/**  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  **/");
+        method.addJavaDocLine("");
+        method.addJavaDocLine("");
+        method.addJavaDocLine("/**  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END      **/");
     }
 }
