@@ -1,6 +1,5 @@
 package com.jqm.ssm.base;
 
-import com.jqm.ssm.entity.Department;
 
 import java.util.List;
 import java.util.Map;

@@ -2,7 +2,6 @@ package com.jqm.ssm.util;
 
 //import com.jqm.ssm.entity.User;
 
-import com.jqm.ssm.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,8 +31,8 @@ public class SessionUtil {
 	 * @param request
 	 * @return
 	 */
-	public static final User getSessionUser(HttpServletRequest request)
-	{
-		return (User) request.getSession().getAttribute(SessionUtil.SessionSystemLoginUserName);
-	}
+//	public static final User getSessionUser(HttpServletRequest request)
+//	{
+//		return (User) request.getSession().getAttribute(SessionUtil.SessionSystemLoginUserName);
+//	}
 }

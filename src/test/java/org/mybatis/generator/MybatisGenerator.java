@@ -19,7 +19,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
 import com.jqm.ssm.entity.Devicegps;
-import com.jqm.ssm.entity.Monitorsite;
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.utils.MyStringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -29,39 +28,10 @@ import org.xml.sax.SAXException;
 
 import com.google.common.collect.Lists;
 
-
+/**
+ * 修改bug1：mybatis 拼接语句时,Boolean 类型判断为false的时候不生效问题 <a>https://blog.csdn.net/liubinblog/article/details/78035454</a>
+ */
 public class MybatisGenerator {
-
-//	enum PackgeName {
-//
-//		BASE("myBasePackage", ""), MODEL("myModelPackage",""),DAO("myBussinessPackage", ""),
-//		SERVICE("myServicePackage", ""), CONTROLLER("myWebPackage", "")
-//		;
-//
-//		private String code;
-//		private String name;
-//
-//		private PackgeName(String code, String name){
-//			this.code = code;
-//			this.name = name;
-//		}
-//
-//		public void setCode(String code) {
-//			this.code = code;
-//		}
-//
-//		public void setName(String name) {
-//			this.name = name;
-//		}
-//
-//		public String getCode() {
-//			return code;
-//		}
-//		public String getName() {
-//			return name;
-//		}
-//
-//	}
 	//####################################################
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
@@ -287,14 +257,33 @@ public class MybatisGenerator {
 
 
 	private static List<File> getDestFileList(String src,String name){
+		String spliter = "\\.";
+//		String str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
+//		System.out.println(str+"::::::::::"+	);
+//		System.out.println(str.replaceAll(spliter,File.separator));
+
 
 		String basePath = src+File.separator+"src"+File.separator+"main"+File.separator+"java"+File.separator;
-		String entity = (PROPERTIES.getProperty("myModelPackage")+File.separator+name).replaceAll("\\.",File.separator);
-		String dao = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll("\\.",File.separator);
-		String daoxml = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll("\\.",File.separator);
-		String service = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name).replaceAll("\\.",File.separator);
-		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name).replaceAll("\\.",File.separator);
-		String controller = (PROPERTIES.getProperty("myWebPackage")+File.separator+name).replaceAll("\\.",File.separator);
+
+		String str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
+		String entity = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+		str =  (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
+		String dao =  Joiner.on(File.separator).join(Splitter.on(".").split(str));
+		str = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
+		String daoxml = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+		str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name);
+		String service = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+		str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name);
+		String serviceImpl = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+		str = (PROPERTIES.getProperty("myWebPackage")+File.separator+name);
+		String controller  = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+
+//		String entity = (PROPERTIES.getProperty("myModelPackage")+File.separator+name).replaceAll(spliter,File.separator);
+//		String dao = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll(spliter,File.separator);
+//		String daoxml = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll(spliter,File.separator);
+//		String service = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name).replaceAll(spliter,File.separator);
+//		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name).replaceAll(spliter,File.separator);
+//		String controller = (PROPERTIES.getProperty("myWebPackage")+File.separator+name).replaceAll(spliter,File.separator);
 
 		File entityfile = new File(basePath	+ entity+".java");
 		File daofile   = new File(basePath	+ dao+"Dao.java");
@@ -362,14 +351,14 @@ public class MybatisGenerator {
 	{
 		//init();
 		//runSQL("jdbc.properties");
-		MybatisGenerator.BASE_PREFIX = "d_";
+		MybatisGenerator.BASE_PREFIX = "c_";
 
 		List<String> tnameList = createConfigs();
 		generator(OUT_CONFIG);
-		generateCode(tnameList);
-		generateCode_web(tnameList);
+		//generateCode(tnameList);
+		//generateCode_web(tnameList);
 
-
+        String destPath =  "D:\\workspace\\IdeaProject\\wy";
 		for (String tname:tnameList) {
 			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+StringUtils.capitalize(getRealClassName(tname));
 			System.out.println(clsName);
@@ -379,10 +368,10 @@ public class MybatisGenerator {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			copyTo(cls, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
+			//copyTo(cls, System.getProperty("user.dir"),destPath);
 		}
 
-		//copyTo(Devicegps.class, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
+		//copyTo(Devicegps.class, System.getProperty("user.dir"),destPath);
 		//copyTo(Monitorsite.class, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
 	}
 

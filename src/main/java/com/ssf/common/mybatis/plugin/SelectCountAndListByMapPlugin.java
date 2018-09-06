@@ -2,6 +2,7 @@ package com.ssf.common.mybatis.plugin;
 
 import java.util.List;
 
+import com.ssf.common.mybatis.plugin.utils.LogUtil;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -22,7 +23,11 @@ import com.ssf.common.mybatis.exception.MybatisPluginException;
  * 输入MAp作为参数
  */
 public class SelectCountAndListByMapPlugin extends PluginAdapter {
+	private static String TAG = SelectCountAndListByMapPlugin.class.getName();
 
+	private boolean isboolType(IntrospectedColumn introspectedColumn){
+		return introspectedColumn.getJdbcType() == -7;
+	}
 	/**
 	 * {@inheritDoc}
 	 */
@@ -66,10 +71,7 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		selectCountByMapElement.addAttribute(new Attribute("resultType", "int"));
 		
 		
-		selectCountByMapElement.addElement(
-				new TextElement(
-				"select count(*) from  " + dynamicTableJudge + " <include refid=\"Base_Query_Map_Condition\" /> "
-				));
+		selectCountByMapElement.addElement(new TextElement("select count(*) from  " + dynamicTableJudge + " <include refid=\"Base_Query_Map_Condition\" /> "));
 		
 		parentElement.addElement(selectCountByMapElement);
 		// ------------
@@ -86,10 +88,8 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		}	
 		StringBuilder orderByStr = new StringBuilder();
 		orderByStr.setLength(0);
-		for (IntrospectedColumn introspectedColumn : introspectedTable
-				.getPrimaryKeyColumns()) {
-			orderByStr.append(MyBatis3FormattingUtilities
-					.getEscapedColumnName(introspectedColumn) + " desc, " );
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
+			orderByStr.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn) + " desc, " );
 		}
 		orderByStr.delete(orderByStr.length() - 2, orderByStr.length());
 		// ----------
@@ -124,19 +124,25 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 			sbEqual.setLength(0);
 			sbEqual.append(introspectedColumn.getJavaProperty());
 			sbEqual.append(" != null"); //$NON-NLS-1$
-			sbEqual.append(" and "); //$NON-NLS-1$
-			sbEqual.append(introspectedColumn.getJavaProperty());
-			sbEqual.append(" != ''"); //$NON-NLS-1$
-            valuesNotNullElement.addAttribute(new Attribute(
-                    "test", sbEqual.toString())); //$NON-NLS-1$
+            boolean isboolType = isboolType(introspectedColumn);
+			//修改bug1：mybatis 拼接语句时,Boolean 类型判断为false的时候不生效问题 <a>https://blog.csdn.net/liubinblog/article/details/78035454</a>
+			if(!isboolType)
+			{
+				sbEqual.append(" and "); //$NON-NLS-1$
+				sbEqual.append(introspectedColumn.getJavaProperty());
+				sbEqual.append(" != ''"); //$NON-NLS-1$
+			}
+			else{
+				LogUtil.printLog(TAG+"-"+tableWithAliasName,introspectedColumn.getJdbcType()+","+introspectedColumn.getJavaProperty());
+			}
+
+            valuesNotNullElement.addAttribute(new Attribute("test", sbEqual.toString())); //$NON-NLS-1$
 
             sbEqual.setLength(0);
             sbEqual.append(" AND ");
-            sbEqual.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(introspectedColumn));
+            sbEqual.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
             sbEqual.append(" = "); //$NON-NLS-1$
-            sbEqual.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
+            sbEqual.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn));
             valuesNotNullElement.addElement(new TextElement(sbEqual.toString()));
             trimElement.addElement(valuesNotNullElement);
 		}
@@ -144,25 +150,26 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		
 		// alexgaoyh begin greater 大于
 		StringBuilder sbGreater = new StringBuilder();
-		for (IntrospectedColumn introspectedColumn : introspectedTable
-				.getAllColumns()) {
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			XmlElement valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
 			sbGreater.setLength(0);
 			sbGreater.append("myGreater_" + introspectedColumn.getJavaProperty());
 			sbGreater.append(" != null"); //$NON-NLS-1$
-			sbGreater.append(" and "); //$NON-NLS-1$
-			sbGreater.append("myGreater_" + introspectedColumn.getJavaProperty());
-			sbGreater.append(" != ''"); //$NON-NLS-1$
-			valuesNotNullElement.addAttribute(new Attribute(
-					"test", sbGreater.toString())); //$NON-NLS-1$
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType)
+			{
+				sbGreater.append(" and "); //$NON-NLS-1$
+				sbGreater.append("myGreater_" + introspectedColumn.getJavaProperty());
+				sbGreater.append(" != ''"); //$NON-NLS-1$
+			}
 
+
+			valuesNotNullElement.addAttribute(new Attribute("test", sbGreater.toString())); //$NON-NLS-1$
 			sbGreater.setLength(0);
 			sbGreater.append(" AND ");
-			sbGreater.append(MyBatis3FormattingUtilities
-					.getAliasedEscapedColumnName(introspectedColumn));
+			sbGreater.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
 			sbGreater.append(" &gt; "); //$NON-NLS-1$
-			sbGreater.append(MyBatis3FormattingUtilities
-					.getParameterClause(introspectedColumn, "myGreater_"));
+			sbGreater.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "myGreater_"));
 			valuesNotNullElement.addElement(new TextElement(sbGreater.toString()));
 			trimElement.addElement(valuesNotNullElement);
 		}
@@ -176,19 +183,19 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 			sbLesser.setLength(0);
 			sbLesser.append("myLesser_" + introspectedColumn.getJavaProperty());
 			sbLesser.append(" != null"); //$NON-NLS-1$
-			sbLesser.append(" and "); //$NON-NLS-1$
-			sbLesser.append("myLesser_" + introspectedColumn.getJavaProperty());
-			sbLesser.append(" != ''"); //$NON-NLS-1$
-			valuesNotNullElement.addAttribute(new Attribute(
-					"test", sbLesser.toString())); //$NON-NLS-1$
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType) {
+				sbLesser.append(" and "); //$NON-NLS-1$
+				sbLesser.append("myLesser_" + introspectedColumn.getJavaProperty());
+				sbLesser.append(" != ''"); //$NON-NLS-1$
+			}
+			valuesNotNullElement.addAttribute(new Attribute("test", sbLesser.toString())); //$NON-NLS-1$
 
 			sbLesser.setLength(0);
 			sbLesser.append(" AND ");
-			sbLesser.append(MyBatis3FormattingUtilities
-					.getAliasedEscapedColumnName(introspectedColumn));
+			sbLesser.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
 			sbLesser.append(" &lt; "); //$NON-NLS-1$
-			sbLesser.append(MyBatis3FormattingUtilities
-					.getParameterClause(introspectedColumn, "myLesser_"));
+			sbLesser.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "myLesser_"));
 			valuesNotNullElement.addElement(new TextElement(sbLesser.toString()));
 			trimElement.addElement(valuesNotNullElement);
 		}
@@ -202,19 +209,19 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 			sblike.setLength(0);
 			sblike.append("myLike_" + introspectedColumn.getJavaProperty());
 			sblike.append(" != null"); //$NON-NLS-1$
-			sblike.append(" and "); //$NON-NLS-1$
-			sblike.append("myLike_" + introspectedColumn.getJavaProperty());
-			sblike.append(" != ''"); //$NON-NLS-1$
-            valuesNotNullElement.addAttribute(new Attribute(
-                    "test", sblike.toString())); //$NON-NLS-1$
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType) {
+				sblike.append(" and "); //$NON-NLS-1$
+				sblike.append("myLike_" + introspectedColumn.getJavaProperty());
+				sblike.append(" != ''"); //$NON-NLS-1$
+			}
+            valuesNotNullElement.addAttribute(new Attribute("test", sblike.toString())); //$NON-NLS-1$
 
             sblike.setLength(0);
             sblike.append(" AND ");
-            sblike.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(introspectedColumn));
+            sblike.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
             sblike.append(" like "); //$NON-NLS-1$
-            sblike.append("CONCAT('%', " + MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn, "myLike_") + ",'%' )");
+            sblike.append("CONCAT('%', " + MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "myLike_") + ",'%' )");
             valuesNotNullElement.addElement(new TextElement(sblike.toString()));
             trimElement.addElement(valuesNotNullElement);
 		}
@@ -222,25 +229,24 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		
 		// alexgaoyh begin like 相似部分的 操作-前端匹配
 		StringBuilder sblikeStart = new StringBuilder();
-		for (IntrospectedColumn introspectedColumn : introspectedTable
-				.getAllColumns()) {
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			XmlElement valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
 			sblikeStart.setLength(0);
 			sblikeStart.append("myLikeStart_" + introspectedColumn.getJavaProperty());
 			sblikeStart.append(" != null"); //$NON-NLS-1$
-			sblikeStart.append(" and "); //$NON-NLS-1$
-			sblikeStart.append("myLikeStart_" + introspectedColumn.getJavaProperty());
-			sblikeStart.append(" != ''"); //$NON-NLS-1$
-			valuesNotNullElement.addAttribute(new Attribute(
-					"test", sblikeStart.toString())); //$NON-NLS-1$
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType) {
+				sblikeStart.append(" and "); //$NON-NLS-1$
+				sblikeStart.append("myLikeStart_" + introspectedColumn.getJavaProperty());
+				sblikeStart.append(" != ''"); //$NON-NLS-1$
+			}
+			valuesNotNullElement.addAttribute(new Attribute("test", sblikeStart.toString())); //$NON-NLS-1$
 
 			sblikeStart.setLength(0);
 			sblikeStart.append(" AND ");
-			sblikeStart.append(MyBatis3FormattingUtilities
-					.getAliasedEscapedColumnName(introspectedColumn));
+			sblikeStart.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
 			sblikeStart.append(" like "); //$NON-NLS-1$
-			sblikeStart.append("CONCAT('%', " + MyBatis3FormattingUtilities
-					.getParameterClause(introspectedColumn, "myLikeStart_") + ")");
+			sblikeStart.append("CONCAT('%', " + MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "myLikeStart_") + ")");
 			valuesNotNullElement.addElement(new TextElement(sblikeStart.toString()));
 			trimElement.addElement(valuesNotNullElement);
 		}
@@ -254,19 +260,19 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 			sblikeEnd.setLength(0);
 			sblikeEnd.append("myLikeEnd_" + introspectedColumn.getJavaProperty());
 			sblikeEnd.append(" != null"); //$NON-NLS-1$
-			sblikeEnd.append(" and "); //$NON-NLS-1$
-			sblikeEnd.append("myLikeEnd_" + introspectedColumn.getJavaProperty());
-			sblikeEnd.append(" != ''"); //$NON-NLS-1$
-			valuesNotNullElement.addAttribute(new Attribute(
-					"test", sblikeEnd.toString())); //$NON-NLS-1$
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType) {
+				sblikeEnd.append(" and "); //$NON-NLS-1$
+				sblikeEnd.append("myLikeEnd_" + introspectedColumn.getJavaProperty());
+				sblikeEnd.append(" != ''"); //$NON-NLS-1$
+			}
+			valuesNotNullElement.addAttribute(new Attribute("test", sblikeEnd.toString())); //$NON-NLS-1$
 
 			sblikeEnd.setLength(0);
 			sblikeEnd.append(" AND ");
-			sblikeEnd.append(MyBatis3FormattingUtilities
-					.getAliasedEscapedColumnName(introspectedColumn));
+			sblikeEnd.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
 			sblikeEnd.append(" like "); //$NON-NLS-1$
-			sblikeEnd.append("CONCAT( " + MyBatis3FormattingUtilities
-					.getParameterClause(introspectedColumn, "myLikeEnd_") + ",'%' )");
+			sblikeEnd.append("CONCAT( " + MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "myLikeEnd_") + ",'%' )");
 			valuesNotNullElement.addElement(new TextElement(sblikeEnd.toString()));
 			trimElement.addElement(valuesNotNullElement);
 		}
@@ -274,30 +280,29 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 		
 		// alexgaoyh begin in 语句
 		StringBuilder sbIn = new StringBuilder();
-		for (IntrospectedColumn introspectedColumn : introspectedTable
-				.getAllColumns()) {
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			XmlElement valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
 			sbIn.setLength(0);
 			sbIn.append("myIn_" + introspectedColumn.getJavaProperty());
 			sbIn.append(" != null"); //$NON-NLS-1$
-			sbIn.append(" and "); //$NON-NLS-1$
-			sbIn.append("myIn_" + introspectedColumn.getJavaProperty());
-			sbIn.append(" != ''"); //$NON-NLS-1$
-			valuesNotNullElement.addAttribute(new Attribute(
-					"test", sbIn.toString())); //$NON-NLS-1$
+
+			boolean isboolType = isboolType(introspectedColumn);
+			if(!isboolType) {
+				sbIn.append(" and "); //$NON-NLS-1$
+				sbIn.append("myIn_" + introspectedColumn.getJavaProperty());
+				sbIn.append(" != ''"); //$NON-NLS-1$
+			}
+			valuesNotNullElement.addAttribute(new Attribute("test", sbIn.toString())); //$NON-NLS-1$
 
 			sbIn.setLength(0);
 			sbIn.append(" AND ");
-			sbIn.append(MyBatis3FormattingUtilities
-					.getAliasedEscapedColumnName(introspectedColumn));
+			sbIn.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
 			sbIn.append(" in "); //$NON-NLS-1$
 			sbIn.append("<foreach item=\"item\" index=\"index\" collection=\"" + "myIn_" + introspectedColumn.getJavaProperty() + "\" open=\"(\" separator=\",\" close=\")\"> #{item} </foreach>");
 			valuesNotNullElement.addElement(new TextElement(sbIn.toString()));
 			trimElement.addElement(valuesNotNullElement);
 		}
 		// alexgaoyh end in 语句
-
-		
 		baseQueryMapConditionElement.addElement(trimElement);
 		parentElement.addElement(baseQueryMapConditionElement);
 		// ------------
