@@ -30,17 +30,20 @@ import com.google.common.collect.Lists;
 
 /**
  * 修改bug1：mybatis 拼接语句时,Boolean 类型判断为false的时候不生效问题 <a>https://blog.csdn.net/liubinblog/article/details/78035454</a>
+ * TODO 生成文件的时候直击读取指定区域的自编写文件内容
  */
 public class MybatisGenerator {
 	//####################################################
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
-	
+
+
 	public static final Properties PROPERTIES = new Properties();
 	public static Map<String,String> COMMENT_MAPS = Maps.newHashMap();
 	//####################################################
 	public static String BASE_PREFIX= "water_";
 	public static String MAPPER_NAME = "Dao";
+	public static String DEST_PROJECT_PATH = "/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem";
 	//public static String BASE_PACKAGE = "com.ssf";
 
 	static
@@ -52,13 +55,6 @@ public class MybatisGenerator {
 			e.printStackTrace();
 		}
 	}
-	
-//	public static  List<String> getTableNames(Properties props){
-//		String dbName = props.getProperty("dbName");
-//		String dbType = props.getProperty("dbType");
-//		return DataBasePopulator.getTableNames(props, dbName,dbType);
-//	}
-	
 	/**
 	 * 第一步生成-数据库结构
 	 * 记得修改dbName 默认为finalssm

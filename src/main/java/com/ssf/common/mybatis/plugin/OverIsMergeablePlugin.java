@@ -57,7 +57,7 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 		Method m = lists.size()>0 ? lists.get(0) :null;
 		if(m!=null)
 		{
-			CommentTools.addCustomCodeComment(m);
+			CommentTools.addCustomCodeComment(m,"model");
 
 		}
 
@@ -92,7 +92,7 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 			Method m = lists.size()>0 ? lists.get(0) :null;
 			if(m!=null)
 			{
-				CommentTools.addCustomCodeComment(m);
+				CommentTools.addCustomCodeComment(m,"dao");
 
 			}
 

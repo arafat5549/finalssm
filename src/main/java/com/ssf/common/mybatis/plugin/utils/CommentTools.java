@@ -179,7 +179,7 @@ public class CommentTools {
         xmlElement.addElement(new TextElement(END_COMMENT));
 
     }
-    public static void addCustomCodeComment(Method method){
+    public static void addCustomCodeComment(Method method,String type){
         method.addJavaDocLine("");
         method.addJavaDocLine("/**  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  **/");
         method.addJavaDocLine("");
