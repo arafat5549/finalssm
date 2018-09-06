@@ -28,6 +28,7 @@ src/main/java/com/jqm/ssm/dao/*
 src/main/java/com/jqm/ssm/entity/*
 src/main/java/com/jqm/ssm/service/*
 src/main/java/com/jqm/ssm/controller/*
+src/main/java/com/jqm/ssm/web/*
 
 
 src/main/resources/com/
