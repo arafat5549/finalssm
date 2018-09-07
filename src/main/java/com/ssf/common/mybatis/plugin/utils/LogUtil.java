@@ -76,7 +76,6 @@ public class LogUtil {
 
         System.out.println("----------------------------------"+type+","+captailClsName+"----------------------------------");
         List<String> ret = readSpecailAreas_file(filePath);
-
         //System.out.println(Joiner.on(" ").join(ret).trim());
         boolean isallblank = true;
         for (String l:ret) {
@@ -98,7 +97,6 @@ public class LogUtil {
     public static void main(String[] args) {
         String base  = DEST_PROJECT_PATH+"/src/main/java";
         String filePath = base + File.separator + "com/jqm/ssm/entity/" + "User.java";
-        //readSpecailAreas_file(filePath);
 
         base  = DEST_PROJECT_PATH+"/src/main/resources";
         filePath = base + File.separator + "com/jqm/ssm/dao/" + "UserDao.xml";

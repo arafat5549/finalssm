@@ -41,7 +41,6 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 
 	@Override
 	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-		//System.out.println("sqlMapDocumentGenerated"+document);
 		String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
 		CommentTools.addCustomCodeComment(document.getRootElement(),"daoxml",tableName);
 		return true;
@@ -50,7 +49,6 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 	//model类顶部
 	@Override
 	public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable){
-		//System.out.println("modelBaseRecordClassGenerated"+topLevelClass+", "+introspectedTable);
 
 		List<Method> lists = topLevelClass.getMethods();
 		Method m = lists.size()>0 ? lists.get(0) :null;
@@ -62,32 +60,12 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 			CommentTools.addCustomCodeComment(m,"model",tableName);
 
 		}
-
-//		List<InnerEnum> enums = topLevelClass.getInnerEnums();
-//		InnerEnum e = enums.size()>0 ? enums.get(enums.size()-1) :null;
-//		if(e!=null)
-//		{
-//			e.addJavaDocLine("//Enum---------");
-//
-//		}
-//		topLevelClass.addFileCommentLine("//File----");
 		return true;
 	}
 
 	//接口顶部
 	@Override
 	public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable){
-//		System.out.println("clientGenerated，"+interfaze+","+topLevelClass+","+introspectedTable);
-//		CommentTools.addInterfaceComment(interfaze,introspectedTable);
-//
-//		List<Method> lists = interfaze.getMethods();
-//		for (Method m:
-//			 lists) {
-//			System.out.println(m.getName());
-//		}
-//		//CommentTools.addGeneralMethodComment(lists.get(lists.size()-1),introspectedTable);
-//		interfaze.addJavaDocLine("-----------");
-
 		if(interfaze!=null)
 		{
 			List<Method> lists = interfaze.getMethods();
@@ -99,8 +77,6 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 				CommentTools.addCustomCodeComment(m,"dao",tableName);
 
 			}
-
-			//System.out.println("comm="+interfaze.getFileCommentLines());
 
 		}
 
