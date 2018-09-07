@@ -16,6 +16,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import com.ssf.common.mybatis.plugin.utils.LogUtil;
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.utils.MyStringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +41,9 @@ public class MybatisGenerator {
 	//####################################################
 	public static String BASE_PREFIX= "water_";
 	public static String MAPPER_NAME = "Dao";
-	public static String DEST_PROJECT_PATH = "/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem";
-	//public static String BASE_PACKAGE = "com.ssf";
+	public static String DEST_PROJECT_PATH = "D:\\workspace\\IdeaProject\\wy";
+
+	//"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem";
 
 	static
 	{
@@ -349,6 +351,7 @@ public class MybatisGenerator {
 	{
 		//init();
 		//runSQL("jdbc.properties");
+
 		MybatisGenerator.BASE_PREFIX = "water_";
 
 		List<String> tnameList = createConfigs();
@@ -356,22 +359,20 @@ public class MybatisGenerator {
 		//generateCode(tnameList);
 		//generateCode_web(tnameList);
 
-        String destPath =  "D:\\workspace\\IdeaProject\\wy";
+        String destPath =  DEST_PROJECT_PATH;
 		for (String tname:tnameList) {
 			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
-					//StringUtils.capitalize(getRealClassName(tname));
 			System.out.println(clsName);
-			Class cls = null;
-			try {
-				cls = Class.forName(clsName);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+//			Class cls = null;
+//			try {
+//				cls = Class.forName(clsName);
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
 			//copyTo(cls, System.getProperty("user.dir"),destPath);
 		}
 
 		//copyTo(Devicegps.class, System.getProperty("user.dir"),destPath);
-		//copyTo(Monitorsite.class, System.getProperty("user.dir"),"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem");
 	}
 
 }

@@ -77,7 +77,7 @@ public class GeneratorConfigXMLUtil {
 					cflag = 0;
 				}
 				if(cflag==0){
-					MybatisGenerator.LOG(tname+"，"+base+","+ss.length);
+
 					tnameList.add(tname);
 					base = StringUtils.capitalize(base);
 					newele.addAttribute("mapperName", base + MybatisGenerator.MAPPER_NAME);

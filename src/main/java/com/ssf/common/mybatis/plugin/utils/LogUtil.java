@@ -1,8 +1,10 @@
 package com.ssf.common.mybatis.plugin.utils;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
+import generator.MybatisGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class LogUtil {
 
-    public static String DEST_PROJECT_PATH = "/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem";
+    public static String DEST_PROJECT_PATH = MybatisGenerator.DEST_PROJECT_PATH;
     public static void printLog(String prefix,String log){
         System.out.println(prefix+":"+log);
     }
@@ -62,21 +64,32 @@ public class LogUtil {
         return readSpecailAreas(filePath,regex_start,regex_end);
     }
 
-    public static List<String> readSpecailAreas_file(String type,String captailClsName){
-        String base  = DEST_PROJECT_PATH+"/src/main/java";
-        String base_xml  = DEST_PROJECT_PATH+"/src/main/resources";
+    public static List<String> readSpecailAreas_file(String type,String captailClsName) {
+        String base = DEST_PROJECT_PATH + "/src/main/java";
+        String base_xml = DEST_PROJECT_PATH + "/src/main/resources";
         String filePath = "";
 
-        if("model".equals(type))
-            filePath = base + File.separator + "com/jqm/ssm/entity/" + captailClsName +".java";
-        else if("dao".equals(type))
-            filePath = base + File.separator + "com/jqm/ssm/dao/" + captailClsName +"Dao.java";
-        else if("daoxml".equals(type))
-            filePath  = base_xml + File.separator + "com/jqm/ssm/dao/" + captailClsName +"Dao.xml";
+        String modelPackageName  = MybatisGenerator.PROPERTIES.getProperty("myModelPackage");
+        String daoPackageName    = MybatisGenerator.PROPERTIES.getProperty("myBussinessPackage");
+        String daoxmlPackageName = MybatisGenerator.PROPERTIES.getProperty("myBussinessPackage");
 
-        System.out.println("----------------------------------"+type+","+captailClsName+"----------------------------------");
+        if ("model".equals(type))
+        {
+            String str = base + File.separator + modelPackageName + File.separator + captailClsName ;
+            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+".java";
+        }
+        else if("dao".equals(type))
+        {
+            String str = base + File.separator + daoPackageName + File.separator + captailClsName ;
+            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+"Dao.java";
+        }
+        else if("daoxml".equals(type))
+        {
+            String str = base_xml + File.separator + daoxmlPackageName + File.separator + captailClsName ;
+            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+"Dao.xml";
+        }
+
         List<String> ret = readSpecailAreas_file(filePath);
-        //System.out.println(Joiner.on(" ").join(ret).trim());
         boolean isallblank = true;
         for (String l:ret) {
             boolean flag = "".equals(l.trim());
@@ -85,9 +98,10 @@ public class LogUtil {
                 isallblank = false;
                 break;
             }
-            //System.out.println(l+","+flag);
         }
-        //System.out.println(isallblank);
+
+        if(isallblank)
+            System.out.println(isallblank+"----------------------------------"+type+","+captailClsName+"----------------------------------");
         return isallblank ? Lists.newArrayList() : ret;
     }
 

@@ -182,7 +182,7 @@ public class CommentTools {
         String captailClsName = MybatisGenerator.getRealClassNameCapatial(tableName);
         List<String> ret = LogUtil.readSpecailAreas_file(type,captailClsName);
         for (String l: ret) {
-            System.out.println(l);
+            //System.out.println(l);
             xmlElement.addElement(new TextElement(l));
         }
 
@@ -197,7 +197,7 @@ public class CommentTools {
         String captailClsName = MybatisGenerator.getRealClassNameCapatial(tableName);
         List<String> ret = LogUtil.readSpecailAreas_file(type,captailClsName);
         for (String l: ret) {
-            System.out.println(l);
+            //System.out.println(l);
             method.addJavaDocLine(l);
         }
         method.addJavaDocLine("");
