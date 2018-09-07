@@ -1,9 +1,8 @@
-package org.mybatis.generator;
+package generator;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,10 @@ import java.util.regex.Pattern;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
-import com.jqm.ssm.entity.Devicegps;
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.utils.MyStringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -210,6 +207,11 @@ public class MybatisGenerator {
 
 		return MyStringUtil.underlineToCamel(tableName.replace(MybatisGenerator.BASE_PREFIX, ""));
 	}
+	//真实类名 首字母大写
+	public static String getRealClassNameCapatial(String tableName){
+		return StringUtils.capitalize(getRealClassName(tableName));
+	}
+
 	public static boolean isUnionKey(String tableName){
 		//System.out.println(tableName);
 		String ss[] = tableName.split(MybatisGenerator.BASE_PREFIX);
@@ -347,7 +349,7 @@ public class MybatisGenerator {
 	{
 		//init();
 		//runSQL("jdbc.properties");
-		MybatisGenerator.BASE_PREFIX = "c_";
+		MybatisGenerator.BASE_PREFIX = "water_";
 
 		List<String> tnameList = createConfigs();
 		generator(OUT_CONFIG);
@@ -356,7 +358,8 @@ public class MybatisGenerator {
 
         String destPath =  "D:\\workspace\\IdeaProject\\wy";
 		for (String tname:tnameList) {
-			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+StringUtils.capitalize(getRealClassName(tname));
+			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
+					//StringUtils.capitalize(getRealClassName(tname));
 			System.out.println(clsName);
 			Class cls = null;
 			try {

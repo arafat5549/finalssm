@@ -1,4 +1,4 @@
-package org.mybatis.generator;
+package generator;
 
 import java.io.File;
 import java.io.Reader;
@@ -15,10 +15,7 @@ import java.util.Properties;
 
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**

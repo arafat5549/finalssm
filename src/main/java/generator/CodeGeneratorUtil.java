@@ -1,4 +1,4 @@
-package org.mybatis.generator;
+package generator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,12 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.collections.functors.IfClosure;
 import org.apache.commons.lang3.StringUtils;
-import org.mybatis.generator.GeneratorConfigXMLUtil;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.ssf.common.utils.StringUtilss;
@@ -56,7 +52,8 @@ public class CodeGeneratorUtil {
 			String jspPackageName = key.replace(".", "");
 			//System.out.println(webPackageName); 
 			for (String tname : multimap.get(key)) {
-				String clsName = StringUtils.capitalize(StringUtilss.toCamelCase(tname));
+				String clsName = StringUtilss.toCamelCase(MybatisGenerator.getRealClassName(tname));
+						//StringUtils.capitalize(StringUtilss.toCamelCase(tname));
 				String pName = tname.replace("_", "/");
 				String comment = comments.get(tname);
 				int idx = comment.lastIndexOf("表");
@@ -145,7 +142,7 @@ public class CodeGeneratorUtil {
 			String modelPackageName = MybatisGenerator.parsePackageName(modelPackage, key);
 			for (String tname : multimap.get(key)) {
 
-				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
+				String clsName = MybatisGenerator.getRealClassNameCapatial(tname);//StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
 				//MybatisGenerator.LOG(tname+","+clsName);
 				createTemplate(myBasePackage,servicePackageName,daoPackageName,modelPackageName,clsName);
 			}
@@ -162,7 +159,7 @@ public class CodeGeneratorUtil {
 		for (String key : multimap.keySet()) {
 			for (String tname : multimap.get(key)) {
 				//System.out.println(tname);
-				String clsName = StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
+				String clsName = MybatisGenerator.getRealClassNameCapatial(tname);//StringUtils.capitalize(MybatisGenerator.getRealClassName(tname));
 				String workDir = (String) System.getProperties().get("user.dir");
 
 				Map<String, Object> root = new HashMap<String, Object>();

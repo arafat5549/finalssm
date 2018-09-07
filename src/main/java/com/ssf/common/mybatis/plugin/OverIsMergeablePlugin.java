@@ -4,15 +4,14 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import com.ssf.common.mybatis.plugin.utils.CommentTools;
+import com.ssf.common.mybatis.plugin.utils.LogUtil;
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
-import org.mybatis.generator.api.dom.java.InnerEnum;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Document;
-import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
  * 强制覆盖xml文件(注意这样每次都会生成新的mapper.xml会覆盖掉你编写的部分)
@@ -43,8 +42,8 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 	@Override
 	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 		//System.out.println("sqlMapDocumentGenerated"+document);
-
-		CommentTools.addCustomCodeComment(document.getRootElement());
+		String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
+		CommentTools.addCustomCodeComment(document.getRootElement(),"daoxml",tableName);
 		return true;
 	}
 
@@ -57,7 +56,10 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 		Method m = lists.size()>0 ? lists.get(0) :null;
 		if(m!=null)
 		{
-			CommentTools.addCustomCodeComment(m,"model");
+
+			String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
+			//LogUtil.printLog("========",tableName+","+ MybatisGenerator.getRealClassNameCapatial(tableName));
+			CommentTools.addCustomCodeComment(m,"model",tableName);
 
 		}
 
@@ -92,7 +94,9 @@ public class OverIsMergeablePlugin extends PluginAdapter{
 			Method m = lists.size()>0 ? lists.get(0) :null;
 			if(m!=null)
 			{
-				CommentTools.addCustomCodeComment(m,"dao");
+				String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
+				//LogUtil.printLog("dao",tableName);
+				CommentTools.addCustomCodeComment(m,"dao",tableName);
 
 			}
 

@@ -133,7 +133,7 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 				sbEqual.append(" != ''"); //$NON-NLS-1$
 			}
 			else{
-				LogUtil.printLog(TAG+"-"+tableWithAliasName,introspectedColumn.getJdbcType()+","+introspectedColumn.getJavaProperty());
+				//LogUtil.printLog(TAG+"-"+tableWithAliasName,introspectedColumn.getJdbcType()+","+introspectedColumn.getJavaProperty());
 			}
 
             valuesNotNullElement.addAttribute(new Attribute("test", sbEqual.toString())); //$NON-NLS-1$
@@ -320,8 +320,7 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 
 		m.addParameter(new Parameter(new FullyQualifiedJavaType("Map<Object, Object>"), "map"));
 
-		context.getCommentGenerator().addGeneralMethodComment(m,
-				introspectedTable);
+		context.getCommentGenerator().addGeneralMethodComment(m,introspectedTable);
 		return m;
 	}
 	
@@ -335,8 +334,7 @@ public class SelectCountAndListByMapPlugin extends PluginAdapter {
 
 		m.addParameter(new Parameter(new FullyQualifiedJavaType("Map<Object, Object>"), "map"));
 
-		context.getCommentGenerator().addGeneralMethodComment(m,
-				introspectedTable);
+		context.getCommentGenerator().addGeneralMethodComment(m,introspectedTable);
 		return m;
 	}
 

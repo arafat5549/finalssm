@@ -29,37 +29,37 @@
     <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src//main//java"/>
     <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//resources"/>
     <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//java" type="XMLMAPPER"/>
-    <table mapperName="BrandDao" schema="" tableName="c_brand" domainObjectName="Brand" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="DepartmentDao" schema="" tableName="water_department" domainObjectName="Department" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="CategoryDao" schema="" tableName="c_category" domainObjectName="Category" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="MenucateDao" schema="" tableName="water_menucate" domainObjectName="Menucate" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="DevicegpsDao" schema="" tableName="c_devicegps" domainObjectName="Devicegps" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="ModuleDao" schema="" tableName="water_module" domainObjectName="Module" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="DeviceinfoDao" schema="" tableName="c_deviceinfo" domainObjectName="Deviceinfo" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="PermissionDao" schema="" tableName="water_permission" domainObjectName="Permission" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="DeviceinfoPictureDao" schema="" tableName="c_deviceinfo_picture" domainObjectName="DeviceinfoPicture" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="RoleDao" schema="" tableName="water_role" domainObjectName="Role" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="MonitorsiteDao" schema="" tableName="c_monitorsite" domainObjectName="Monitorsite" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="UserDao" schema="" tableName="water_user" domainObjectName="User" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>

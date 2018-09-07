@@ -16,11 +16,14 @@
 
 package com.ssf.common.mybatis.plugin.utils;
 
+import generator.MybatisGenerator;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.MergeConstants;
+
+import java.util.List;
 
 /**
  * ---------------------------------------------------------------------------
@@ -170,19 +173,33 @@ public class CommentTools {
     /**
      * 自定义代码区域
      */
-    public static void addCustomCodeComment(XmlElement xmlElement) {
+    public static void addCustomCodeComment(XmlElement xmlElement,String type,String tableName) {
         //interf.addJavaDocLine("<!--  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START-->\n"); //$NON-NLS-1$
         xmlElement.addElement(new TextElement(""));
         xmlElement.addElement(new TextElement(BEGIN_COMMENT));
         xmlElement.addElement(new TextElement(""));
+
+        String captailClsName = MybatisGenerator.getRealClassNameCapatial(tableName);
+        List<String> ret = LogUtil.readSpecailAreas_file(type,captailClsName);
+        for (String l: ret) {
+            System.out.println(l);
+            xmlElement.addElement(new TextElement(l));
+        }
+
         xmlElement.addElement(new TextElement(""));
         xmlElement.addElement(new TextElement(END_COMMENT));
 
     }
-    public static void addCustomCodeComment(Method method,String type){
+    public static void addCustomCodeComment(Method method,String type,String tableName){
         method.addJavaDocLine("");
         method.addJavaDocLine("/**  START 以下为自己编写的代码区域 一般是多表之间的联合查询  START  **/");
         method.addJavaDocLine("");
+        String captailClsName = MybatisGenerator.getRealClassNameCapatial(tableName);
+        List<String> ret = LogUtil.readSpecailAreas_file(type,captailClsName);
+        for (String l: ret) {
+            System.out.println(l);
+            method.addJavaDocLine(l);
+        }
         method.addJavaDocLine("");
         method.addJavaDocLine("/**  END 以下为自己编写的代码区域 一般是多表之间的联合查询  END      **/");
     }
