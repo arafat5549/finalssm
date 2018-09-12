@@ -19,6 +19,7 @@ import com.google.common.io.Files;
 import com.ssf.common.mybatis.plugin.utils.LogUtil;
 import com.ssf.common.utils.StringUtilss;
 import com.ssf.utils.MyStringUtil;
+import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.ShellRunner;
 import org.springside.modules.utils.io.URLResourceUtil;
@@ -262,9 +263,7 @@ public class MybatisGenerator {
 //		System.out.println(str+"::::::::::"+	);
 //		System.out.println(str.replaceAll(spliter,File.separator));
 
-
 		String basePath = src+File.separator+"src"+File.separator+"main"+File.separator+"java"+File.separator;
-
 		String str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
 		String entity = Joiner.on(File.separator).join(Splitter.on(".").split(str));
 		str =  (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
@@ -352,27 +351,41 @@ public class MybatisGenerator {
 		//init();
 		//runSQL("jdbc.properties");
 
-		MybatisGenerator.BASE_PREFIX = "water_";
+		Options options = new Options();
+		options.addOption("l", true, "0生成全部 1生成dao 2生成service 3生成controller");
+		options.addOption("c", true, "复制到指定的路径，复制前先做比对");
+		options.addOption("p", true, "Prefix 数据库表名前缀");
+		options.addOption("conf", false, "指定的配置文件");
 
-		List<String> tnameList = createConfigs();
-		generator(OUT_CONFIG);
-		//generateCode(tnameList);
-		//generateCode_web(tnameList);
+		CommandLineParser parser = new DefaultParser();
+		try {
+			CommandLine cmd = parser.parse(options, args);
+			String dir = cmd.getOptionValue("l");
+			System.out.println(dir);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
-        String destPath =  DEST_PROJECT_PATH;
-		for (String tname:tnameList) {
-			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
-			System.out.println(clsName);
+
+//		MybatisGenerator.BASE_PREFIX = "water_";
+//		List<String> tnameList = createConfigs();
+//		generator(OUT_CONFIG);
+//		generateCode(tnameList);
+//		generateCode_web(tnameList);
+//
+//      String destPath =  DEST_PROJECT_PATH;
+//		for (String tname:tnameList) {
+//			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
+//			System.out.println(clsName);
 //			Class cls = null;
 //			try {
 //				cls = Class.forName(clsName);
 //			} catch (ClassNotFoundException e) {
 //				e.printStackTrace();
 //			}
-			//copyTo(cls, System.getProperty("user.dir"),destPath);
-		}
+//			copyTo(cls, System.getProperty("user.dir"),destPath);
+//		}
 
-		//copyTo(Devicegps.class, System.getProperty("user.dir"),destPath);
 	}
 
 }
