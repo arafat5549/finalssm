@@ -1,6 +1,8 @@
 .idea/
 .idea/*
 *.iml
+out/
+out/*
 
 src/main/test/**/*.dao/
 src/main/test/**/*.dao/*

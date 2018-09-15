@@ -2,6 +2,7 @@ package generator;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -396,17 +397,21 @@ public class MybatisGenerator {
 		System.out.println("generate_level: "+generate_level+",iscopy: "+iscopy);
 		if(iscopy > 0)
 		{
+			String db_copytable =  PROPERTIES.getProperty("db_copytable");
 			String destPath =  DEST_PROJECT_PATH;
 			for (String tname:tnameList) {
-				String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
-				System.out.println(clsName);
-				Class cls = null;
-				try {
-					cls = Class.forName(clsName);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+				if(Strings.isNullOrEmpty(db_copytable) || (db_copytable.equals(tname))){
+					String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
+					System.out.println("开始拷贝:"+clsName);
+					Class cls = null;
+					try {
+						cls = Class.forName(clsName);
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					copyTo(cls, System.getProperty("user.dir"),destPath,iscopy);
 				}
-				copyTo(cls, System.getProperty("user.dir"),destPath,iscopy);
+
 			}
 		}
 
