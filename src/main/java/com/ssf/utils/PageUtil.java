@@ -1,9 +1,9 @@
 package com.ssf.utils;
 
+import com.ssf.common.vo.mybatis.pagination.Page;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.ssf.common.vo.mybatis.pagination.Page;
 
 /**
  * 分页工具类

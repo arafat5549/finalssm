@@ -1,25 +1,14 @@
 package generator;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.ssf.common.utils.StringUtilss;
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * 利用freemarker模板引擎自动生成Service层通用代码
@@ -163,6 +152,7 @@ public class CodeGeneratorUtil {
 				String workDir = (String) System.getProperties().get("user.dir");
 
 				Map<String, Object> root = new HashMap<String, Object>();
+				root.put("basePackage", props.getProperty("myBasePackage"));
 				root.put("className", clsName);//实体类名称
 				root.put("smallClassName", MybatisGenerator.lowerCapital(clsName));//实体类名称首字母小写，驼峰式
 				root.put("webPackageName",MybatisGenerator.parsePackageName(controllerPackage, key));
@@ -195,6 +185,7 @@ public class CodeGeneratorUtil {
 		try {
 			Class cls = Class.forName(modelPackageName+"."+clsName);
 			Field field = cls.getDeclaredField("id");
+			//System.out.println(field);
 			if(field!=null){
 				String idField = field.getType().getName();
 				int idx = idField.lastIndexOf(".");

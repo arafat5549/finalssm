@@ -1,19 +1,14 @@
 package guava;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.google.common.base.*;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.google.common.hash.Hashing;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 测试常用的guava方法

@@ -1,8 +1,6 @@
 package com.ssf.common.mybatis.plugin;
 
-import java.util.List;
-
-import com.ssf.common.mybatis.plugin.utils.LogUtil;
+import com.ssf.common.mybatis.exception.MybatisPluginException;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -16,7 +14,7 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-import com.ssf.common.mybatis.exception.MybatisPluginException;
+import java.util.List;
 
 /**
  * 生成SelectListByMap

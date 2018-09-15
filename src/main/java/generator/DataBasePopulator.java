@@ -1,21 +1,17 @@
 package generator;
 
+import com.google.common.collect.Maps;
+import com.google.common.io.Files;
+import org.apache.ibatis.jdbc.ScriptRunner;
+
 import java.io.File;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import com.google.common.collect.Maps;
-import com.google.common.io.Files;
-import org.apache.ibatis.jdbc.ScriptRunner;
 
 
 /**

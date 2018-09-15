@@ -1,4 +1,5 @@
-package com.ssf.common.mybatis.base;
+package com.wyy.base;
+
 
 import java.util.List;
 import java.util.Map;
@@ -41,14 +42,21 @@ public interface BaseMapper<T> {
 	 * @return
 	 */
 	int insertSelective(T record);
-	
-	//测试方法-没有意义
-	List<T> selectTest(Map<Object, Object> map);
 
-//	void batchInsert(List<T> list );
-//	void batchInsertSelective(List<T> list,Object...params);
+	/**
+	 *
+	 */
+	int deleteByPrimaryKey(Integer id);
 
-	//void batchInsert(@Param("list")List<T> list );
-	//void batchInsertSelective(@Param("list")List<T> list,@Param("selective")Object...params);
+	T selectByPrimaryKey(Integer id);
 
+	int updateByPrimaryKeySelective(T record);
+
+	int updateByPrimaryKey(T record);
+
+	/**
+	 * 批量插入
+	 */
+	int batchInsert(List<T> list);
+	//int batchInsertSelective(List<T> list,T.Column...params);
 }

@@ -1,14 +1,7 @@
 package generator;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-
+import com.ssf.common.utils.StringUtilss;
+import com.ssf.common.utils.XmlParserUtilss;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.CloneUtils;
 import org.dom4j.Document;
@@ -19,8 +12,14 @@ import org.dom4j.io.XMLWriter;
 import org.springside.modules.utils.io.URLResourceUtil;
 import org.xml.sax.SAXException;
 
-import com.ssf.common.utils.StringUtilss;
-import com.ssf.common.utils.XmlParserUtilss;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * 读取数据库 生成所有table标签

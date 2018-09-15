@@ -16,7 +16,8 @@ import java.util.List;
  */
 public class LogUtil {
 
-    public static String DEST_PROJECT_PATH = MybatisGenerator.DEST_PROJECT_PATH;
+    public static String DEST_PROJECT_PATH = MybatisGenerator.SRC_PROJECT_PATH;
+
     public static void printLog(String prefix,String log){
         System.out.println(prefix+":"+log);
     }
@@ -25,7 +26,10 @@ public class LogUtil {
     private static List<String> readSpecailAreas(String filePath,String start,String end){
         List<String> ret = Lists.newArrayList();
         try {
-            List<String> lines = Files.readLines(new File(filePath), Charset.forName("UTF-8"));
+            File dest = new File(filePath);
+            if(!dest.exists())
+                return ret;
+            List<String> lines = Files.readLines(dest, Charset.forName("UTF-8"));
             int lineno = -1;
             for (int i=0;i<lines.size();i++) {
                 String line = lines.get(i);
@@ -55,12 +59,17 @@ public class LogUtil {
     private static List<String> readSpecailAreas_file(String filePath){
         String regex_start = ".* START *以下为自己编写的代码区域 一般是多表之间的联合查询 *START .*";
         String regex_end = ".* END *以下为自己编写的代码区域 一般是多表之间的联合查询 *END .*";
+
+
+        regex_start = ".*以下是针对不足功能，添加的代码.*";
         return readSpecailAreas(filePath,regex_start,regex_end);
     }
 
     private static List<String> readSpecailAreas_xml(String filePath){
         String regex_start = ".* START *以下为自己编写的代码区域 一般是多表之间的联合查询 *START .*";
         String regex_end = ".* END *以下为自己编写的代码区域 一般是多表之间的联合查询 *END .*";
+
+        regex_start = ".*以下是针对不足功能，添加的代码.*";
         return readSpecailAreas(filePath,regex_start,regex_end);
     }
 
@@ -73,6 +82,8 @@ public class LogUtil {
         String daoPackageName    = MybatisGenerator.PROPERTIES.getProperty("myBussinessPackage");
         String daoxmlPackageName = MybatisGenerator.PROPERTIES.getProperty("myBussinessPackage");
 
+        String src_map_suffix =  MybatisGenerator.PROPERTIES.getProperty("src_map_suffix");
+
         if ("model".equals(type))
         {
             String str = base + File.separator + modelPackageName + File.separator + captailClsName ;
@@ -81,22 +92,29 @@ public class LogUtil {
         else if("dao".equals(type))
         {
             String str = base + File.separator + daoPackageName + File.separator + captailClsName ;
-            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+"Dao.java";
+            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+src_map_suffix+".java";
         }
         else if("daoxml".equals(type))
         {
             String str = base_xml + File.separator + daoxmlPackageName + File.separator + captailClsName ;
-            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+"Dao.xml";
+            filePath = Joiner.on(File.separator).join(Splitter.on(".").split(str))+src_map_suffix+".xml";
         }
 
         List<String> ret = readSpecailAreas_file(filePath);
         boolean isallblank = true;
-        for (String l:ret) {
+        for (int i=0;i<ret.size();i++)
+        {
+            String l = ret.get(i);
             boolean flag = "".equals(l.trim());
             //System.out.println();
             if(!flag){
                 isallblank = false;
-                break;
+            }
+            if("}".equals(l.trim())) {
+                ret.remove(i);
+            }
+            else if("daoxml".equals(type) && "</mapper>".equals(l.trim())){
+                ret.remove(i);
             }
         }
 

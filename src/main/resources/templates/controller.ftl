@@ -1,16 +1,16 @@
-package com.jqm.ssm.web;
+package ${basePackage}.web;
 
 import com.google.common.collect.Maps;
-import com.jqm.ssm.dto.BaseRequestBody;
-import com.jqm.ssm.dto.BaseResult;
-import com.jqm.ssm.entity.${className};
-import com.jqm.ssm.entity.User;
-import com.jqm.ssm.enums.ResultEnum;
-import com.jqm.ssm.exception.BizException;
-import com.jqm.ssm.misc.Constants;
-import com.jqm.ssm.service.I${className}Service;
-import com.jqm.ssm.service.SystemService;
-import com.jqm.ssm.util.SessionUtil;
+import ${basePackage}.dto.BaseRequestBody;
+import ${basePackage}.dto.BaseResult;
+import ${basePackage}.entity.${className};
+import ${basePackage}.entity.User;
+import ${basePackage}.enums.ResultEnum;
+import ${basePackage}.exception.BizException;
+import ${basePackage}.misc.Constants;
+import ${basePackage}.service.I${className}Service;
+import ${basePackage}.service.SystemService;
+import ${basePackage}.util.SessionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

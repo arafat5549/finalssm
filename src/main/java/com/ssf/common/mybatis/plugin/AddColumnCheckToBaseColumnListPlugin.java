@@ -1,7 +1,5 @@
 package com.ssf.common.mybatis.plugin;
 
-import java.util.List;
-
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -10,6 +8,8 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
+
+import java.util.List;
 
 /**
  * 	mybatis generator sqlMapBaseColumnListElementGenerated Base_Column_List 列权限控制部分

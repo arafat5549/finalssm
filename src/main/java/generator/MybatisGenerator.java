@@ -1,5 +1,18 @@
 package generator;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.io.Files;
+import com.ssf.utils.MyStringUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.mybatis.generator.api.ShellRunner;
+import org.springside.modules.utils.io.URLResourceUtil;
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,23 +23,6 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
-import com.ssf.common.mybatis.plugin.utils.LogUtil;
-import com.ssf.common.utils.StringUtilss;
-import com.ssf.utils.MyStringUtil;
-import org.apache.commons.cli.*;
-import org.apache.commons.lang3.StringUtils;
-import org.mybatis.generator.api.ShellRunner;
-import org.springside.modules.utils.io.URLResourceUtil;
-import org.xml.sax.SAXException;
-
-import com.google.common.collect.Lists;
-
 /**
  * 修改bug1：mybatis 拼接语句时,Boolean 类型判断为false的时候不生效问题 <a>https://blog.csdn.net/liubinblog/article/details/78035454</a>
  * TODO 生成文件的时候直击读取指定区域的自编写文件内容
@@ -35,22 +31,41 @@ public class MybatisGenerator {
 	//####################################################
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
-
+	private static final String CONFIG_FILE = "mybatis-generator.properties";
 
 	public static final Properties PROPERTIES = new Properties();
 	public static Map<String,String> COMMENT_MAPS = Maps.newHashMap();
 	//####################################################
-	public static String BASE_PREFIX= "water_";
+
 	public static String MAPPER_NAME = "Dao";
+    public static String SRC_PROJECT_PATH  = "D:\\workspace\\IdeaProject\\wy"; //从src读取配置
 	public static String DEST_PROJECT_PATH = "D:\\workspace\\IdeaProject\\wy";
+	public static String BASE_PREFIX= "water_";
 
 	//"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem";
 
 	static
 	{
 		try {
-			InputStream is = URLResourceUtil.asStream("classpath://mybatis-generator.properties");//DataSourceFactory.class.getResourceAsStream("/jdbc.properties");
+			InputStream is = URLResourceUtil.asStream("classpath://"+CONFIG_FILE);
+
 			PROPERTIES.load(is);
+
+			//替换一些常量
+			DEST_PROJECT_PATH = PROPERTIES.getProperty("out_path");
+			System.out.println("DEST_PROJECT_PATH: "+DEST_PROJECT_PATH);
+
+            SRC_PROJECT_PATH  = PROPERTIES.getProperty("src_path");
+            System.out.println("SRC_PROJECT_PATH: "+ SRC_PROJECT_PATH);
+
+			BASE_PREFIX = PROPERTIES.getProperty("db_prefix");
+			System.out.println("BASE_PREFIX: "+BASE_PREFIX);
+
+			MAPPER_NAME = PROPERTIES.getProperty("mapper_suffix");
+			System.out.println("MAPPER_NAME: "+MAPPER_NAME);
+
+
+			System.out.println(PROPERTIES.getProperty("myBussinessPackage"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,9 +114,7 @@ public class MybatisGenerator {
 	 */
 	public static void generator(String config){
 		System.out.println("开始生成代码...");
-		//String config = OUT_CONFIG;
 		try {
-			//Resources.getResourceAsFile(config)
 			config = URLResourceUtil.asFile("file:"+config).getPath();
 			//MybatisGenerator.LOG(config);
 		}  catch (IOException e) {
@@ -116,14 +129,9 @@ public class MybatisGenerator {
 	}
 
 	private static void generateCode(List<String> tableNames){
-		//Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
-		//List<String> tableNames = Lists.newArrayList(comments.keySet());
-		//MybatisGenerator.LOG(tableNames.toString());
 		CodeGeneratorUtil.codeGenerator(PROPERTIES, tableNames, Lists.newArrayList());
 	}
 	private static void generateCode_web(List<String> tableNames){
-		//Map<String,String> comments = MybatisGenerator.getTableComments(PROPERTIES);
-		//List<String> tableNames = Lists.newArrayList(comments.keySet());
 		CodeGeneratorUtil.codeGenerator_web(PROPERTIES, tableNames, Lists.newArrayList());
 	}
 
@@ -225,57 +233,78 @@ public class MybatisGenerator {
 	}
 
 
-	private static void init(){
-		String basePath_src = System.getProperty("user.dir")+ "\\src\\main\\java\\";
-		Map<String,String> paramMap = Maps.newHashMap();
-		paramMap.put("inherit_basemapper","com.ssf.common.mybatis.base.BaseMapper");//com.ssf.common.mybatis.base.BaseMapper
-		//准备工作
-		for(String key : paramMap.keySet()){
-			String conf = PROPERTIES.getProperty(key);
-			if(conf != null && !"".equals(conf)){
-				System.out.println(key+" : "+paramMap.get(key)+" , "+conf);
-				if(paramMap.get(key) != conf){
-					try {
-						String from = paramMap.get(key).replaceAll("\\.","\\/");
-						String to = conf.replaceAll("\\.","\\/");
-						System.out.println(conf.replace(".BaseMapper",""));
-						File tofile = new File(basePath_src+to+".java");
-						if(!tofile.exists()){
-							Files.createParentDirs(tofile);
-							Files.copy(new File(basePath_src+from+".java"),tofile);
-							StringUtilss.replacTextContent(tofile,"com.ssf.common.mybatis.base",conf.replace(".BaseMapper",""));
-						}
+//	private static void init(){
+//		String basePath_src = System.getProperty("user.dir")+ "\\src\\main\\java\\";
+//		Map<String,String> paramMap = Maps.newHashMap();
+//		paramMap.put("inherit_basemapper","com.ssf.common.mybatis.base.BaseMapper");//com.ssf.common.mybatis.base.BaseMapper
+//		//准备工作
+//		for(String key : paramMap.keySet()){
+//			String conf = PROPERTIES.getProperty(key);
+//			if(conf != null && !"".equals(conf)){
+//				System.out.println(key+" : "+paramMap.get(key)+" , "+conf);
+//				if(paramMap.get(key) != conf){
+//					try {
+//						String from = paramMap.get(key).replaceAll("\\.","\\/");
+//						String to = conf.replaceAll("\\.","\\/");
+//						System.out.println(conf.replace(".BaseMapper",""));
+//						File tofile = new File(basePath_src+to+".java");
+//						if(!tofile.exists()){
+//							Files.createParentDirs(tofile);
+//							Files.copy(new File(basePath_src+from+".java"),tofile);
+//							StringUtilss.replacTextContent(tofile,"com.ssf.common.mybatis.base",conf.replace(".BaseMapper",""));
+//						}
+//
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}else{
+//				PROPERTIES.put(key,paramMap.get(key));
+//			}
+//		}
+//	}
 
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}else{
-				PROPERTIES.put(key,paramMap.get(key));
-			}
-		}
-	}
 
-
-	private static List<File> getDestFileList(String src,String name){
+	private static List<File> getDestFileList(String src,String name,int iscopy){
+		List<File> fileList = new ArrayList<>();
 		String spliter = "\\.";
-//		String str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
-//		System.out.println(str+"::::::::::"+	);
-//		System.out.println(str.replaceAll(spliter,File.separator));
-
+		String str = "";
 		String basePath = src+File.separator+"src"+File.separator+"main"+File.separator+"java"+File.separator;
-		String str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
-		String entity = Joiner.on(File.separator).join(Splitter.on(".").split(str));
-		str =  (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
-		String dao =  Joiner.on(File.separator).join(Splitter.on(".").split(str));
-		str = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
-		String daoxml = Joiner.on(File.separator).join(Splitter.on(".").split(str));
-		str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name);
-		String service = Joiner.on(File.separator).join(Splitter.on(".").split(str));
-		str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name);
-		String serviceImpl = Joiner.on(File.separator).join(Splitter.on(".").split(str));
-		str = (PROPERTIES.getProperty("myWebPackage")+File.separator+name);
-		String controller  = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+
+		if(iscopy>=1)
+		{
+			str = (PROPERTIES.getProperty("myModelPackage")+File.separator+name);
+			String entity = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+			str =  (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
+			String dao =  Joiner.on(File.separator).join(Splitter.on(".").split(str));
+			str = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name);
+			String daoxml = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+
+			File entityfile = new File(basePath	+ entity+".java");
+			File daofile   = new File(basePath	+ dao+"Dao.java");
+			File daoxmlfile = new File( src+File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator	+ daoxml+"Dao.xml");
+			fileList.add(entityfile);
+			fileList.add(daofile);
+			fileList.add(daoxmlfile);
+		}
+		if(iscopy>=2)
+		{
+			str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name);
+			String service = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+			str = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name);
+			String serviceImpl = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+			File servicefile   = new File(basePath + service+"Service.java");
+			File serviceImplfile   = new File(basePath + serviceImpl+"ServiceImpl.java");
+
+			fileList.add(servicefile);
+			fileList.add(serviceImplfile);
+		}
+		if(iscopy>=3){
+			str = (PROPERTIES.getProperty("myWebPackage")+File.separator+name);
+			String controller  = Joiner.on(File.separator).join(Splitter.on(".").split(str));
+			File controllerFile    = new File(basePath + controller+"Controller.java");
+			fileList.add(controllerFile);
+		}
 
 //		String entity = (PROPERTIES.getProperty("myModelPackage")+File.separator+name).replaceAll(spliter,File.separator);
 //		String dao = (PROPERTIES.getProperty("myBussinessPackage")+File.separator+name).replaceAll(spliter,File.separator);
@@ -283,25 +312,10 @@ public class MybatisGenerator {
 //		String service = (PROPERTIES.getProperty("myServicePackage")+File.separator+"I"+name).replaceAll(spliter,File.separator);
 //		String serviceImpl = (PROPERTIES.getProperty("myServicePackage")+File.separator+"impl"+File.separator+name).replaceAll(spliter,File.separator);
 //		String controller = (PROPERTIES.getProperty("myWebPackage")+File.separator+name).replaceAll(spliter,File.separator);
-
-		File entityfile = new File(basePath	+ entity+".java");
-		File daofile   = new File(basePath	+ dao+"Dao.java");
-		File daoxmlfile = new File( src+File.separator+"src"+File.separator+"main"+File.separator+"resources"+File.separator	+ daoxml+"Dao.xml");
-		File servicefile   = new File(basePath + service+"Service.java");
-		File serviceImplfile   = new File(basePath + serviceImpl+"ServiceImpl.java");
-		File controllerFile    = new File(basePath + controller+"Controller.java");
-
-		List<File> fileList = new ArrayList<>();
-		fileList.add(entityfile);
-		fileList.add(daofile);
-		fileList.add(daoxmlfile);
-		fileList.add(servicefile);
-		fileList.add(serviceImplfile);
-		fileList.add(controllerFile);
 		return fileList;
 	}
 
-	public static <T> void copyTo(Class<T> cls,String src,String dest){
+	public static <T> void copyTo(Class<T> cls,String src,String dest,int iscopy){
 		if(cls ==null)
 		{
 			LOG("copyTo className为空");
@@ -310,12 +324,18 @@ public class MybatisGenerator {
 		String name = cls.getSimpleName();
 		String fullname = cls.getName();
 
-		List<File> srclist = getDestFileList(src,name);
-		List<File> destlist = getDestFileList(dest,name);
+		List<File> srclist = getDestFileList(src,name,iscopy);
+		//System.out.println(srclist);
+		List<File> destlist = getDestFileList(dest,name,iscopy);
 		try {
 			for (int i=0;i<srclist.size();i++) {
-				Files.copy(srclist.get(i),destlist.get(i));
-				//System.out.println(srclist.get(i) +" , " + destlist.get(i));
+
+				File to  = destlist.get(i);
+				File p = to.getParentFile();
+				if(!p.exists())
+					p.mkdirs();
+				System.out.println("拷贝到：" +to);
+				Files.copy(srclist.get(i),to);
 			}
 
 		} catch (Exception e) {
@@ -336,10 +356,8 @@ public class MybatisGenerator {
 			return;
 		}
 
-		List<String> lists = Lists.newArrayList(
-	   		"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_create.sql"
-	    		,"/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_data.sql");
-		 runSql(pros,lists);
+		List<String> lists = Lists.newArrayList("/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_create.sql","/Users/arafat/workspace/IdeaProjects/RiverResponsibleSystem/sql/water_data.sql");
+		runSql(pros,lists);
 	}
 
 	public static void LOG(String log){
@@ -348,43 +366,50 @@ public class MybatisGenerator {
 
 	public static void main(String[] args) 
 	{
-		//init();
-		//runSQL("jdbc.properties");
 
-		Options options = new Options();
-		options.addOption("l", true, "0生成全部 1生成dao 2生成service 3生成controller");
-		options.addOption("c", true, "复制到指定的路径，复制前先做比对");
-		options.addOption("p", true, "Prefix 数据库表名前缀");
-		options.addOption("conf", false, "指定的配置文件");
 
-		CommandLineParser parser = new DefaultParser();
-		try {
-			CommandLine cmd = parser.parse(options, args);
-			String dir = cmd.getOptionValue("l");
-			System.out.println(dir);
-		} catch (ParseException e) {
-			e.printStackTrace();
+//		Options options = new Options();
+//		options.addOption("l", true, "0生成全部 1生成dao 2生成service 3生成controller");
+//		options.addOption("c", true, "复制到指定的路径，复制前先做比对");
+//		options.addOption("p", true, "Prefix 数据库表名前缀");
+//		options.addOption("conf", false, "指定的配置文件");
+//
+//		CommandLineParser parser = new DefaultParser();
+//		try {
+//			CommandLine cmd = parser.parse(options, args);
+//			String dir = cmd.getOptionValue("l");
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+
+		int generate_level = Integer.parseInt(PROPERTIES.getProperty("generate_level"));
+		//runSQL(CONFIG_FILE);
+		List<String> tnameList = createConfigs();
+		if(generate_level>=1)
+			generator(OUT_CONFIG);
+		if(generate_level >=2)
+			generateCode(tnameList);
+		if(generate_level >=3)
+			generateCode_web(tnameList);
+
+		int iscopy = Integer.parseInt(PROPERTIES.getProperty("copy_to_target"));
+		System.out.println("generate_level: "+generate_level+",iscopy: "+iscopy);
+		if(iscopy > 0)
+		{
+			String destPath =  DEST_PROJECT_PATH;
+			for (String tname:tnameList) {
+				String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
+				System.out.println(clsName);
+				Class cls = null;
+				try {
+					cls = Class.forName(clsName);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				copyTo(cls, System.getProperty("user.dir"),destPath,iscopy);
+			}
 		}
 
-
-//		MybatisGenerator.BASE_PREFIX = "water_";
-//		List<String> tnameList = createConfigs();
-//		generator(OUT_CONFIG);
-//		generateCode(tnameList);
-//		generateCode_web(tnameList);
-//
-//      String destPath =  DEST_PROJECT_PATH;
-//		for (String tname:tnameList) {
-//			String clsName =  PROPERTIES.getProperty("myModelPackage")+"."+MybatisGenerator.getRealClassNameCapatial(tname);
-//			System.out.println(clsName);
-//			Class cls = null;
-//			try {
-//				cls = Class.forName(clsName);
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//			copyTo(cls, System.getProperty("user.dir"),destPath);
-//		}
 
 	}
 

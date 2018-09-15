@@ -16,7 +16,6 @@
 
 package com.ssf.common.mybatis.plugin;
 
-import com.ssf.common.mybatis.plugin.utils.CommentTools;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;

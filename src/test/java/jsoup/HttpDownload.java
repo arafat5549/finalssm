@@ -1,16 +1,13 @@
 package jsoup;
-import java.io.File;  
-import java.io.FileOutputStream;  
-import java.io.InputStream;  
-  
-import org.apache.http.Header;  
-import org.apache.http.HeaderElement;  
-import org.apache.http.HttpEntity;  
-import org.apache.http.HttpResponse;  
-import org.apache.http.NameValuePair;  
-import org.apache.http.client.HttpClient;  
-import org.apache.http.client.methods.HttpGet;  
-import org.apache.http.impl.client.DefaultHttpClient;  
+
+import org.apache.http.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
   
 /** 
  * 说明 

@@ -1,11 +1,11 @@
 package com.ssf.common.mybatis.plugin;
 
-import java.util.List;
-
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import java.util.List;
 
 /**
  * 生成实体类时，对整个类增加 Table 的注解部分

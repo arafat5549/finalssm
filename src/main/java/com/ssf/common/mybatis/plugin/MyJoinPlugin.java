@@ -1,13 +1,11 @@
 package com.ssf.common.mybatis.plugin;
 
-import com.ssf.common.mybatis.plugin.utils.CommentTools;
 import com.ssf.common.mybatis.plugin.utils.XmlElementGeneratorTools;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.*;
-import org.mybatis.generator.internal.util.StringUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
