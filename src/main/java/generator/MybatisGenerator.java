@@ -30,6 +30,8 @@ import java.util.regex.Pattern;
  */
 public class MybatisGenerator {
 	//####################################################
+	public static boolean isSwagger = true;
+	public static String  swaggerPrefix = "";  //测试
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
 	private static final String CONFIG_FILE = "mybatis-generator.properties";
@@ -138,18 +140,24 @@ public class MybatisGenerator {
 
 
 	//工具类
+	public static  List<String> getTableContent(Properties props,String tableName){
+		String dbName = props.getProperty("dbName");
+		String dbType = props.getProperty("dbType");
+		return DataBasePopulator.getTableContent(props, dbName,dbType,tableName);
+	}
 	public static  List<String> getTableNames(Properties props){
 		String dbName = props.getProperty("dbName");
 		String dbType = props.getProperty("dbType");
 		return DataBasePopulator.getTableNames(props, dbName,dbType);
 	}
-	public static Map<String,String> getTableComments(Properties props){
+	public static Map<String,String> getTableComments(Properties props,boolean all){
 		if(COMMENT_MAPS.size()>0){
 			return COMMENT_MAPS;
 		}
 		String dbName = props.getProperty("dbName");
 		String dbType = props.getProperty("dbType");
-		return DataBasePopulator.getTableComments(props, dbName,dbType);
+		System.out.println("dbName="+dbName+",dbType="+dbType);
+		return DataBasePopulator.getTableComments(props, dbName,dbType,all);
 	}
 	/**
 	 *
@@ -157,7 +165,7 @@ public class MybatisGenerator {
 	 * @return
 	 */
 	public static String getTableComment(String key){
-		Map<String,String> maps = getTableComments(PROPERTIES);
+		Map<String,String> maps = getTableComments(PROPERTIES,false);
 		return maps.get(key);
 	}
 
@@ -345,6 +353,14 @@ public class MybatisGenerator {
 
 	}
 
+	public static void LOG(String log){
+		System.out.println("[Log]:"+log);
+	}
+
+	/**
+	 * 运行sql语句
+	 * @param config
+	 */
 	private static void runSQL(String config){
 
 
@@ -361,15 +377,11 @@ public class MybatisGenerator {
 		runSql(pros,lists);
 	}
 
-	public static void LOG(String log){
-		System.out.println("[Log]:"+log);
-	}
-
-	public static void main(String[] args) 
-	{
-
-
-//		Options options = new Options();
+	/**
+	 * 根据sql生成文件结构
+	 */
+	private static void genrateCode(){
+		//		Options options = new Options();
 //		options.addOption("l", true, "0生成全部 1生成dao 2生成service 3生成controller");
 //		options.addOption("c", true, "复制到指定的路径，复制前先做比对");
 //		options.addOption("p", true, "Prefix 数据库表名前缀");
@@ -414,7 +426,137 @@ public class MybatisGenerator {
 
 			}
 		}
+	}
 
+	/**
+	 * 解析数据库
+	 */
+	private static void parseDateBase(boolean isall){
+		List<String> tnameList = getTableNames(PROPERTIES);
+		COMMENT_MAPS.clear();
+		Map<String,String> comments = getTableComments(PROPERTIES,true);
+		for(String tname:tnameList){
+			String comment = comments.get(tname);
+			COMMENT_MAPS.put(tname,comment);
+
+//			if(isall || tname.startsWith(BASE_PREFIX)){
+//				String realname = getRealClassNameCapatial(tname);
+//				StringBuffer sb =new StringBuffer();
+//				sb.append("@ApiOperation(\""+comment+"\")"+"\r\n");
+//				sb.append("@GetMapping(\"/"+getRealClassName(tname)+"/{id}\")"+"\r\n");
+//				sb.append("public "+realname+" find"+realname+"ById(@PathVariable Long id) {return new "+realname+"();}"+"\r\n");
+//				System.out.println(sb.toString());
+//			}
+		}
+	}
+
+	private static  String _createForiegnKeySql(String tablename,String fkTableName,String bindId,String fkId,String fkname){
+//		String tablename   = "article";
+//		String fkTableName = "category";
+//		String bindId = "id";
+//		String fkId = "category_id";
+		String fksql = "ALTER TABLE `"+tablename+"` ADD CONSTRAINT `"+fkname+"` FOREIGN KEY (`"+fkId+"`) REFERENCES `"+fkTableName+"` (`"+bindId+"`);";
+		return fksql;
+	}
+	/**
+	 * 生成外键
+	 */
+	public static void createForiegnKey(){
+		List<String> fksqlist = Lists.newArrayList();
+
+		List<String> tnameList = getTableNames(PROPERTIES);
+		for(String tname:tnameList){
+			List<String> list = getTableContent(PROPERTIES,tname);
+			System.out.println(tname+","+list.toString());
+			for(String column:list){
+				if(column.equals("update_id") || column.equals("create_id")){//不包含默认设置
+					 continue;
+				}
+				if(column.equals("parent_id")){   //不包含自关联
+					continue;
+				}
+				if(column.endsWith("_id")){
+					String ret = checkTableList(column,tnameList);
+					if(!Strings.isNullOrEmpty(ret)){
+						TestObjectUtils.printColor("\t"+ret);
+						String rets[] = ret.split(",");
+						String fkname = "fk_"+getRealClassNameCapatial(tname)+"_"+rets[2];
+						String fksql = _createForiegnKeySql(tname,rets[3],"id",rets[0],fkname);
+
+						fksqlist.add(fksql);
+					}
+					else{
+						TestObjectUtils.printColor("\t"+column, TestObjectUtils.PrintColor.C_FAIL);
+					}
+				}
+			}
+			System.out.println();
+		}
+
+		//
+		for(String fksql:fksqlist){
+			TestObjectUtils.printColor("\t"+fksql, TestObjectUtils.PrintColor.C_CYAN);
+		}
+
+
+	}
+	//
+	private static String checkTableList(String baseCol,List<String> tnameList){
+		String ret = null;
+		for(String tname:tnameList){
+			if(tname.startsWith(BASE_PREFIX) ){
+				//String baseCol = column;
+				String column = baseCol.replace("_id","");
+				String cname = getRealClassNameCapatial(column);
+				String realname = getRealClassNameCapatial(tname);
+
+				String retColor = baseCol+","+cname+","+realname+","+tname;
+				if(cname.equals(realname) || realname.equals("Sys"+cname) ){
+					ret = retColor;
+					break;
+				}
+				else if(cname.startsWith("Goods") && realname.equals("Shop"+cname)){
+					ret = retColor;
+					break;
+				}
+				else if(cname.equals("Operator") && realname.equals("SysEmployee")){
+					ret = retColor;
+					break;
+				}
+				else if(cname.equals("Brand") || cname.equals("Category") || cname.equals("Order") || cname.equals("Cart")){
+					if(tname.startsWith("T_ShopGoods")&& realname.equals("ShopGoods"+cname)){
+						ret = retColor;
+						break;
+					}
+					if(tname.startsWith("T_Hotel")&& realname.equals("Hotel"+cname)){
+						ret = retColor;
+						break;
+					}
+				}
+				else{
+				}
+
+
+			}
+		}
+		return  ret;
+	}
+
+	public static String getCommentByTableName(String tname){
+		return COMMENT_MAPS.get(tname);
+	}
+
+	public static void main(String[] args) 
+	{
+
+		System.out.println("----------------------------------------------------------------------------");
+		BASE_PREFIX = "T_";//"";
+		parseDateBase(true);
+
+		createForiegnKey();
+
+		//genrateCode();
+		//
 
 	}
 

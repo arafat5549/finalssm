@@ -1,5 +1,7 @@
 package com.ssf.common.mybatis.plugin;
 
+import com.google.common.base.Strings;
+import generator.MybatisGenerator;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
@@ -23,7 +25,10 @@ public class MyTableAnnotationPlugin extends PluginAdapter {
 	 */
 	@Override
 	public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-		processEntityClass(topLevelClass, introspectedTable);
+		if(MybatisGenerator.isSwagger)
+		{
+			processEntityClass(topLevelClass, introspectedTable);
+		}
 		return true;
 	}
 	
@@ -35,7 +40,7 @@ public class MyTableAnnotationPlugin extends PluginAdapter {
 	 */
 	private void processEntityClass(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 		// 引入JPA注解
-		topLevelClass.addImportedType("com.ssf.common.mybatis.annotation.*");
+
 		String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
 		String tableAliasName = introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime();
 		String namespaceStr = introspectedTable.getMyBatis3SqlMapNamespace();
@@ -43,10 +48,17 @@ public class MyTableAnnotationPlugin extends PluginAdapter {
 		if (StringUtility.stringContainsSpace(tableName)) {
 			tableName = context.getBeginningDelimiter() + tableName + context.getEndingDelimiter();
 		}
-		topLevelClass.addAnnotation("@MyBatisTableAnnotation(name = \"" + tableName + "\", "
-				+ "namespace = \"" + namespaceStr + "\", "
-				+ "remarks = \"" + " 修改点 " + "\", "
-				+ "aliasName = \"" + tableAliasName + "\" )");
+
+//		topLevelClass.addImportedType("com.ssf.common.mybatis.annotation.*");
+//		topLevelClass.addAnnotation("@MyBatisTableAnnotation(name = \"" + tableName + "\", "
+//				+ "namespace = \"" + namespaceStr + "\", "
+//				+ "remarks = \"" + " 修改点 " + "\", "
+//				+ "aliasName = \"" + tableAliasName + "\" )");
+
+		if(Strings.isNullOrEmpty(MybatisGenerator.swaggerPrefix)){
+			topLevelClass.addImportedType("io.swagger.annotations.*");
+		}
+		topLevelClass.addAnnotation(MybatisGenerator.swaggerPrefix+"@ApiModel(\"" + MybatisGenerator.getCommentByTableName(tableName) + "\")");
 	}
 
 	@Override

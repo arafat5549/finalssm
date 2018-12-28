@@ -194,7 +194,6 @@ public class CodeGeneratorUtil {
 			}
 			service(workDir, root);
 			serviceImpl(workDir, root);
-			
 			//daoTest(workDir, root, "daoPackageName");
 		} catch (NoSuchFieldException | SecurityException
 				| ClassNotFoundException e) {

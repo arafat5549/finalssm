@@ -1,5 +1,6 @@
 package generator;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -70,16 +71,41 @@ public class DataBasePopulator {
 			throw new RuntimeException(e);
 		}
 	}
-//	/**
-//	 *  初始化数据库创建数据库测试数据
-//	 *  创建数据库和测试数据
-//	 */
-//	public static void initDatabase(Properties props)
-//	{
-//		List<String> lists = Lists.newArrayList("sql/finalssm.sql","sql/finalssm_data.sql");
-//		initDatabase(props, lists);
-//	}
-	
+	/**
+	 * 获取数据库表信息
+	 */
+	public static List<String> getTableContent(Properties props,String dbName,String databaseId,String tableName){
+		String sql = "select * from information_schema.columns where table_schema = '"+dbName+"' and table_name = '"+tableName+"'";
+		if(databaseId == "oracle"){
+			return Lists.newArrayList();
+		}
+		List<String> lists = Lists.newArrayList();
+		Connection conn = null;
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection(props);
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			while(rs.next()){
+				String tname = rs.getString("COLUMN_NAME");
+				lists.add(tname);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null )   rs.close();
+				if(ptmt!=null ) ptmt.close();
+				if(conn!=null ) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lists;
+	}
+
 	/**
 	 * 获取所有数据库的名称
 	 * 
@@ -131,7 +157,7 @@ public class DataBasePopulator {
 	 * 获取数据库表的注释信息
 	 *
 	 */
-	public static Map<String,String> getTableComments(Properties props, String dbName, String databaseId)
+	public static Map<String,String> getTableComments(Properties props, String dbName, String databaseId,boolean all)
 	{
 		String sql = "select table_name,table_comment from information_schema.tables where table_schema='"+dbName+"' ;"; //and table_type='base table'
 		if(databaseId == "oracle"){
@@ -147,10 +173,15 @@ public class DataBasePopulator {
 			rs = ptmt.executeQuery();;
 			while(rs.next()){
 				String tname   = rs.getString("table_name");
-
 				String comment = rs.getString("table_comment");
-				if(MybatisGenerator.isMacthPrefix(tname))
+				if(all)
+				{
 					maps.put(tname, comment);
+				}else{
+					if(MybatisGenerator.isMacthPrefix(tname))
+						maps.put(tname, comment);
+				}
+
 			}
 
 		} catch (SQLException e) {
