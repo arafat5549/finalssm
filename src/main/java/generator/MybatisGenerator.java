@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class MybatisGenerator {
 	//####################################################
-	public static boolean isSwagger = true;
+	public static boolean isSwagger = false;
 	public static String  swaggerPrefix = "";  //测试
 	private static final String ORIGIN_CONFIG = "generatorConfig.xml";
 	private static final String OUT_CONFIG   = "src/main/resources/generatorConfigBak.xml";
@@ -431,7 +431,7 @@ public class MybatisGenerator {
 	/**
 	 * 解析数据库
 	 */
-	private static void parseDateBase(boolean isall){
+	private static void parseDateBase(boolean isprint){
 		List<String> tnameList = getTableNames(PROPERTIES);
 		COMMENT_MAPS.clear();
 		Map<String,String> comments = getTableComments(PROPERTIES,true);
@@ -439,14 +439,15 @@ public class MybatisGenerator {
 			String comment = comments.get(tname);
 			COMMENT_MAPS.put(tname,comment);
 
-//			if(isall || tname.startsWith(BASE_PREFIX)){
-//				String realname = getRealClassNameCapatial(tname);
-//				StringBuffer sb =new StringBuffer();
-//				sb.append("@ApiOperation(\""+comment+"\")"+"\r\n");
-//				sb.append("@GetMapping(\"/"+getRealClassName(tname)+"/{id}\")"+"\r\n");
-//				sb.append("public "+realname+" find"+realname+"ById(@PathVariable Long id) {return new "+realname+"();}"+"\r\n");
-//				System.out.println(sb.toString());
-//			}
+
+			if(isprint && tname.startsWith(BASE_PREFIX)){
+				String realname = getRealClassNameCapatial(tname);
+				StringBuffer sb =new StringBuffer();
+				sb.append("@ApiOperation(\""+comment+"\")"+"\r\n");
+				sb.append("@GetMapping(\"/"+getRealClassName(tname)+"/{id}\")"+"\r\n");
+				sb.append("public "+realname+" find"+realname+"ById(@PathVariable Long id) {return new "+realname+"();}"+"\r\n");
+				System.out.println(sb.toString());
+			}
 		}
 	}
 
@@ -461,13 +462,17 @@ public class MybatisGenerator {
 	/**
 	 * 生成外键
 	 */
-	public static void createForiegnKey(){
+	public static void createForiegnKey(boolean isprint){
 		List<String> fksqlist = Lists.newArrayList();
+
+
 
 		List<String> tnameList = getTableNames(PROPERTIES);
 		for(String tname:tnameList){
 			List<String> list = getTableContent(PROPERTIES,tname);
-			System.out.println(tname+","+list.toString());
+			List<String> errorsqlist = Lists.newArrayList();
+			List<String> rightsqlist = Lists.newArrayList();
+
 			for(String column:list){
 				if(column.equals("update_id") || column.equals("create_id")){//不包含默认设置
 					 continue;
@@ -478,7 +483,8 @@ public class MybatisGenerator {
 				if(column.endsWith("_id")){
 					String ret = checkTableList(column,tnameList);
 					if(!Strings.isNullOrEmpty(ret)){
-						TestObjectUtils.printColor("\t"+ret);
+						//TestObjectUtils.printColor("\t"+ret);
+						rightsqlist.add("\t"+ret);
 						String rets[] = ret.split(",");
 						String fkname = "fk_"+getRealClassNameCapatial(tname)+"_"+rets[2];
 						String fksql = _createForiegnKeySql(tname,rets[3],"id",rets[0],fkname);
@@ -486,18 +492,28 @@ public class MybatisGenerator {
 						fksqlist.add(fksql);
 					}
 					else{
-						TestObjectUtils.printColor("\t"+column, TestObjectUtils.PrintColor.C_FAIL);
+						errorsqlist.add("\t"+column);
+						//TestObjectUtils.printColor("\t"+column, TestObjectUtils.PrintColor.C_FAIL);
 					}
 				}
 			}
-			System.out.println();
+
+			if(errorsqlist.size()>0){
+				System.out.println(tname+","+list.toString());
+				for(String error:errorsqlist){
+					TestObjectUtils.printColor(error, TestObjectUtils.PrintColor.C_FAIL);
+				}
+				System.out.println();
+			}
+
 		}
 
 		//
-		for(String fksql:fksqlist){
-			TestObjectUtils.printColor("\t"+fksql, TestObjectUtils.PrintColor.C_CYAN);
+		if(isprint){
+			for(String fksql:fksqlist){
+				TestObjectUtils.printColor("\t"+fksql, TestObjectUtils.PrintColor.C_CYAN);
+			}
 		}
-
 
 	}
 	//
@@ -511,6 +527,7 @@ public class MybatisGenerator {
 				String realname = getRealClassNameCapatial(tname);
 
 				String retColor = baseCol+","+cname+","+realname+","+tname;
+				//System.out.println("==["+retColor);
 				if(cname.equals(realname) || realname.equals("Sys"+cname) ){
 					ret = retColor;
 					break;
@@ -551,11 +568,11 @@ public class MybatisGenerator {
 
 		System.out.println("----------------------------------------------------------------------------");
 		BASE_PREFIX = "T_";//"";
-		parseDateBase(true);
+		parseDateBase(false);
 
-		createForiegnKey();
+		createForiegnKey(false);
 
-		//genrateCode();
+		genrateCode();
 		//
 
 	}

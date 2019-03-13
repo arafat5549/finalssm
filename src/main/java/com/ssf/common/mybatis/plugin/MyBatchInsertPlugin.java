@@ -157,7 +157,7 @@ public class MyBatchInsertPlugin extends PluginAdapter {
         for (int i = 0; i < columns.size(); i++) {
             IntrospectedColumn introspectedColumn = columns.get(i);
 
-            insertClause.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn));
+            insertClause.append("`"+MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn)+"`");
 
             // 生成foreach下插入values
             valuesClause.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "item."));

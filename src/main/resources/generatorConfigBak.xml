@@ -27,87 +27,11 @@
       <property name="suppressAllComments" value="true"/>
     </commentGenerator>
     <jdbcConnection driverClass="${jdbc.driverClassName}" connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}"/>
-    <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src//main//java"/>
+    <javaModelGenerator targetPackage="${myModelPackage}" targetProject="${targetProject}src//main//java">
+      <property name="rootClass" value="com.jqmkj.roadtrip.base.BaseEntity"/>
+    </javaModelGenerator>
     <sqlMapGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//resources"/>
     <javaClientGenerator targetPackage="${myBussinessPackage}" targetProject="${targetProject}src//main//java" type="XMLMAPPER"/>
-    <table mapperName="BillDao" schema="" tableName="T_Bill" domainObjectName="Bill" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="BlacklistDao" schema="" tableName="T_Blacklist" domainObjectName="Blacklist" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="CollectDao" schema="" tableName="T_Collect" domainObjectName="Collect" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ComplaintDao" schema="" tableName="T_Complaint" domainObjectName="Complaint" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="CouponDao" schema="" tableName="T_Coupon" domainObjectName="Coupon" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="CouponHistoryDao" schema="" tableName="T_Coupon_History" domainObjectName="CouponHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelDao" schema="" tableName="T_Hotel" domainObjectName="Hotel" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelAttrItemDao" schema="" tableName="T_Hotel_AttrItem" domainObjectName="HotelAttrItem" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelAttrItemValueDao" schema="" tableName="T_Hotel_AttrItemValue" domainObjectName="HotelAttrItemValue" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelOrdersDao" schema="" tableName="T_Hotel_Orders" domainObjectName="HotelOrders" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelOrdersItemsDao" schema="" tableName="T_Hotel_OrdersItems" domainObjectName="HotelOrdersItems" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelReviewDao" schema="" tableName="T_Hotel_Review" domainObjectName="HotelReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="HotelTypeDao" schema="" tableName="T_HotelType" domainObjectName="HotelType" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
     <table mapperName="QuestionDao" schema="" tableName="T_Question" domainObjectName="Question" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
@@ -139,102 +63,6 @@
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
     <table mapperName="ScoreTypeDao" schema="" tableName="T_ScoreType" domainObjectName="ScoreType" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopBrandDao" schema="" tableName="T_Shop_Brand" domainObjectName="ShopBrand" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopCartDao" schema="" tableName="T_Shop_Cart" domainObjectName="ShopCart" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopCartItemDao" schema="" tableName="T_Shop_CartItem" domainObjectName="ShopCartItem" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopCategoryDao" schema="" tableName="T_Shop_Category" domainObjectName="ShopCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsDao" schema="" tableName="T_Shop_Goods" domainObjectName="ShopGoods" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsAttrDao" schema="" tableName="T_Shop_Goods_Attr" domainObjectName="ShopGoodsAttr" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsAttrCategoryDao" schema="" tableName="T_Shop_Goods_Attr_Category" domainObjectName="ShopGoodsAttrCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsAttrValueDao" schema="" tableName="T_Shop_Goods_Attr_Value" domainObjectName="ShopGoodsAttrValue" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsSKUStockDao" schema="" tableName="T_Shop_Goods_SKUStock" domainObjectName="ShopGoodsSKUStock" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopGoodsTypeDao" schema="" tableName="T_Shop_GoodsType" domainObjectName="ShopGoodsType" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopOrdersDao" schema="" tableName="T_Shop_Orders" domainObjectName="ShopOrders" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopOrdersItemsDao" schema="" tableName="T_Shop_OrdersItems" domainObjectName="ShopOrdersItems" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="ShopReviewDao" schema="" tableName="T_Shop_Review" domainObjectName="ShopReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="StoreDao" schema="" tableName="T_Store" domainObjectName="Store" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="StoreAuditDao" schema="" tableName="T_StoreAudit" domainObjectName="StoreAudit" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
-      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
-      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
-      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
-    </table>
-    <table mapperName="StoreCreditDao" schema="" tableName="T_StoreCredit" domainObjectName="StoreCredit" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
@@ -306,7 +134,7 @@
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
-    <table mapperName="SysNoticeRecordDao" schema="" tableName="T_SysNoticeRecord" domainObjectName="SysNoticeRecord" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table mapperName="SysNoticeHistoryDao" schema="" tableName="T_SysNotice_History" domainObjectName="SysNoticeHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
@@ -325,6 +153,12 @@
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
     <table mapperName="SysSystemLogDao" schema="" tableName="T_SysSystemLog" domainObjectName="SysSystemLog" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="SysUploadPicDao" schema="" tableName="T_SysUploadPic" domainObjectName="SysUploadPic" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
@@ -355,6 +189,498 @@
       <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
     </table>
     <table mapperName="SysUserRuleSettingDao" schema="" tableName="T_SysUser_RuleSetting" domainObjectName="SysUserRuleSetting" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripAppointDao" schema="" tableName="T_TripAppoint" domainObjectName="TripAppoint" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripAppointCollectDao" schema="" tableName="T_TripAppoint_Collect" domainObjectName="TripAppointCollect" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripGpsDao" schema="" tableName="T_TripGps" domainObjectName="TripGps" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelDao" schema="" tableName="T_TripHotel" domainObjectName="TripHotel" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelAttrDao" schema="" tableName="T_TripHotel_Attr" domainObjectName="TripHotelAttr" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelAttrCategoryDao" schema="" tableName="T_TripHotel_Attr_Category" domainObjectName="TripHotelAttrCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelAttrValueDao" schema="" tableName="T_TripHotel_Attr_Value" domainObjectName="TripHotelAttrValue" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelBillDao" schema="" tableName="T_TripHotel_Bill" domainObjectName="TripHotelBill" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelBlacklistDao" schema="" tableName="T_TripHotel_Blacklist" domainObjectName="TripHotelBlacklist" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelBrandDao" schema="" tableName="T_TripHotel_Brand" domainObjectName="TripHotelBrand" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelCategoryDao" schema="" tableName="T_TripHotel_Category" domainObjectName="TripHotelCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelCollectDao" schema="" tableName="T_TripHotel_Collect" domainObjectName="TripHotelCollect" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelComplaintDao" schema="" tableName="T_TripHotel_Complaint" domainObjectName="TripHotelComplaint" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelCouponDao" schema="" tableName="T_TripHotel_Coupon" domainObjectName="TripHotelCoupon" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelCouponHistoryDao" schema="" tableName="T_TripHotel_Coupon_History" domainObjectName="TripHotelCouponHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelOrderDao" schema="" tableName="T_TripHotel_Order" domainObjectName="TripHotelOrder" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelOrderOperateHistoryDao" schema="" tableName="T_TripHotel_Order_Operate_History" domainObjectName="TripHotelOrderOperateHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelOrderReturnApplyDao" schema="" tableName="T_TripHotel_Order_ReturnApply" domainObjectName="TripHotelOrderReturnApply" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelOrderItemsDao" schema="" tableName="T_TripHotel_OrderItems" domainObjectName="TripHotelOrderItems" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelReviewDao" schema="" tableName="T_TripHotel_Review" domainObjectName="TripHotelReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelSKUStockDao" schema="" tableName="T_TripHotel_SKUStock" domainObjectName="TripHotelSKUStock" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelUserPriceDao" schema="" tableName="T_TripHotel_UserPrice" domainObjectName="TripHotelUserPrice" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelDetailDao" schema="" tableName="T_TripHotelDetail" domainObjectName="TripHotelDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelStoreDao" schema="" tableName="T_TripHotelStore" domainObjectName="TripHotelStore" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelStoreCategoryDao" schema="" tableName="T_TripHotelStore_Category" domainObjectName="TripHotelStoreCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelStoreDetailDao" schema="" tableName="T_TripHotelStore_Detail" domainObjectName="TripHotelStoreDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelStoreHistoryDao" schema="" tableName="T_TripHotelStore_History" domainObjectName="TripHotelStoreHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripHotelStoreReviewDao" schema="" tableName="T_TripHotelStore_Review" domainObjectName="TripHotelStoreReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteDao" schema="" tableName="T_TripRoute" domainObjectName="TripRoute" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteAttrDao" schema="" tableName="T_TripRoute_Attr" domainObjectName="TripRouteAttr" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteAttrCategoryDao" schema="" tableName="T_TripRoute_Attr_Category" domainObjectName="TripRouteAttrCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteAttrValueDao" schema="" tableName="T_TripRoute_Attr_Value" domainObjectName="TripRouteAttrValue" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteBillDao" schema="" tableName="T_TripRoute_Bill" domainObjectName="TripRouteBill" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteBlacklistDao" schema="" tableName="T_TripRoute_Blacklist" domainObjectName="TripRouteBlacklist" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteBrandDao" schema="" tableName="T_TripRoute_Brand" domainObjectName="TripRouteBrand" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteCategoryDao" schema="" tableName="T_TripRoute_Category" domainObjectName="TripRouteCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteCollectDao" schema="" tableName="T_TripRoute_Collect" domainObjectName="TripRouteCollect" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteComplaintDao" schema="" tableName="T_TripRoute_Complaint" domainObjectName="TripRouteComplaint" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteCouponDao" schema="" tableName="T_TripRoute_Coupon" domainObjectName="TripRouteCoupon" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteCouponHistoryDao" schema="" tableName="T_TripRoute_Coupon_History" domainObjectName="TripRouteCouponHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteOrderDao" schema="" tableName="T_TripRoute_Order" domainObjectName="TripRouteOrder" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteOrderOperateHistoryDao" schema="" tableName="T_TripRoute_Order_Operate_History" domainObjectName="TripRouteOrderOperateHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteOrderReturnApplyDao" schema="" tableName="T_TripRoute_Order_ReturnApply" domainObjectName="TripRouteOrderReturnApply" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteOrderItemsDao" schema="" tableName="T_TripRoute_OrderItems" domainObjectName="TripRouteOrderItems" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteReviewDao" schema="" tableName="T_TripRoute_Review" domainObjectName="TripRouteReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteSKUStockDao" schema="" tableName="T_TripRoute_SKUStock" domainObjectName="TripRouteSKUStock" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteUserPriceDao" schema="" tableName="T_TripRoute_UserPrice" domainObjectName="TripRouteUserPrice" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteDetailDao" schema="" tableName="T_TripRouteDetail" domainObjectName="TripRouteDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteLineDao" schema="" tableName="T_TripRouteLine" domainObjectName="TripRouteLine" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteStoreDao" schema="" tableName="T_TripRouteStore" domainObjectName="TripRouteStore" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteStoreCategoryDao" schema="" tableName="T_TripRouteStore_Category" domainObjectName="TripRouteStoreCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteStoreDetailDao" schema="" tableName="T_TripRouteStore_Detail" domainObjectName="TripRouteStoreDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteStoreHistoryDao" schema="" tableName="T_TripRouteStore_History" domainObjectName="TripRouteStoreHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripRouteStoreReviewDao" schema="" tableName="T_TripRouteStore_Review" domainObjectName="TripRouteStoreReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicDao" schema="" tableName="T_TripScenic" domainObjectName="TripScenic" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicAttrDao" schema="" tableName="T_TripScenic_Attr" domainObjectName="TripScenicAttr" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicAttrCategoryDao" schema="" tableName="T_TripScenic_Attr_Category" domainObjectName="TripScenicAttrCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicAttrValueDao" schema="" tableName="T_TripScenic_Attr_Value" domainObjectName="TripScenicAttrValue" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicBillDao" schema="" tableName="T_TripScenic_Bill" domainObjectName="TripScenicBill" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicBlacklistDao" schema="" tableName="T_TripScenic_Blacklist" domainObjectName="TripScenicBlacklist" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicBrandDao" schema="" tableName="T_TripScenic_Brand" domainObjectName="TripScenicBrand" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicCategoryDao" schema="" tableName="T_TripScenic_Category" domainObjectName="TripScenicCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicCollectDao" schema="" tableName="T_TripScenic_Collect" domainObjectName="TripScenicCollect" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicComplaintDao" schema="" tableName="T_TripScenic_Complaint" domainObjectName="TripScenicComplaint" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicCouponDao" schema="" tableName="T_TripScenic_Coupon" domainObjectName="TripScenicCoupon" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicCouponHistoryDao" schema="" tableName="T_TripScenic_Coupon_History" domainObjectName="TripScenicCouponHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicOrderDao" schema="" tableName="T_TripScenic_Order" domainObjectName="TripScenicOrder" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicOrderOperateHistoryDao" schema="" tableName="T_TripScenic_Order_Operate_History" domainObjectName="TripScenicOrderOperateHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicOrderReturnApplyDao" schema="" tableName="T_TripScenic_Order_ReturnApply" domainObjectName="TripScenicOrderReturnApply" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicOrderItemsDao" schema="" tableName="T_TripScenic_OrderItems" domainObjectName="TripScenicOrderItems" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicReviewDao" schema="" tableName="T_TripScenic_Review" domainObjectName="TripScenicReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicSKUStockDao" schema="" tableName="T_TripScenic_SKUStock" domainObjectName="TripScenicSKUStock" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicUserPriceDao" schema="" tableName="T_TripScenic_UserPrice" domainObjectName="TripScenicUserPrice" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicDetailDao" schema="" tableName="T_TripScenicDetail" domainObjectName="TripScenicDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicStoreDao" schema="" tableName="T_TripScenicStore" domainObjectName="TripScenicStore" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicStoreCategoryDao" schema="" tableName="T_TripScenicStore_Category" domainObjectName="TripScenicStoreCategory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicStoreDetailDao" schema="" tableName="T_TripScenicStore_Detail" domainObjectName="TripScenicStoreDetail" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicStoreHistoryDao" schema="" tableName="T_TripScenicStore_History" domainObjectName="TripScenicStoreHistory" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripScenicStoreReviewDao" schema="" tableName="T_TripScenicStore_Review" domainObjectName="TripScenicStoreReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripTravelArticleDao" schema="" tableName="T_TripTravelArticle" domainObjectName="TripTravelArticle" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripTravelArticleContentDao" schema="" tableName="T_TripTravelArticle_Content" domainObjectName="TripTravelArticleContent" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+      <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
+      <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+      <columnOverride column="update_person" property="updatePerson" javaType="java.lang.String"/>
+    </table>
+    <table mapperName="TripTravelArticleReviewDao" schema="" tableName="T_TripTravelArticle_Review" domainObjectName="TripTravelArticleReview" delimitAllColumns="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
       <columnOverride column="create_person" property="createPerson" javaType="java.lang.String"/>
       <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
